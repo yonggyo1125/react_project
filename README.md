@@ -162,13 +162,38 @@ export default App;
 # 레이아웃 구성
 
 - src/layouts/MainLayout.js
-- src/outlines/Header.js 
-- src/outlines/Footer.js 
+- src/outlines/Header.js
+- src/outlines/Footer.js
 
-# 라우팅 구성 
-## 회원 
+# 라우팅 구성
+
+## 설정
+
+- src/index.js : BrowserRouter 컴포넌트로 감싸기
+
+```jsx
+...
+
+import { BrowserRouter } from 'react-router-dom';
+
+...
+
+root.render(
+  <React.StrictMode>
+    <HelmetProvider>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </HelmetProvider>
+  </React.StrictMode>,
+);
+```
+
+## 회원
+
 - /member/join : 회원가입
-- /member/login : 로그인 
+- /member/login : 로그인
 
-# 없는 페이지 
-- * : 없는 페이지 - commons/pages/NotFound.js 
+# 없는 페이지
+
+- - : 없는 페이지 - commons/pages/NotFound.js
