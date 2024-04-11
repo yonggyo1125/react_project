@@ -164,3 +164,8 @@ export default App;
 - src/layouts/MainLayout.js
 - src/outlines/Header.js 
 - src/outlines/Footer.js 
+
+# 라우팅 구성 
+## 회원 
+- /member/join : 회원가입
+- /member/login : 로그인 
