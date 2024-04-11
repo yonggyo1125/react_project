@@ -169,3 +169,6 @@ export default App;
 ## 회원 
 - /member/join : 회원가입
 - /member/login : 로그인 
+
+# 없는 페이지 
+- * : 없는 페이지 - commons/pages/NotFound.js 
