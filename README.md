@@ -215,3 +215,5 @@ root.render(
 
 - 공통 폰트
 - 스타일 초기화
+- 기준 폰트 사이즈 : src/styles/fontSize.js / small, normal, medium, big, extraBig
+- 기준 컬러 : 
