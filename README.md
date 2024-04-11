@@ -158,3 +158,9 @@ const App = () => {
 
 export default App;
 ```
+
+# 레이아웃 구성
+
+- src/layouts/MainLayout.js
+- src/outlines/Header.js 
+- src/outlines/Footer.js 
