@@ -93,3 +93,40 @@ const ko = { ...commons, ...validations, ...errors };
 export default ko;
 ```
 
+- 설정 파일 구성 : src/i18n.js
+
+```javascript
+import i18n from 'i18next';
+import { initReactI18next } from 'react-i18next';
+import ko from './langs/ko';
+import en from './langs/en';
+
+const resources = {
+  en: {
+    translation: en,
+  },
+  ko: {
+    translation: ko,
+  },
+};
+
+i18n.use(initReactI18next).init({
+  resources,
+  lng: 'ko',
+});
+```
+
+- 설정 반영 : src/index.js
+
+```javascript
+...
+
+import './i18n';
+
+...
+
+```
+
+- 적용하기 : useTranslation 훅 / react-i18next
+  - t : 메세지 조회 함수
+  - i18n : 편의 기능 객체, changeLanguage(..) : 언어 변경 
