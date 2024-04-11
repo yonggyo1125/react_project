@@ -27,3 +27,7 @@ a {
   text-decoration: none;
   color: #000;
 }
+
+img {
+  border: 0;
+}
