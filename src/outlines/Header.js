@@ -10,6 +10,8 @@ import fontSize from '../styles/fontSize';
 import { color } from '../styles/color';
 import logo from '../images/logo.png';
 
+const { primary, dark, light } = color;
+
 const HeaderBox = styled.header`
   .site-top {
     background: #f8f8f8;
@@ -26,7 +28,30 @@ const HeaderBox = styled.header`
         font-size: ${fontSize.normal};
 
         &.on {
-          color: ${color.primary};
+          color: ${primary};
+        }
+      }
+    }
+  }
+
+  .logo-search {
+    div {
+      display: flex;
+      justify-content: space-between;
+      height: 150px;
+      align-items: center;
+
+      form {
+        display: flex;
+        height: 45px;
+        width: 380px;
+
+        button {
+          width: 45px;
+        }
+
+        input[type='text'] {
+          flex-grow: 1;
         }
       }
     }
