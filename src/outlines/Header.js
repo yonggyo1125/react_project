@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
 import fontSize from '../styles/fontSize';
+import { color } from '../styles/color';
 
 const HeaderBox = styled.header`
   .site-top {
@@ -19,6 +20,10 @@ const HeaderBox = styled.header`
         line-height: 34px;
         margin-left: 10px;
         font-size: ${fontSize.normal};
+
+        &.on {
+          color: ${color.primary};
+        }
       }
     }
   }
@@ -37,7 +42,12 @@ const Header = () => {
           >
             {t('회원가입')}
           </NavLink>
-          <NavLink to="/member/login">{t('로그인')}</NavLink>
+          <NavLink
+            to="/member/login"
+            className={({ isActive }) => classNames({ on: isActive })}
+          >
+            {t('로그인')}
+          </NavLink>
         </div>
       </section>
     </HeaderBox>
