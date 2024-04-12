@@ -1,10 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import classNames from 'classnames';
+
+import { FaSearch } from 'react-icons/fa';
+
 import fontSize from '../styles/fontSize';
 import { color } from '../styles/color';
+import logo from '../images/logo.png';
 
 const HeaderBox = styled.header`
   .site-top {
@@ -48,6 +52,20 @@ const Header = () => {
           >
             {t('로그인')}
           </NavLink>
+        </div>
+      </section>
+      <section className="logo-search">
+        <div className="layout-width">
+          <Link to="/">
+            <img src={logo} alt={t('로고')} />
+          </Link>
+
+          <form autoComplete="off">
+            <input type="text" />
+            <button type="submit">
+              <FaSearch />
+            </button>
+          </form>
         </div>
       </section>
     </HeaderBox>
