@@ -1,5 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { FaCheckSquare, FaRegCheckSquare } from 'react-icons/fa';
 import { BigButton, ButtonGroup } from '../../commons/components/Buttons';
 import InputBox from '../../commons/components/InputBox';
 
@@ -31,6 +32,10 @@ const JoinForm = () => {
           <InputBox type="text" />
         </dd>
       </dl>
+
+      <div className="terms-agree">
+        <FaRegCheckSquare /> {t('회원가입_약관에_동의합니다.')}
+      </div>
 
       <ButtonGroup width={450}>
         <BigButton type="reset" color="light">
