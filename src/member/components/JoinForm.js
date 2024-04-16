@@ -6,6 +6,25 @@ const JoinForm = () => {
   const { t } = useTranslation();
   return (
     <form autoComplete="off">
+      <dl>
+        <dt>{t('이메일')}</dt>
+        <dd>
+          <input type="text" />
+        </dd>
+      </dl>
+      <dl>
+        <dt>{t('비밀번호')}</dt>
+        <dd>
+          <input type="password" />
+        </dd>
+      </dl>
+      <dl>
+        <dt>{t('비밀번호_확인')}</dt>
+        <dd>
+          <input type="password" />
+        </dd>
+      </dl>
+
       <ButtonGroup width={450}>
         <BigButton type="reset" color="light">
           {t('다시입력')}
