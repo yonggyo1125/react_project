@@ -1,13 +1,16 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import styled from 'styled-components';
 import { FaCheckSquare, FaRegCheckSquare } from 'react-icons/fa';
 import { BigButton, ButtonGroup } from '../../commons/components/Buttons';
 import InputBox from '../../commons/components/InputBox';
 
+const FormBox = styled.form``;
+
 const JoinForm = () => {
   const { t } = useTranslation();
   return (
-    <form autoComplete="off">
+    <FormBox autoComplete="off">
       <dl>
         <dt>{t('이메일')}</dt>
         <dd>
@@ -45,7 +48,7 @@ const JoinForm = () => {
           {t('가입하기')}
         </BigButton>
       </ButtonGroup>
-    </form>
+    </FormBox>
   );
 };
 
