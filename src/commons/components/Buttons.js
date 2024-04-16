@@ -1,12 +1,25 @@
 import styled, { css } from 'styled-components';
 import { buttonColor } from '../../styles/color';
+import fontSize from '../../styles/fontSize';
+const { big } = fontSize;
 
 export const BigButton = styled.button`
-  border: 0;
+  font-size: ${big};
+  height: 45px;
+  width: 100%;
+  border-radius: 3px;
+  cursor: pointer;
+
   ${({ color }) =>
     buttonColor[color] &&
     css`
       background: ${buttonColor[color][0]};
       color: ${buttonColor[color][1]};
+      border: 1px solid ${buttonColor[color][2]};
     `}
+`;
+
+export const ButtonGroup = styled.div`
+  display: flex;
+  width: ${({ width }) => (width ? `${width}px` : '100%')};
 `;
