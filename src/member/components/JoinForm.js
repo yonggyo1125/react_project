@@ -1,6 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { BigButton, ButtonGroup } from '../../commons/components/Buttons';
+import InputBox from '../../commons/components/InputBox';
 
 const JoinForm = () => {
   const { t } = useTranslation();
@@ -9,19 +10,25 @@ const JoinForm = () => {
       <dl>
         <dt>{t('이메일')}</dt>
         <dd>
-          <input type="text" />
+          <InputBox type="text" />
         </dd>
       </dl>
       <dl>
         <dt>{t('비밀번호')}</dt>
         <dd>
-          <input type="password" />
+          <InputBox type="password" />
         </dd>
       </dl>
       <dl>
         <dt>{t('비밀번호_확인')}</dt>
         <dd>
-          <input type="password" />
+          <InputBox type="password" />
+        </dd>
+      </dl>
+      <dl>
+        <dt>{t('회원명')}</dt>
+        <dd>
+          <InputBox type="text" />
         </dd>
       </dl>
 
