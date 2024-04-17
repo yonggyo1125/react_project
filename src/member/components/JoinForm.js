@@ -22,6 +22,16 @@ const FormBox = styled.form`
   dl + dl {
     margin-top: 5px;
   }
+
+  .terms-agree {
+    text-align: center;
+    margin: 15px 0;
+
+    svg {
+      font-size: 1.5rem;
+      vertical-align: middle;
+    }
+  }
 `;
 
 const JoinForm = () => {
