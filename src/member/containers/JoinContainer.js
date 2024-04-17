@@ -50,6 +50,18 @@ const JoinContainer = () => {
 
       /* 데이터 검증 - 필수 항목 체크 E */
 
+      /* 데이터 검증 - 비밀번호와 비밀번호 확인 일치 여부 */
+      if (
+        form.password &&
+        form.confirmPassword &&
+        form.password !== form.confirmPassword
+      ) {
+        _errors.confirmPassword = _errors.confirmPassword || [];
+        _errors.confirmPassword.push(t('비밀번호가_정확하지_않습니다.'));
+      }
+
+      
+
       setErrors(_errors);
     },
     [t, form],
