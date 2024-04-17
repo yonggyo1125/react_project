@@ -34,26 +34,41 @@ const FormBox = styled.form`
   }
 `;
 
-const JoinForm = () => {
+const JoinForm = ({ form, onSubmit, onChange, onToggle }) => {
   const { t } = useTranslation();
   return (
-    <FormBox autoComplete="off">
+    <FormBox autoComplete="off" onSubmit={onSubmit}>
       <dl>
         <dt>{t('이메일')}</dt>
         <dd>
-          <InputBox type="text" />
+          <InputBox
+            type="text"
+            name="email"
+            value={form.email ?? ''}
+            onChange={onChange}
+          />
         </dd>
       </dl>
       <dl>
         <dt>{t('비밀번호')}</dt>
         <dd>
-          <InputBox type="password" />
+          <InputBox
+            type="password"
+            name="password"
+            value={form.password ?? ''}
+            onChange={onChange}
+          />
         </dd>
       </dl>
       <dl>
         <dt>{t('비밀번호_확인')}</dt>
         <dd>
-          <InputBox type="password" />
+          <InputBox
+            type="password"
+            name="confirmPassword"
+            value={form.confirmPassword ?? ''}
+            onChange={onChange}
+          />
         </dd>
       </dl>
       <dl>
