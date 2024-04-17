@@ -5,7 +5,24 @@ import { FaCheckSquare, FaRegCheckSquare } from 'react-icons/fa';
 import { BigButton, ButtonGroup } from '../../commons/components/Buttons';
 import InputBox from '../../commons/components/InputBox';
 
-const FormBox = styled.form``;
+const FormBox = styled.form`
+  dl {
+    display: flex;
+    align-items: center;
+
+    dt {
+      width: 120px;
+    }
+
+    dd {
+      flex-grow: 1;
+    }
+  }
+
+  dl + dl {
+    margin-top: 5px;
+  }
+`;
 
 const JoinForm = () => {
   const { t } = useTranslation();
