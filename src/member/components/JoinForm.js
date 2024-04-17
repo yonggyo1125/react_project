@@ -34,7 +34,8 @@ const FormBox = styled.form`
   }
 `;
 
-const JoinForm = ({ form, onSubmit, onChange, onToggle, onReset }) => {
+const JoinForm = ({ form, onSubmit, onChange, onToggle, onReset, errors }) => {
+  console.log(errors);
   const { t } = useTranslation();
   return (
     <FormBox autoComplete="off" onSubmit={onSubmit}>
