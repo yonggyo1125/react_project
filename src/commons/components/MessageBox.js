@@ -8,6 +8,13 @@ const Box = styled.div`
   text-align: center;
   padding: 7px 10px;
   font-size: ${small};
+  border-radius: 3px;
+  color: ${color.dark};
+
+  & + & {
+    margin-top: 5px;
+  }
+
   ${({ color: c }) =>
     c &&
     css`

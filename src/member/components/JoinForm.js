@@ -39,7 +39,7 @@ const JoinForm = ({ form, onSubmit, onChange, onToggle, onReset, errors }) => {
   const { t } = useTranslation();
   return (
     <FormBox autoComplete="off" onSubmit={onSubmit}>
-      <MessageBox>메세지!</MessageBox>
+      <MessageBox messages={['메세지1', '메세지2', '메세지3']} color="danger" />
       <dl>
         <dt>{t('이메일')}</dt>
         <dd>
