@@ -35,12 +35,15 @@ const JoinContainer = () => {
     setForm((form) => ({ ...form, agree: !form.agree }));
   }, []);
 
+  const onReset = useCallback(() => setForm({ agree: false }), []);
+
   return (
     <JoinForm
       form={form}
       onSubmit={onSubmit}
       onChange={onChange}
       onToggle={onToggle}
+      onReset={onReset}
     />
   );
 };

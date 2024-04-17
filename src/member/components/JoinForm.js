@@ -34,7 +34,7 @@ const FormBox = styled.form`
   }
 `;
 
-const JoinForm = ({ form, onSubmit, onChange, onToggle }) => {
+const JoinForm = ({ form, onSubmit, onChange, onToggle, onReset }) => {
   const { t } = useTranslation();
   return (
     <FormBox autoComplete="off" onSubmit={onSubmit}>
@@ -74,16 +74,22 @@ const JoinForm = ({ form, onSubmit, onChange, onToggle }) => {
       <dl>
         <dt>{t('회원명')}</dt>
         <dd>
-          <InputBox type="text" />
+          <InputBox
+            type="text"
+            name="name"
+            value={form.name ?? ''}
+            onChange={onChange}
+          />
         </dd>
       </dl>
 
-      <div className="terms-agree">
-        <FaRegCheckSquare /> {t('회원가입_약관에_동의합니다.')}
+      <div className="terms-agree" onClick={onToggle}>
+        {form.agree ? <FaCheckSquare /> : <FaRegCheckSquare />}
+        {t('회원가입_약관에_동의합니다.')}
       </div>
 
       <ButtonGroup width={450}>
-        <BigButton type="reset" color="light">
+        <BigButton type="button" color="light" onClick={onReset}>
           {t('다시입력')}
         </BigButton>
         <BigButton type="submit" color="dark">
