@@ -42,7 +42,7 @@ const JoinContainer = () => {
 
       for (const [field, msg] of Object.entries(requiredFields)) {
         // !form[field] - null, undefined, '' 체크, !form[field].trim() - '    '
-        if (!form[field] || !form[field].trim()) {
+        if (!form[field] || (form[field] && !form[field].trim())) {
           _errors[field] = _errors[field] || [];
           _errors[field].push(msg);
         }
