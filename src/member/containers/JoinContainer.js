@@ -31,7 +31,18 @@ const JoinContainer = () => {
     setForm((form) => ({ ...form, [name]: value }));
   }, []);
 
-  return <JoinForm />;
+  const onToggle = useCallback(() => {
+    setForm((form) => ({ ...form, agree: !form.agree }));
+  }, []);
+
+  return (
+    <JoinForm
+      form={form}
+      onSubmit={onSubmit}
+      onChange={onChange}
+      onToggle={onToggle}
+    />
+  );
 };
 
 export default React.memo(JoinContainer);
