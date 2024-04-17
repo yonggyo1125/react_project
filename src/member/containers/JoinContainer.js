@@ -49,6 +49,8 @@ const JoinContainer = () => {
       }
 
       /* 데이터 검증 - 필수 항목 체크 E */
+
+      setErrors(_errors);
     },
     [t, form],
   );
@@ -68,6 +70,7 @@ const JoinContainer = () => {
   return (
     <JoinForm
       form={form}
+      errors={errors}
       onSubmit={onSubmit}
       onChange={onChange}
       onToggle={onToggle}
