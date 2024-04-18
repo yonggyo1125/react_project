@@ -44,6 +44,8 @@ const LoginContainer = () => {
       }
       /* 데이터 검증 - 필수 항목 체크 E */
 
+      setErrors(_errors);
+
       if (hasErrors) {
         // 검증 실패이면 로그인 처리 X
         return;
