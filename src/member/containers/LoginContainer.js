@@ -1,7 +1,8 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import LoginForm from '../components/LoginForm';
+import UserInfoContext from '../modules/UserInfoContext';
 
 const LoginContainer = () => {
   const [form, setForm] = useState({});
@@ -10,6 +11,10 @@ const LoginContainer = () => {
 
   const { t } = useTranslation();
   const navigate = useNavigate();
+
+  const {
+    actions: { setIsLogin, setUserInfo },
+  } = useContext(UserInfoContext);
 
   /**
    * 로그인 처리
