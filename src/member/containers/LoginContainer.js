@@ -57,6 +57,8 @@ const LoginContainer = () => {
       }
 
       // 로그인 처리
+      setIsLogin(true);
+      setUserInfo({ email: 'user01@test.org', name: '사용자01' });
 
       /**
        * 후속 처리 : 회원 전용 서비스 URL로 이동
