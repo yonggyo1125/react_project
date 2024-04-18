@@ -5,9 +5,38 @@ import { Link } from 'react-router-dom';
 import { FaLock, FaKey, FaUserPlus } from 'react-icons/fa';
 import InputBox from '../../commons/components/InputBox';
 import { MidButton } from '../../commons/components/Buttons';
+import fontSize from '../../styles/fontSize';
 
-const FormBox = styled.form``;
-const LinkBox = styled.div``;
+const { small } = fontSize;
+
+const FormBox = styled.form`
+  width: 350px;
+  margin: 0 auto;
+
+  input {
+    margin-bottom: 5px;
+  }
+`;
+const LinkBox = styled.div`
+  width: 350px;
+  margin: 10px auto 0;
+  display: flex;
+  border: 1px solid #d5d5d5;
+  border-left: 0;
+  border-right: 0;
+
+  a {
+    flex-grow: 1;
+    width: 0;
+    text-align: center;
+    padding: 10px 0;
+    font-size: ${small};
+
+    svg {
+      vertical-align: middle;
+    }
+  }
+`;
 
 const LoginForm = () => {
   const { t } = useTranslation();
