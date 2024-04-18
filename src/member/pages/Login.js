@@ -5,7 +5,6 @@ import styled from 'styled-components';
 import LoginContainer from '../containers/LoginContainer';
 import fontSize from '../../styles/fontSize';
 const { medium } = fontSize;
-import UserInfoContext from '../modules/UserInfoContext';
 
 const OuterBox = styled.div`
   position: absolute;
