@@ -3,7 +3,15 @@ import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import LoginContainer from '../containers/LoginContainer';
-const OuterBox = styled.div``;
+import fontSize from '../../styles/fontSize';
+const { medium } = fontSize;
+
+const OuterBox = styled.div`
+  h1 {
+    text-align: center;
+    font-size: ${medium};
+  }
+`;
 
 const Login = () => {
   const { t } = useTranslation();
