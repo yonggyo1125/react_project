@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import LoginContainer from '../containers/LoginContainer';
 import fontSize from '../../styles/fontSize';
+import UserInfoContext from '../modules/UserInfoContext';
 const { medium } = fontSize;
 
 const OuterBox = styled.div`
@@ -29,6 +30,17 @@ const OuterBox = styled.div`
 const Login = () => {
   const { t } = useTranslation();
   return (
+    <UserInfoContext.Consumer>
+      {(value) => (
+        <>
+          <div>{value.userInfo.email}</div>
+          <div>{value.userInfo.name}</div>
+        </>
+      )}
+    </UserInfoContext.Consumer>
+  );
+  /*
+  return (
     <>
       <Helmet>
         <title>{t('로그인')}</title>
@@ -38,7 +50,7 @@ const Login = () => {
         <LoginContainer />
       </OuterBox>
     </>
-  );
+  ); */
 };
 
 export default React.memo(Login);
