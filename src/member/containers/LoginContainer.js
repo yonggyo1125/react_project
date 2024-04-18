@@ -1,11 +1,12 @@
 import React, { useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import LoginForm from '../components/LoginForm';
 
 const LoginContainer = () => {
   const [form, setForm] = useState({});
   const [errors, setErrors] = useState({});
+  const [searchParams] = useSearchParams();
 
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -36,11 +37,29 @@ const LoginContainer = () => {
 
       for (const [field, msg] of Object.entries(requiredFields)) {
         if (!form[field] || !form[field].trim()) {
+          _errors[field] = _errors[field] || [];
+          _errors[field].push(msg);
+          hasErrors = true;
         }
       }
       /* 데이터 검증 - 필수 항목 체크 E */
+
+      if (hasErrors) {
+        // 검증 실패이면 로그인 처리 X
+        return;
+      }
+
+      // 로그인 처리
+
+      /**
+       * 후속 처리 : 회원 전용 서비스 URL로 이동
+       * 예) /member/login?redirectURL=로그인 이후 이동할 경로
+       *
+       */
+      const redirectURL = searchParams.get('redirectURL') || '/';
+      navigate(redirectURL, { replace: true });
     },
-    [t, form],
+    [t, form, searchParams, navigate],
   );
 
   const onChange = useCallback((e) => {
