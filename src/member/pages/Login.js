@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import LoginContainer from '../containers/LoginContainer';
 import fontSize from '../../styles/fontSize';
-import UserInfoContext from '../modules/UserInfoContext';
+import { UserInfoConsumer } from '../modules/UserInfoContext';
 const { medium } = fontSize;
 
 const OuterBox = styled.div`
@@ -30,17 +30,26 @@ const OuterBox = styled.div`
 const Login = () => {
   const { t } = useTranslation();
 
-
+  const loginProcess = ({ setIsLogin, setUserInfo }) => {
+    setIsLogin(true);
+    setUserInfo({ email: 'user01@test.org', name: '사용자01' });
+  };
 
   return (
-    <UserInfoContext.Consumer>
-      {(value) => (
+    <UserInfoConsumer>
+      {({ states: { userInfo, isLogin }, actions }) => (
         <>
-          <div>{value.userInfo.email}</div>
-          <div>{value.userInfo.name}</div>
+          {isLogin && (
+            <div>
+              {userInfo.email} / {userInfo.name}
+            </div>
+          )}
+          <button type="button" onClick={() => loginProcess(actions)}>
+            로그인
+          </button>
         </>
       )}
-    </UserInfoContext.Consumer>
+    </UserInfoConsumer>
   );
 
   /*
