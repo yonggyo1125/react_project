@@ -1,16 +1,36 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
-import { FaLock, FaKey } from 'react-icons/fa';
-import { FaUserPlus } from "react-icons/fa6";
+import { Link } from 'react-router-dom';
+import { FaLock, FaKey, FaUserPlus } from 'react-icons/fa';
 import InputBox from '../../commons/components/InputBox';
 
 const FormBox = styled.form``;
+const LinkBox = styled.div``;
 
 const LoginForm = () => {
   const { t } = useTranslation();
 
-  return <h1>로그인 양식</h1>;
+  return (
+    <>
+      <FormBox autoComplete="off">
+        <InputBox type="text" placeholder={t('이메일')} />
+        <InputBox type="password" placeholder={t('비밀번호')} />
+        <button type="submit">{t('로그인')}</button>
+      </FormBox>
+      <LinkBox>
+        <Link to="/member/find_id">
+          <FaLock /> {t('아이디_찾기')}
+        </Link>
+        <Link to="/member/find_pw">
+          <FaKey /> {t('비밀번호_찾기')}
+        </Link>
+        <Link to="/member/join">
+          <FaUserPlus /> {t('회원가입')}
+        </Link>
+      </LinkBox>
+    </>
+  );
 };
 
 export default React.memo(LoginForm);
