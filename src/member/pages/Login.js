@@ -10,6 +10,9 @@ const OuterBox = styled.div`
   h1 {
     text-align: center;
     font-size: ${medium};
+    margin: 0 0 10px;
+    padding: 0;
+    line-height: 1;
   }
 `;
 
