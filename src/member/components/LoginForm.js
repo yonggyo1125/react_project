@@ -38,14 +38,26 @@ const LinkBox = styled.div`
   }
 `;
 
-const LoginForm = () => {
+const LoginForm = ({ form, onSubmit, onChange }) => {
   const { t } = useTranslation();
 
   return (
     <>
-      <FormBox autoComplete="off">
-        <InputBox type="text" placeholder={t('이메일')} />
-        <InputBox type="password" placeholder={t('비밀번호')} />
+      <FormBox onSubmit={onSubmit} autoComplete="off">
+        <InputBox
+          type="text"
+          name="email"
+          value={form.email ?? ''}
+          placeholder={t('이메일')}
+          onChange={onChange}
+        />
+        <InputBox
+          type="password"
+          name="password"
+          value={form.password ?? ''}
+          placeholder={t('비밀번호')}
+          onChange={onChange}
+        />
         <MidButton type="submit" color="primary">
           {t('로그인')}
         </MidButton>
