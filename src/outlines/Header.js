@@ -81,31 +81,41 @@ const Header = () => {
       <section className="site-top">
         <div className="layout-width">
           {isLogin ? (
-            <> {/* 로그인 상태 */}
-              <NavLink to="/mypage">{t('마이페이지')}</NavLink>
-              <NavLink to="/member/logout">{t('로그아웃')}</NavLink>
+            <>
+              {/* 로그인 상태 */}
+              <span>
+                {userInfo.name}({userInfo.email}){t('님_로그인')}
+              </span>
+              <NavLink
+                to="/mypage"
+                className={({ isActive }) => classNames({ on: isActive })}
+              >
+                {t('마이페이지')}
+              </NavLink>
+              <NavLink
+                to="/member/logout"
+                className={({ isActive }) => classNames({ on: isActive })}
+              >
+                {t('로그아웃')}
+              </NavLink>
             </>
-
-          )
-            :
-            (
-              <> {/* 미로그인 상태 */}
-                <NavLink
-                  to="/member/join"
-                  className={({ isActive }) => classNames({ on: isActive })}
-                >
-                  {t('회원가입')}
-                </NavLink>
-                <NavLink
-                  to="/member/login"
-                  className={({ isActive }) => classNames({ on: isActive })}
-                >
-                  {t('로그인')}
-                </NavLink>
-              </>
-            ) 
-        }
-         
+          ) : (
+            <>
+              {/* 미로그인 상태 */}
+              <NavLink
+                to="/member/join"
+                className={({ isActive }) => classNames({ on: isActive })}
+              >
+                {t('회원가입')}
+              </NavLink>
+              <NavLink
+                to="/member/login"
+                className={({ isActive }) => classNames({ on: isActive })}
+              >
+                {t('로그인')}
+              </NavLink>
+            </>
+          )}
         </div>
       </section>
       <section className="logo-search">
