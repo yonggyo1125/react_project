@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { Link, NavLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -9,8 +9,8 @@ import { FaSearch } from 'react-icons/fa';
 import fontSize from '../styles/fontSize';
 import { color } from '../styles/color';
 import logo from '../images/logo.png';
-
 import MainMenu from './MainMenu';
+import UserInfoContext from '../member/modules/UserInfoContext';
 
 const { primary, dark, light } = color;
 
@@ -72,6 +72,9 @@ const HeaderBox = styled.header`
 
 const Header = () => {
   const { t } = useTranslation();
+  const {
+    states: { isLogin, userInfo },
+  } = useContext(UserInfoContext);
 
   return (
     <HeaderBox>
