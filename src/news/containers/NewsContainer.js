@@ -45,11 +45,13 @@ const NewsContainer = () => {
     fetch(url)
       .then((res) => res.json())
       .then((json) => setItems(json.articles));
-  }, []);
+  }, [category]);
+
+  const onClick = useCallback((category) => setCategory(category), []);
 
   return (
     <>
-      <NewsCategory />
+      <NewsCategory categories={categories} onClick={onClick} />
       <NewsItems items={items} />
     </>
   );
