@@ -1,45 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import NewsContainer from '../containers/NewsContainer';
+import { Helmet } from 'react-helmet-async';
+import { useTranslation } from 'react-i18next';
 
 const News = () => {
-  const [items, setItems] = useState([
-    {
-      title: '제목',
-      description: '내용',
-      urlToImage: 'https://www.imdak.com/web/upload/wp/167417/logo.toppc.png',
-      url: 'https://www.naver.com',
-    },
-    {
-      title: '제목',
-      description: '내용',
-      urlToImage: 'https://www.imdak.com/web/upload/wp/167417/logo.toppc.png',
-      url: 'https://www.naver.com',
-    },
-    {
-      title: '제목',
-      description: '내용',
-      urlToImage: 'https://www.imdak.com/web/upload/wp/167417/logo.toppc.png',
-      url: 'https://www.naver.com',
-    },
-    {
-      title: '제목',
-      description: '내용',
-      urlToImage: 'https://www.imdak.com/web/upload/wp/167417/logo.toppc.png',
-      url: 'https://www.naver.com',
-    },
-  ]);
+  const { t } = useTranslation();
 
-  useEffect(() => {
-    /*
-    const url =
-      'https://newsapi.org/v2/top-headlines?country=kr&apiKey=6593897e9b3d40178104e2cb158f2866';
-
-    fetch(url)
-      .then((res) => res.json())
-      .then((json) => console.log(json));
-      */
-  }, []);
-
-  return <h1>뉴스</h1>;
+  return (
+    <>
+      <Helmet>
+        <title>{t('뉴스')}</title>
+      </Helmet>
+      <NewsContainer />
+    </>
+  );
 };
 
 export default React.memo(News);
