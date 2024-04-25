@@ -39,19 +39,19 @@ const NewsContainer = () => {
   const [category, setCategory] = useState('all');
 
   useEffect(() => {
+    const apiKey = process.env.REACT_APP_API_KEY;
     const addQs = category === 'all' ? '' : `&category=${category}`;
-    const url = `https://newsapi.org/v2/top-headlines?country=kr${addQs}&apiKey=6593897e9b3d40178104e2cb158f2866`;
+    const url = `https://newsapi.org/v2/top-headlines?country=kr${addQs}&apiKey=${apiKey}`;
 
     fetch(url)
       .then((res) => res.json())
       .then((json) => setItems(json.articles));
   }, [category]);
 
-  const onClick = useCallback((category) => setCategory(category), []);
 
   return (
     <>
-      <NewsCategory categories={categories} onClick={onClick} />
+      <NewsCategory categories={categories} />
       <NewsItems items={items} />
     </>
   );
