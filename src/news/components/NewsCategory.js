@@ -2,8 +2,28 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
+import classNames from 'classnames';
+import { color } from '../../styles/color';
+import fontSize from '../../styles/fontSize';
 
-const CategoryBox = styled.nav``;
+const { primary, dark } = color;
+const { big } = fontSize;
+
+const CategoryBox = styled.nav`
+  padding: 10px 20px;
+  box-shadow: 2px 2px 5px ${dark};
+  border-radius: 5px;
+
+  a {
+    color: ${dark};
+    font-size: ${big};
+    font-weight: 700;
+
+    &.on {
+      color: ${primary};
+    }
+  }
+`;
 
 const NewsCategory = ({ categories }) => {
   const { t } = useTranslation();
@@ -11,7 +31,11 @@ const NewsCategory = ({ categories }) => {
   return (
     <CategoryBox>
       {categories.map(({ name, text }) => (
-        <NavLink to={'/news/' + name} key={name}>
+        <NavLink
+          to={'/news/' + name}
+          key={name}
+          className={({ isActive }) => classNames({ on: isActive })}
+        >
           {t(text)}
         </NavLink>
       ))}
