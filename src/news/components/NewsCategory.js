@@ -13,11 +13,13 @@ const CategoryBox = styled.nav`
   padding: 10px 20px;
   box-shadow: 2px 2px 5px ${dark};
   border-radius: 5px;
+  margin: 20px 0;
 
   a {
     color: ${dark};
     font-size: ${big};
     font-weight: 700;
+    padding-right: 30px;
 
     &.on {
       color: ${primary};
