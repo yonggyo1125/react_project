@@ -80,14 +80,25 @@ const JoinForm = ({ form, onSubmit, onChange, onToggle, onReset, errors }) => {
         <dd>
           <InputBox
             type="text"
-            name="name"
-            value={form.name ?? ''}
+            name="userName"
+            value={form.userName ?? ''}
             onChange={onChange}
           />
-          <MessageBox messages={errors.name} color="danger" />
+          <MessageBox messages={errors.userName} color="danger" />
         </dd>
       </dl>
-
+      <dl>
+        <dt>{t('휴대전화번호')}</dt>
+        <dd>
+          <InputBox
+            type="text"
+            name="mobile"
+            value={form.mobile ?? ''}
+            onChange={onChange}
+          />
+          <MessageBox messages={errors.mobile} color="danger" />
+        </dd>
+      </dl>
       <div className="terms-agree" onClick={onToggle}>
         {form.agree ? <FaCheckSquare /> : <FaRegCheckSquare />}
         {t('회원가입_약관에_동의합니다.')}
