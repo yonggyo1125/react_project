@@ -8,14 +8,14 @@ export default function apiRequest(url, method = 'GET', data, headers) {
   }
 
   const options = {
+    mode: 'no-cors',
     method,
   };
 
   // BODY가 있는 요청인 경우
   if (['POST', 'PUT', 'PATCH'].includes(method.toUpperCase()) && data) {
     headers = headers ?? {};
-    headers['Content-Type'] = 'application/json; charset=UTF-8';
-    options.headers = headers;
+    headers['Content-Type'] = 'application/json';
     options.body = JSON.stringify(data); // 요청 데이터
   }
 

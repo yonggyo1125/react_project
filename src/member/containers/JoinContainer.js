@@ -1,6 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { apiJoin } from '../apis/apiJoin';
 import JoinForm from '../components/JoinForm';
 
 const JoinContainer = () => {
@@ -70,7 +71,7 @@ const JoinContainer = () => {
       }
 
       /* 가입처리 S */
-
+      apiJoin(form);
       /* 가입처리 E */
 
       setErrors(_errors);
