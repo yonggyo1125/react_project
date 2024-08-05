@@ -1,4 +1,4 @@
-export function apiRequest(url, method = 'GET', data, headers) {
+export default function apiRequest(url, method = 'GET', data, headers) {
   // url - http://naver.com https://naver.com
 
   if (!/^http[s]?:/i.test(url)) {
