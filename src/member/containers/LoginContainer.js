@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import LoginForm from '../components/LoginForm';
 import UserInfoContext from '../modules/UserInfoContext';
+import { apiLogin } from '../apis/apiLogin';
 
 const LoginContainer = () => {
   const [form, setForm] = useState({});
@@ -56,17 +57,25 @@ const LoginContainer = () => {
         return;
       }
 
+      apiLogin(form)
+        .then((res) => console.log(res))
+        .catch((err) => {
+          _errors.global = _errors.global ?? [];
+          _errors.global.push(err.message);
+          setErrors({ ..._errors });
+        });
+
       // 로그인 처리
-      setIsLogin(true);
-      setUserInfo({ email: 'user01@test.org', name: '사용자01' });
+      //setIsLogin(true);
+      //setUserInfo({ email: 'user01@test.org', name: '사용자01' });
 
       /**
        * 후속 처리 : 회원 전용 서비스 URL로 이동
        * 예) /member/login?redirectURL=로그인 이후 이동할 경로
        *
        */
-      const redirectURL = searchParams.get('redirectURL') || '/';
-      navigate(redirectURL, { replace: true });
+      //const redirectURL = searchParams.get('redirectURL') || '/';
+      //navigate(redirectURL, { replace: true });
     },
     [t, form, searchParams, navigate],
   );
