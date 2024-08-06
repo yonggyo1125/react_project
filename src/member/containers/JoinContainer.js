@@ -70,18 +70,34 @@ const JoinContainer = () => {
         hasErrors = true;
       }
 
-      /* 가입처리 S */
-      apiJoin(form);
-      /* 가입처리 E */
-
-      setErrors(_errors);
-
       if (hasErrors) {
+        setErrors(_errors);
         return;
       }
 
+      /* 가입처리 S */
+      apiJoin(form)
+        .then((res) => {
+          // 성공 처리
+          console.log(res);
+        })
+        .catch((err) => {
+          // 검증 실패, 가입 실패
+          const messages =
+            typeof err.message === 'string'
+              ? { global: [err.message] }
+              : err.message;
+
+          for (const [field, _messages] of Object.entries(messages)) {
+            _errors[field] = _errors[field] ?? [];
+            _errors[field].push(_messages);
+          }
+        });
+
+      /* 가입처리 E */
+
       /* 가입완료 후 로그인 페이지 이동 */
-      navigate('/member/login', { replace: true }); // replace: true -> 방문기록 X
+      // navigate('/member/login', { replace: true }); // replace: true -> 방문기록 X
     },
     [t, form, navigate],
   );
