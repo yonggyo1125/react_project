@@ -82,6 +82,7 @@ const JoinContainer = () => {
           navigate('/member/login', { replace: true }); // replace: true -> 방문기록 X
         })
         .catch((err) => {
+          console.log(err);
           // 검증 실패, 가입 실패
           const messages =
             typeof err.message === 'string'
