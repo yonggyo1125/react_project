@@ -77,9 +77,9 @@ const JoinContainer = () => {
 
       /* 가입처리 S */
       apiJoin(form)
-        .then((res) => {
-          // 성공 처리
-          console.log(res);
+        .then(() => {
+          /* 가입완료 후 로그인 페이지 이동 */
+          navigate('/member/login', { replace: true }); // replace: true -> 방문기록 X
         })
         .catch((err) => {
           // 검증 실패, 가입 실패
@@ -92,12 +92,10 @@ const JoinContainer = () => {
             _errors[field] = _errors[field] ?? [];
             _errors[field].push(_messages);
           }
+          setErrors({ ..._errors });
         });
 
       /* 가입처리 E */
-
-      /* 가입완료 후 로그인 페이지 이동 */
-      // navigate('/member/login', { replace: true }); // replace: true -> 방문기록 X
     },
     [t, form, navigate],
   );
