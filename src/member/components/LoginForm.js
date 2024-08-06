@@ -66,6 +66,8 @@ const LoginForm = ({ form, onSubmit, onChange, errors }) => {
         <MidButton type="submit" color="primary">
           {t('로그인')}
         </MidButton>
+
+        <MessageBox messages={errors.global} color="danger" />
       </FormBox>
       <LinkBox>
         <Link to="/member/find_id">
