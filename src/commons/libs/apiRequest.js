@@ -10,14 +10,14 @@ export default function apiRequest(url, method = 'GET', data, headers) {
   }
 
   /**
-   * axios 응답 코드가 2xx ~ 3xx 만 정상 응답 판단 
+   * axios 응답 코드가 2xx ~ 3xx 만 정상 응답 판단
    *       그외의 응답 코드는 예외 발생 -> 4xx 역시 오류로 판단 -> 정상 응답의 범위를 변경
    */
 
   const options = {
     method,
     url,
-    validateStatus: status => status < 500, // 500 미만의 응답 코드는 정상 응답 
+    validateStatus: (status) => status < 500, // 500 미만의 응답 코드는 정상 응답
   };
 
   if (['POST', 'PUT', 'PATCH'].includes(method.toUpperCase()) && data) {
@@ -25,4 +25,6 @@ export default function apiRequest(url, method = 'GET', data, headers) {
   }
 
   if (headers) options.headers = headers;
+
+  return axios(options);
 }
