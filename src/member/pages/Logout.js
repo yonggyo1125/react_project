@@ -16,9 +16,10 @@ const Logout = () => {
 
   useEffect(() => {
     if (!isLogin) {
-      navigate('/member/login', { replace: true });
+      // navigate('/member/login', { replace: true });
+      window.location.href = '/member/login';
     }
-  }, [isLogin, navigate]);
+  }, [isLogin]);
 
   return <></>;
 };

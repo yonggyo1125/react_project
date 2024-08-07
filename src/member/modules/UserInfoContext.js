@@ -24,7 +24,7 @@ const UserInfoProvider = ({ children }) => {
   };
 
   const token = cookies.load('token');
-  if (token && token.trim()) {
+  if (isLogin && token && token.trim()) {
     (async () => {
       try {
         const user = await apiUser();
