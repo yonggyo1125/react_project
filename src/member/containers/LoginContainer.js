@@ -15,7 +15,7 @@ const LoginContainer = () => {
   const navigate = useNavigate();
 
   const {
-    actions: { setIsLogin, setUserInfo },
+    actions: { setIsLogin, setUserInfo, setIsAdmin },
   } = useContext(UserInfoContext);
 
   /**
@@ -67,10 +67,14 @@ const LoginContainer = () => {
             try {
               // 로그인 처리
               const user = await apiUser();
-              console.log(user);
 
               setIsLogin(true); // 로그인 상태
               setUserInfo(user);
+
+              const isAdmin = user.authorities.some(
+                (a) => a.authority === 'ADMIN',
+              );
+              setIsAdmin(isAdmin); // 관리자 여부
 
               /**
                * 후속 처리 : 회원 전용 서비스 URL로 이동

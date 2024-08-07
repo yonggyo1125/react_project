@@ -4,12 +4,13 @@ import { useTranslation } from 'react-i18next';
 import JoinContainer from '../containers/JoinContainer';
 import { OuterBox } from '../../commons/components/LayoutBox';
 import { MainTitle } from '../../commons/components/TitleBox';
+import GuestOnlyContainer from '../containers/GuestOnlyContainer';
 
 const Join = () => {
   const { t } = useTranslation();
 
   return (
-    <>
+    <GuestOnlyContainer>
       <Helmet>
         <title>{t('회원가입')}</title>
       </Helmet>
@@ -17,7 +18,7 @@ const Join = () => {
         <MainTitle>{t('회원가입')}</MainTitle>
         <JoinContainer />
       </OuterBox>
-    </>
+    </GuestOnlyContainer>
   );
 };
 

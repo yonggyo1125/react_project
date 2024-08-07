@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import LoginContainer from '../containers/LoginContainer';
+import GuestOnlyContainer from '../containers/GuestOnlyContainer';
 import fontSize from '../../styles/fontSize';
 const { medium } = fontSize;
 
@@ -29,7 +30,7 @@ const OuterBox = styled.div`
 const Login = () => {
   const { t } = useTranslation();
   return (
-    <>
+    <GuestOnlyContainer>
       <Helmet>
         <title>{t('로그인')}</title>
       </Helmet>
@@ -37,7 +38,7 @@ const Login = () => {
         <h1>{t('로그인')}</h1>
         <LoginContainer />
       </OuterBox>
-    </>
+    </GuestOnlyContainer>
   );
 };
 
