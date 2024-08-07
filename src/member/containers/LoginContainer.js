@@ -67,6 +67,8 @@ const LoginContainer = () => {
             try {
               // 로그인 처리
               const user = await apiUser();
+              console.log(user);
+
               setIsLogin(true); // 로그인 상태
               setUserInfo(user);
 

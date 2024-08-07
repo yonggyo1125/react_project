@@ -1,4 +1,6 @@
 import { createContext, useState } from 'react';
+import cookies from 'react-cookies';
+import { apiUser } from '../apis/apiLogin';
 
 const UserInfoContext = createContext({
   states: {
@@ -20,6 +22,20 @@ const UserInfoProvider = ({ children }) => {
     states: { userInfo, isLogin },
     actions: { setUserInfo, setIsLogin },
   };
+
+  const token = cookies.load('token');
+  if (token && token.trim()) {
+    (async () => {
+      try {
+        const user = await apiUser();
+        setUserInfo(user);
+        setIsLogin(true);
+      } catch (err) {
+        // 토큰 만료, 토큰이 잘못된 경우
+        cookies.remove('token', { path: '/' });
+      }
+    })();
+  }
 
   return (
     <UserInfoContext.Provider value={value}>

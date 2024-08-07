@@ -84,7 +84,7 @@ const Header = () => {
             <>
               {/* 로그인 상태 */}
               <span>
-                {userInfo.userName}({userInfo.email}){t('님_로그인')}
+                {userInfo?.userName}({userInfo?.email}){t('님_로그인')}
               </span>
               <NavLink
                 to="/mypage"
