@@ -1,4 +1,5 @@
 import axios from 'axios';
+import cookies from 'react-cookies';
 
 export default function apiRequest(url, method = 'GET', data, headers) {
   /**
@@ -22,6 +23,11 @@ export default function apiRequest(url, method = 'GET', data, headers) {
 
   if (['POST', 'PUT', 'PATCH'].includes(method.toUpperCase()) && data) {
     options.data = data;
+  }
+
+  const token = cookies.load('token');
+  if (token && token.trim()) {
+    headers.Authorization = `Bearer ${token}`;
   }
 
   if (headers) options.headers = headers;
