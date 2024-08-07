@@ -1,11 +1,11 @@
 import React from 'react';
-import MemberOnly from '../../commons/components/auth/MemberOnly';
+import MemberOnlyContainer from '../../member/containers/MemberOnlyContainer';
 
 const MypageMain = () => {
   return (
-    <MemberOnly>
+    <MemberOnlyContainer>
       <h1>마이페이지</h1>
-    </MemberOnly>
+    </MemberOnlyContainer>
   );
 };
 
