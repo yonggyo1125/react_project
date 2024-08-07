@@ -1,4 +1,5 @@
 import apiRequest from '../../commons/libs/apiRequest';
+import cookies from 'react-cookies';
 
 // 로그인 처리
 export const apiLogin = (form) =>
@@ -15,4 +16,12 @@ export const apiLogin = (form) =>
         resolve(res.data);
       })
       .catch((err) => reject(err));
+  });
+
+// 로그인한 회원정보 조회
+export const apiUser = () =>
+  new Promise((resolve, reject) => {
+    apiRequest('/account')
+      .then((res) => console.log("res", res))
+      .catch((err) => console.log("err", err));
   });

@@ -27,6 +27,7 @@ export default function apiRequest(url, method = 'GET', data, headers) {
 
   const token = cookies.load('token');
   if (token && token.trim()) {
+    headers = headers ?? {};
     headers.Authorization = `Bearer ${token}`;
   }
 
