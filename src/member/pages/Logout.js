@@ -1,17 +1,26 @@
-import React, { useContext } from 'react';
-import { Navigate } from 'react-router-dom';
+import React, { useContext, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import cookies from 'react-cookies';
 import UserInfoContext from '../modules/UserInfoContext';
 
 const Logout = () => {
   const {
+    states: { isLogin },
     actions: { setUserInfo, setIsLogin },
   } = useContext(UserInfoContext);
   cookies.remove('token', { path: '/' });
   setUserInfo(null);
   setIsLogin(false);
 
-  return <Navigate to="/member/login" replace={true} />;
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!isLogin) {
+      navigate('/member/login', { replace: true });
+    }
+  }, [isLogin, navigate]);
+
+  return <></>;
 };
 
 export default React.memo(Logout);
