@@ -22,6 +22,13 @@ export const apiLogin = (form) =>
 export const apiUser = () =>
   new Promise((resolve, reject) => {
     apiRequest('/account')
-      .then((res) => console.log("res", res))
-      .catch((err) => console.log("err", err));
+      .then((res) => {
+        if (res.status !== 200) {
+          reject(res.data);
+          return;
+        }
+
+        resolve(res.data.data);
+      })
+      .catch((err) => console.log('err', err));
   });
