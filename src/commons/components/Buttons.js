@@ -1,11 +1,28 @@
 import styled, { css } from 'styled-components';
 import { buttonColor } from '../../styles/color';
 import fontSize from '../../styles/fontSize';
-const { big, medium } = fontSize;
+const { big, medium, normal } = fontSize;
 const commonStyle = css`
   width: 100%;
   border-radius: 3px;
   cursor: pointer;
+`;
+
+export const SmallButton = styled.button`
+  font-size: ${normal};
+  height: 30px;
+  ${commonStyle}
+
+  ${({ color }) =>
+    buttonColor[color] &&
+    css`
+      background: ${buttonColor[color][0]};
+      color: ${buttonColor[color][1]};
+      border: 1px solid ${buttonColor[color][2]};
+    `}
+  ${({ width }) => css`
+    width: ${width}px;
+  `}
 `;
 
 export const MidButton = styled.button`
