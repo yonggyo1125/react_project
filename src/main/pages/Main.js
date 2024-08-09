@@ -1,5 +1,5 @@
 import React from 'react';
-import MapContainer from '../../map/containers/MapContainer';
+import MapContainer from '../../map/KakaoMap';
 
 const Main = () => {
   return <MapContainer />;
