@@ -7,7 +7,7 @@ const MapArea = styled.div`
   height: ${({ height }) => height ?? '38.5rem'};
 `;
 
-const KakaoMap = ({ width, height, center }) => {
+const KakaoMap = ({ width, height, center, zoom }) => {
   const mapRef = useRef(null);
 
   useEffect(() => {
@@ -19,9 +19,9 @@ const KakaoMap = ({ width, height, center }) => {
     );
     const map = new kakao.maps.Map(mapEl, {
       center: position,
-      level: 3,
+      level: zoom || 3,
     });
-  }, [mapRef, center]);
+  }, [mapRef, center, zoom]);
 
   return <MapArea ref={mapRef} width={width} height={height} />;
 };
