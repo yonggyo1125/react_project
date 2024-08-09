@@ -8,7 +8,6 @@ const Main = loadable(() => import('./main/pages/Main')); // 메인페이지
 /* 회원 페이지 S */
 const Join = loadable(() => import('./member/pages/Join'));
 const Login = loadable(() => import('./member/pages/Login'));
-const Logout = loadable(() => import('./member/pages/Logout'));
 /* 회원 페이지 E */
 
 /* 마이페이지 S */
@@ -28,7 +27,6 @@ const App = () => {
         <Route path="member">
           <Route path="join" element={<Join />} />
           <Route path="login" element={<Login />} />
-          <Route path="logout" element={<Logout />} />
         </Route>
         {/* 회원 페이지 E */}
         {/* 마이페이지 S */}
