@@ -19,13 +19,13 @@ const markers = [
 
 const options = {
   //currentLocation: true, // 현재 위치 기반
-  //address: '경기도 용인시 에버랜드로 199',
+  address: '경기도 용인시 에버랜드로 199',
   center: {
     lat: 33.450701,
     lng: 126.570667,
   },
   zoom: 3,
-  marker: markers,
+  //marker: markers,
   markerImage:
     'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png',
 };
