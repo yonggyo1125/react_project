@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+/* eslint-disable no-undef */
+import React, { useEffect, useCallback } from 'react';
 
 const MapContainer = () => {
   useEffect(() => {
