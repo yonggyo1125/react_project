@@ -2,20 +2,21 @@ import React from 'react';
 import KakaoMap from '../../map/KakaoMap';
 
 const markers = [
-  {lat: 37.51201947476104, lng: 127.52778145250696},
-  {lat: 37.29167346824914, lng: 127.20660743958962},
-  {lat: 37.28911099541946, lng:  127.1981311776425},
+  { lat: 37.557756188912954, lng: 126.94062742683245 },
+  { lat: 37.557287959390024, lng: 126.94120499658828 },
+  { lat: 37.561184514897825, lng: 126.94069261563956 },
 ];
 
+const options = {
+  center: { lat: 37.557756188912954, lng: 126.94062742683245 },
+  zoom: 3,
+  marker: markers,
+  markerImage:
+    'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png',
+};
+
 const Main = () => {
-   
-  return (
-    <KakaoMap
-      center={{ lat: 37.51201947476104, lng: 127.52778145250696 }}
-      zoom={4}
-      marker={markers}
-    />
-  );
+  return <KakaoMap {...options} />;
 };
 
 export default React.memo(Main);
