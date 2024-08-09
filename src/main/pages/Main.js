@@ -23,10 +23,6 @@ const options = {
   center: {
     lat: 33.450701,
     lng: 126.570667,
-    marker: true,
-    image:
-      'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png',
-    info: { content: '<h1>출력2</h1>', clickable: true },
   },
   zoom: 3,
   //marker: markers,

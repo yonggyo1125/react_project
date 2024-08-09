@@ -17,7 +17,7 @@ const KakaoMap = ({
   currentLocation, // 위치 기반
   address, // 주소
 }) => {
-  const [_center, setCenter] = useState(center);
+  const [_center, setCenter] = useState(center ?? {});
   const mapRef = useRef(null);
 
   // 현재 위치 기반 S
