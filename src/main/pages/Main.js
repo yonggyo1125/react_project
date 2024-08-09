@@ -18,6 +18,7 @@ const markers = [
 ];
 
 const options = {
+  currentLocation: true, // 현재 위치 기반
   center: { lat: 37.557756188912954, lng: 126.94062742683245 },
   zoom: 3,
   marker: markers,
