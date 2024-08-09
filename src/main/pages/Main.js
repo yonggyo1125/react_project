@@ -3,7 +3,12 @@ import KakaoMap from '../../map/KakaoMap';
 
 const markers = [
   { lat: 37.557756188912954, lng: 126.94062742683245 },
-  { lat: 37.557287959390024, lng: 126.94120499658828 },
+  {
+    lat: 37.557287959390024,
+    lng: 126.94120499658828,
+    image:
+      'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_red.png',
+  },
   { lat: 37.561184514897825, lng: 126.94069261563956 },
 ];
 
