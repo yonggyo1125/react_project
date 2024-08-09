@@ -1,7 +1,8 @@
 import React from 'react';
+import MapContainer from '../../map/containers/MapContainer';
 
 const Main = () => {
-  return <h1>메인페이지</h1>;
+  return <MapContainer />;
 };
 
 export default React.memo(Main);
