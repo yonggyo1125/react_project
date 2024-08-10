@@ -11,7 +11,13 @@ const CurrentAddress = () => {
       const { latitude, longitude } = pos.coords;
       geocoder.coord2RegionCode(longitude, latitude, (result, status) => {
         if (status === kakao.maps.services.Status.OK) {
-          setAddress(result[0].address_name);
+          for (const r of result) {
+            if (r.region_type === 'H') {
+              console.log(r);
+              setAddress(r.address_name);
+              break;
+            }
+          }
         }
       });
     });
