@@ -1,5 +1,5 @@
 import React from 'react';
-import KakaoMap from '../../map/KakaoMap';
+import KakaoMap from '../../kakaoapi/KakaoMap';
 
 const markers = [
   {
