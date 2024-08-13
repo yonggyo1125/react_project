@@ -106,12 +106,7 @@ const Header = () => {
                 {t('마이페이지')}
               </NavLink>
               {isAdmin && (
-                <NavLink
-                  to="/admin"
-                  className={({ isActive }) => classNames({ on: isActive })}
-                >
-                  {t('사이트_관리')}
-                </NavLink>
+                <a href=""></a>
               )}
               <SmallButton color="secondary" width={150} onClick={onLogout}>
                 {t('로그아웃')}
