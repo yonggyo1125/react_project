@@ -23,9 +23,9 @@ const ListContainer = () => {
 
   return (
     <>
-      <SearchBox />
-      <ItemsBox />
-      <Pagination />
+      <SearchBox search={search} />
+      <ItemsBox items={items} />
+      <Pagination search={search} />
     </>
   );
 };
