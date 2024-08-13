@@ -18,6 +18,15 @@ const MypageMain = loadable(() => import('./mypage/pages/MypageMain'));
 const News = loadable(() => import('./news/pages/News'));
 /* 뉴스 페이지 E */
 
+/* 식당 페이지 S */
+const RestaurantList = loadable(() =>
+  import('./restaurant/pages/RestaurantList'),
+);
+const RestaurantView = loadable(() =>
+  import('./restaurant/pages/RestaurantView'),
+);
+/* 식당 페이지 E */
+
 const App = () => {
   return (
     <Routes>
@@ -37,6 +46,10 @@ const App = () => {
         {/* 뉴스 페이지  */}
         <Route path="news">
           <Route path=":category?" element={<News />} />
+        </Route>
+        <Route path="/restaurant">
+          <Route index element={<RestaurantList />} />
+          <Route path=":id" element={<RestaurantView />} />
         </Route>
         <Route path="*" element={<NotFound />} /> {/* 없는 페이지 */}
       </Route>
