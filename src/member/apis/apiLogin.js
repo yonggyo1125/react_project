@@ -4,6 +4,7 @@ import cookies from 'react-cookies';
 // 로그인 처리
 export const apiLogin = (form) =>
   new Promise((resolve, reject) => {
+    cookies.remove('token');
     apiRequest('/account/token', 'POST', form)
       .then((res) => {
         if (!res.data.success) {
@@ -25,10 +26,14 @@ export const apiUser = () =>
       .then((res) => {
         if (res.status !== 200) {
           reject(res.data);
+          cookies.remove('token');
           return;
         }
 
         resolve(res.data.data);
       })
-      .catch((err) => console.log('err', err));
+      .catch((err) => {
+        cookies.remove('token');
+        reject(err);
+      });
   });
