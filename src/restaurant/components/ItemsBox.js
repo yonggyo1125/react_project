@@ -17,7 +17,6 @@ const ItemBox = ({ item, className }) => {
 };
 
 const ItemsBox = ({ items }) => {
-  console.log('items', items);
   return (
     items && (
       <ul>

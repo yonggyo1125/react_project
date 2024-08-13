@@ -13,7 +13,6 @@ const CurrentAddress = () => {
         if (status === kakao.maps.services.Status.OK) {
           for (const r of result) {
             if (r.region_type === 'H') {
-              console.log(r);
               setAddress(r.address_name);
               break;
             }
