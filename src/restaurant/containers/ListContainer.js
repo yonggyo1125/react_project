@@ -6,7 +6,7 @@ import Pagination from '../../commons/components/Pagination';
 
 const ListContainer = () => {
   const [search, setSearch] = useState({});
-  const [items, setItems] = useState({});
+  const [items, setItems] = useState([]);
   const [pagination, setPagination] = useState({});
 
   useEffect(() => {
