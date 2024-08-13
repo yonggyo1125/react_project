@@ -14,7 +14,14 @@ export const apiList = (search) => {
 
   return new Promise((resolve, reject) => {
     apiRequest(url)
-      .then((res) => console.log(res))
-      .catch((err) => console.error(err));
+      .then((res) => {
+        if (res.status === 200) {
+          resolve(res.data.data);
+          return;
+        }
+
+        reject(res.data);
+      })
+      .catch((err) => reject(err));
   });
 };

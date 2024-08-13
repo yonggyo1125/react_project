@@ -5,9 +5,21 @@ import ItemsBox from '../components/ItemsBox';
 import Pagination from '../../commons/components/Pagination';
 
 const ListContainer = () => {
+  const [search, setSearch] = useState({});
+  const [items, setItems] = useState({});
+  const [pagination, setPagination] = useState({});
+
   useEffect(() => {
-    apiList({});
-  }, []);
+    (async () => {
+      try {
+        const { items, pagination } = await apiList(search);
+        setItems(items);
+        setPagination(pagination);
+      } catch (err) {
+        console.error(err);
+      }
+    })();
+  }, [search]);
 
   return (
     <>
