@@ -34,11 +34,6 @@ const ListContainer = () => {
     });
   }, [search]);
 
-  // 로딩 처리
-  if (loading) {
-    return <Loading />;
-  }
-
   /* 검색 관련 함수 */
   const onChangeSearch = useCallback((e) => {
     setForm((form) => ({ ...form, [e.target.name]: [e.target.value] }));
@@ -56,6 +51,12 @@ const ListContainer = () => {
   const onChangePage = useCallback((p) => {
     setSearch((search) => ({ ...search, page: p }));
   }, []);
+
+  // 로딩 처리
+  if (loading) {
+    return <Loading />;
+  }
+
   return (
     <>
       <SearchBox
