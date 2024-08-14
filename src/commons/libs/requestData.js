@@ -1,6 +1,6 @@
 import apiRequest from './apiRequest';
 
-const useRequest = (url) =>
+const requestData = (url) =>
   new Promise((resolve, reject) => {
     (async () => {
       try {
@@ -17,4 +17,4 @@ const useRequest = (url) =>
     })();
   });
 
-export default useRequest;
+export default requestData;
