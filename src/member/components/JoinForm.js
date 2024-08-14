@@ -99,6 +99,10 @@ const JoinForm = ({ form, onSubmit, onChange, onToggle, onReset, errors }) => {
           <MessageBox messages={errors.mobile} color="danger" />
         </dd>
       </dl>
+      <dl>
+        <dt>{t('프로필_이미지')}</dt>
+        <dd></dd>
+      </dl>
       <div className="terms-agree" onClick={onToggle}>
         {form.agree ? <FaCheckSquare /> : <FaRegCheckSquare />}
         {t('회원가입_약관에_동의합니다.')}
