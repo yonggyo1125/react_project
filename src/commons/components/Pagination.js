@@ -9,7 +9,33 @@ import {
   MdNavigateBefore,
 } from 'react-icons/md';
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  display: flex;
+  max-width: 450px;
+  min-width: 100px;
+  margin: 10px auto;
+  align-items: center;
+
+  .page {
+    width: 0;
+    height: 35px;
+    line-height: 33px;
+    text-align: center;
+    flex-grow: 1;
+    font-size: 1.15rem;
+    border: 1px solid #000;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  .page + .page {
+    margin-left: 3px;
+  }
+
+  .page.on {
+    background: #000;
+    color: #fff;
+  }
+`;
 
 const Pagination = ({ pagination, onClick }) => {
   const { page, pages, prevRangePage, nextRangePage, totalPages } = pagination;
@@ -30,7 +56,7 @@ const Pagination = ({ pagination, onClick }) => {
           <div
             key={'page' + p[0]}
             onClick={() => onClick(Number(p[0]))}
-            className={'page ' + classNames({ on: Number(p[0]) === page })}
+            className={'page' + classNames({ ' on': Number(p[0]) === page })}
           >
             {p[0]}
           </div>
@@ -43,7 +69,7 @@ const Pagination = ({ pagination, onClick }) => {
             />
             <MdLastPage
               onClick={() => onClick(Number(totalPages))}
-              classname="page"
+              className="page"
             />
           </>
         )}

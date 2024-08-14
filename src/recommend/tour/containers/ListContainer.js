@@ -1,12 +1,22 @@
 import React, { useEffect, useState, useCallback } from 'react';
-//import { useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import { apiList } from '../apis/apiInfo';
 import ItemsBox from '../components/ItemsBox';
 import SearchBox from '../components/SearchBox';
 import Pagination from '../../../commons/components/Pagination';
 
+function getQueryString(searchParams) {
+  const qs = {};
+  if (searchParams.size > 0) {
+    for (const [k, v] of searchParams) {
+      qs[k] = v;
+    }
+  }
+  return qs;
+}
+
 const ListContainer = () => {
-  //const [searchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
   const [search, setSearch] = useState({});
   const [items, setItems] = useState([]);
