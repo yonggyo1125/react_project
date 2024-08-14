@@ -20,6 +20,10 @@ const KakaoMap = ({
   const [_center, setCenter] = useState(center ?? {});
   const mapRef = useRef(null);
 
+  useEffect(() => {
+    setCenter(center);
+  }, [center]);
+
   // 현재 위치 기반 S
   useEffect(() => {
     if (currentLocation) {
@@ -52,6 +56,7 @@ const KakaoMap = ({
       _center?.lat ?? 37.557756188912954,
       _center?.lng ?? 126.94062742683245,
     );
+
     const map = new kakao.maps.Map(mapEl, {
       center: position,
       level: zoom || 3,
