@@ -15,14 +15,19 @@ const ImageBox = styled.div`
   cursor: pointer;
 `;
 
-const ItemImage = ({ images }) => {
+const ItemImage = ({ images, onClick }) => {
   images = Array.isArray(images) ? images : [images];
 
   return (
     images.length > 0 && (
       <Wrapper className="item-images">
         {images.map((image) => (
-          <ImageBox image={image} key={image} className="item-image" />
+          <ImageBox
+            image={image}
+            key={image}
+            className="item-image"
+            onClick={() => onClick(image)}
+          />
         ))}
       </Wrapper>
     )

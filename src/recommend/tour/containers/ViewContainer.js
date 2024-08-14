@@ -38,6 +38,10 @@ const ViewContainer = ({ setPageTitle }) => {
     setLoading(false);
   }, [seq, setPageTitle]);
 
+  const onShowImage = useCallback((imageUrl) => {
+    console.log('이미지 주소', imageUrl);
+  }, []);
+
   if (loading || !item) {
     return <Loading />;
   }
@@ -45,7 +49,9 @@ const ViewContainer = ({ setPageTitle }) => {
   return (
     <>
       <Wrapper>
-        {item.photoUrl && <ItemImage images={item.photoUrl} />}
+        {item.photoUrl && (
+          <ItemImage images={item.photoUrl} onClick={onShowImage} />
+        )}
         <ItemDescription />
       </Wrapper>
       <KakaoMap {...mapOptions} />
