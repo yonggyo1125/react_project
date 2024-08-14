@@ -2,7 +2,28 @@ import React from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  width: 350px;
+  word-break: break-all;
+
+  dl {
+    display: flex;
+
+    padding: 10px 15px;
+
+    dt {
+      width: 100px;
+    }
+
+    dd {
+      width: calc(100% - 100px);
+    }
+  }
+
+  dl + dl {
+    border-top: 1px dashed #818181;
+  }
+`;
 
 const ItemDescription = ({ item }) => {
   const { t } = useTranslation();

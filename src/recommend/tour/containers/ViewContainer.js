@@ -52,7 +52,7 @@ const ViewContainer = ({ setPageTitle }) => {
         {item.photoUrl && (
           <ItemImage images={item.photoUrl} onClick={onShowImage} />
         )}
-        <ItemDescription />
+        <ItemDescription item={item} />
       </Wrapper>
       <KakaoMap {...mapOptions} />
     </>
