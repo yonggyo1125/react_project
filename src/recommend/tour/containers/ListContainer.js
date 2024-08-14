@@ -1,10 +1,13 @@
 import React, { useEffect, useState, useCallback } from 'react';
+//import { useSearchParams } from 'react-router-dom';
 import { apiList } from '../apis/apiInfo';
 import ItemsBox from '../components/ItemsBox';
 import SearchBox from '../components/SearchBox';
 import Pagination from '../../../commons/components/Pagination';
 
 const ListContainer = () => {
+  //const [searchParams] = useSearchParams();
+
   const [search, setSearch] = useState({});
   const [items, setItems] = useState([]);
   const [pagination, setPagination] = useState({});
@@ -16,11 +19,17 @@ const ListContainer = () => {
     });
   }, [search]);
 
+  /* 페이지 변경 함수 */
+  const onChangePage = useCallback((p) => {
+    setSearch((search) => ({ ...search, page: p }));
+  }, []);
   return (
     <>
-        <SearchBox search={search} />
-        <ItemsBox items={items} />
-        <Pagination />
+      <SearchBox search={search} />
+      <ItemsBox items={items} />
+      {items.length > 0 && (
+        <Pagination onClick={onChangePage} pagination={pagination} />
+      )}
     </>
   );
 };
