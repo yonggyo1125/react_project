@@ -1,10 +1,16 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
+import styled from 'styled-components';
 import { apiGet } from '../apis/apiInfo';
 import Loading from '../../../commons/components/Loading';
 import KakaoMap from '../../../kakaoapi/KakaoMap';
 import ItemImage from '../components/ItemImage';
 import ItemDescription from '../components/ItemDescription';
+
+const Wrapper = styled.div`
+  display: flex;
+  margin-bottom: 15px;
+`;
 
 const ViewContainer = ({ setPageTitle }) => {
   const [item, setItem] = useState(null);
@@ -38,8 +44,10 @@ const ViewContainer = ({ setPageTitle }) => {
 
   return (
     <>
-      {item.photoUrl && <ItemImage images={item.photoUrl} />}
-      <ItemDescription />
+      <Wrapper>
+        {item.photoUrl && <ItemImage images={item.photoUrl} />}
+        <ItemDescription />
+      </Wrapper>
       <KakaoMap {...mapOptions} />
     </>
   );
