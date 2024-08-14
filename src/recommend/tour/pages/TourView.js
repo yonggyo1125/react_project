@@ -14,6 +14,7 @@ const TourView = () => {
       </Helmet>
       <OuterBox>
         <MainTitle>{pageTitle}</MainTitle>
+        <ViewContainer setPageTitle={setPageTitle} />
       </OuterBox>
     </>
   );
