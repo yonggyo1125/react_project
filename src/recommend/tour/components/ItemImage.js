@@ -6,12 +6,13 @@ const ItemImage = ({ images }) => {
   images = Array.isArray(images) ? images : [images];
 
   return (
-    images.length > 0 &&
-    images.map((image) => (
-      <div key={image} className="item-image">
-        <ImageBox image={image} />
+    images.length > 0 && (
+      <div className="item-images">
+        {images.map((image) => (
+          <ImageBox image={image} key={image} className="item-image" />
+        ))}
       </div>
-    ))
+    )
   );
 };
 
