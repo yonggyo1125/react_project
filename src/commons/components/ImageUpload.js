@@ -1,13 +1,15 @@
 import React, { useState, useCallback } from 'react';
 import { SmallButton } from './Buttons';
 import Modal from 'react-modal';
-import styled from 'styled-components';
 
-const ImageBox = styled.div`
-  .ReactModal__Overlay {
-    background: rgba(0, 0, 0, 0.7) !important;
-  }
-`;
+const customStyles = {
+  content: {
+    top: 'calc(50% - 200px)',
+    left: 'calc(50% - 150px)',
+    width: '300px',
+    height: '400px',
+  },
+};
 
 const ImageUpload = ({ children, gid, color }) => {
   Modal.setAppElement('#root');
@@ -20,19 +22,19 @@ const ImageUpload = ({ children, gid, color }) => {
   }, []);
 
   return (
-    <ImageBox>
+    <>
       <SmallButton type="button" color={color} onClick={onClick}>
         {children}
       </SmallButton>
       {open && (
-        <Modal isOpen={open}>
+        <Modal isOpen={open} style={customStyles}>
           <h1>노출!</h1>
           <button type="button" onClick={() => setOpen(false)}>
             닫기
           </button>
         </Modal>
       )}
-    </ImageBox>
+    </>
   );
 };
 
