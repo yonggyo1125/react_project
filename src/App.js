@@ -14,6 +14,9 @@ const Mypage = loadable(() => import('./routes/Mypage'));
 // 식당 페이지
 const Restaurant = loadable(() => import('./routes/Restaurant'));
 
+// 추천 페이지
+const Recommend = loadable(() => import('./routes/Recommend'));
+
 const routeUrlPaths = [
   'member',
   'mypage',
@@ -29,6 +32,7 @@ const App = () => {
       <Member />
       <Mypage />
       <Restaurant />
+      <Recommend />
     </>
   ) : (
     <Routes>
