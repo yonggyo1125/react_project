@@ -121,6 +121,9 @@ const KakaoMap = ({
 
         return _marker;
       });
+    } else if (_center) {
+      const _marker = new kakao.maps.Marker(_center);
+      _marker.setMap(map);
     }
     // 마커 출력 E
   }, [mapRef, _center, zoom, marker, markerImage]);
