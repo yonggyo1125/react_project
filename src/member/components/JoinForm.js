@@ -5,6 +5,7 @@ import { FaCheckSquare, FaRegCheckSquare } from 'react-icons/fa';
 import { BigButton, ButtonGroup } from '../../commons/components/Buttons';
 import InputBox from '../../commons/components/InputBox';
 import MessageBox from '../../commons/components/MessageBox';
+import ImageUpload from '../../commons/components/ImageUpload';
 
 const FormBox = styled.form`
   dl {
@@ -101,7 +102,9 @@ const JoinForm = ({ form, onSubmit, onChange, onToggle, onReset, errors }) => {
       </dl>
       <dl>
         <dt>{t('프로필_이미지')}</dt>
-        <dd></dd>
+        <dd>
+          <ImageUpload gid="testgid">{t('변경하기')}</ImageUpload>
+        </dd>
       </dl>
       <div className="terms-agree" onClick={onToggle}>
         {form.agree ? <FaCheckSquare /> : <FaRegCheckSquare />}
