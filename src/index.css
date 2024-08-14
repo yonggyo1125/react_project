@@ -37,3 +37,7 @@ img {
   min-width: 1000px;
   margin: 0 auto;
 }
+
+.ReactModal__Overlay {
+  background: rgba(0, 0, 0, 0.7) !important;
+}
