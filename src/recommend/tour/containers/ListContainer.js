@@ -18,7 +18,7 @@ function getQueryString(searchParams) {
 const ListContainer = () => {
   const [searchParams] = useSearchParams();
 
-  const [search, setSearch] = useState({});
+  const [search, setSearch] = useState(() => getQueryString(searchParams));
   const [items, setItems] = useState([]);
   const [pagination, setPagination] = useState({});
 
