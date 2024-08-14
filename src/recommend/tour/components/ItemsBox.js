@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { ImageBgBox } from '../../../commons/components/ImageBox';
 
 const ItemBox = ({ item, className }) => {
   const { seq, title, photoUrl, address, description } = item;
@@ -8,11 +9,7 @@ const ItemBox = ({ item, className }) => {
   return (
     <li className={className}>
       <Link to={url}>
-        {photoUrl && (
-          <div className="photo">
-            <img src={photoUrl} alt={title} />
-          </div>
-        )}
+        {photoUrl && <ImageBgBox url={photoUrl} width="150px" height="150px" />}
         <div className="item-content">
           <div className="title">{title}</div>
           <div className="address">{address}</div>

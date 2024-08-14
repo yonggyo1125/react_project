@@ -14,7 +14,7 @@ body {
   color: #000;
 }
 
-ul, ol {
+ul, ol, li {
   list-style: none;
 }
 
