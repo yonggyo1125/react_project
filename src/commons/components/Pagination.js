@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import classNames from 'classnames';
+
 import {
   MdFirstPage,
   MdLastPage,
@@ -17,19 +19,32 @@ const Pagination = ({ pagination, onClick }) => {
       <Wrapper>
         {prevRangePage > 0 && (
           <>
-            <MdFirstPage onClick={() => onClick(1)} />
-            <MdNavigateBefore onClick={() => onClick(Number(prevRangePage))} />
+            <MdFirstPage onClick={() => onClick(1)} className="page" />
+            <MdNavigateBefore
+              onClick={() => onClick(Number(prevRangePage))}
+              className="page"
+            />
           </>
         )}
         {pages.map((p) => (
-          <div key={'page' + p[0]} onClick={() => onClick(Number(p[0]))}>
+          <div
+            key={'page' + p[0]}
+            onClick={() => onClick(Number(p[0]))}
+            className={'page ' + classNames({ on: Number(p[0]) === page })}
+          >
             {p[0]}
           </div>
         ))}
         {nextRangePage > 0 && (
           <>
-            <MdNavigateNext onClick={() => onClick(Number(nextRangePage))} />
-            <MdLastPage onClick={() => onClick(Number(totalPages))} />
+            <MdNavigateNext
+              onClick={() => onClick(Number(nextRangePage))}
+              className="page"
+            />
+            <MdLastPage
+              onClick={() => onClick(Number(totalPages))}
+              classname="page"
+            />
           </>
         )}
       </Wrapper>
