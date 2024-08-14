@@ -18,6 +18,7 @@ function getQueryString(searchParams) {
 const ListContainer = () => {
   const [searchParams] = useSearchParams();
 
+  const [form, setForm] = useState(() => getQueryString(searchParams));
   const [search, setSearch] = useState(() => getQueryString(searchParams));
   const [items, setItems] = useState([]);
   const [pagination, setPagination] = useState({});
@@ -29,13 +30,30 @@ const ListContainer = () => {
     });
   }, [search]);
 
+  /* 검색 관련 함수 */
+  const onChangeSearch = useCallback((e) => {
+    setForm((form) => ({ ...form, [e.target.name]: [e.target.value] }));
+  }, []);
+
+  const onSubmitSearch = useCallback(
+    (e) => {
+      e.preventDefault();
+      setSearch({ ...form, page: 1 });
+    },
+    [form],
+  );
+
   /* 페이지 변경 함수 */
   const onChangePage = useCallback((p) => {
     setSearch((search) => ({ ...search, page: p }));
   }, []);
   return (
     <>
-      <SearchBox search={search} />
+      <SearchBox
+        form={form}
+        onChange={onChangeSearch}
+        onSubmit={onSubmitSearch}
+      />
       <ItemsBox items={items} />
       {items.length > 0 && (
         <Pagination onClick={onChangePage} pagination={pagination} />
