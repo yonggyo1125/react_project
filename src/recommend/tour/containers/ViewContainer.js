@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom';
 import { apiGet } from '../apis/apiInfo';
 import Loading from '../../../commons/components/Loading';
 import KakaoMap from '../../../kakaoapi/KakaoMap';
+import ItemImage from '../components/ItemImage';
+import ItemDescription from '../components/ItemDescription';
 
 const ViewContainer = ({ setPageTitle }) => {
   const [item, setItem] = useState(null);
@@ -30,12 +32,14 @@ const ViewContainer = ({ setPageTitle }) => {
     setLoading(false);
   }, [seq, setPageTitle]);
 
-  if (loading) {
+  if (loading || !item) {
     return <Loading />;
   }
 
   return (
     <>
+      {item.photoUrl && <ItemImage images={item.photoUrl} />}
+      <ItemDescription />
       <KakaoMap {...mapOptions} />
     </>
   );
