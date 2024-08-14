@@ -13,7 +13,7 @@ const Reservation = () => {
   return (
     <Routes>
       <Route path="/reservation" element={<MainLayout />}>
-        <Route path="/complete" element={<CompletionPage />} />
+        <Route path="complete" element={<CompletionPage />} />
         <Route path=":seq" element={<ApplyPage />} />
       </Route>
     </Routes>
