@@ -4,6 +4,7 @@ import { apiList } from '../apis/apiInfo';
 import ItemsBox from '../components/ItemsBox';
 import SearchBox from '../components/SearchBox';
 import Pagination from '../../../commons/components/Pagination';
+import Loading from '../../../commons/components/Loading';
 
 function getQueryString(searchParams) {
   const qs = {};
@@ -22,13 +23,21 @@ const ListContainer = () => {
   const [search, setSearch] = useState(() => getQueryString(searchParams));
   const [items, setItems] = useState([]);
   const [pagination, setPagination] = useState({});
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    setLoading(true);
     apiList(search).then((res) => {
       setItems(res.items);
       setPagination(res.pagination);
+      setLoading(false);
     });
   }, [search]);
+
+  // 로딩 처리
+  if (loading) {
+    return <Loading />;
+  }
 
   /* 검색 관련 함수 */
   const onChangeSearch = useCallback((e) => {
