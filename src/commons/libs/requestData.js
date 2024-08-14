@@ -10,7 +10,7 @@ const requestData = (url) =>
           return;
         }
 
-        resolve(res.data);
+        resolve(res.data.data);
       } catch (err) {
         reject(err);
       }
