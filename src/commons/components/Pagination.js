@@ -11,7 +11,9 @@ const Pagination = ({ pagination, onClick }) => {
     pages.length > 0 && (
       <Wrapper>
         {pages.map((p) => (
-          <div key={'page' + p[0]}>{p[0]}</div>
+          <div key={'page' + p[0]} onClick={() => onClick(Number(p[0]))}>
+            {p[0]}
+          </div>
         ))}
       </Wrapper>
     )
