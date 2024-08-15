@@ -6,6 +6,7 @@ import { BigButton, ButtonGroup } from '../../commons/components/Buttons';
 import InputBox from '../../commons/components/InputBox';
 import MessageBox from '../../commons/components/MessageBox';
 import FileUpload from '../../commons/components/FileUpload';
+import ProfileImage from './ProfileImage';
 
 const FormBox = styled.form`
   dl {
@@ -44,6 +45,7 @@ const JoinForm = ({
   onReset,
   errors,
   fileUploadCallback,
+  fileDeleteCallback,
 }) => {
   const { t } = useTranslation();
   return (
@@ -111,12 +113,20 @@ const JoinForm = ({
       <dl>
         <dt>{t('프로필_이미지')}</dt>
         <dd>
+          {form.profile && (
+            <ProfileImage
+              items={form.profile}
+              width="250px"
+              height="250px"
+              radius="5px"
+              onDelete={fileDeleteCallback}
+            />
+          )}
           <FileUpload
+            width={150}
             color="primary"
-            gid="testgid"
-            location="testlocation"
+            gid={form.gid}
             imageOnly={true}
-            showImage={true}
             callback={fileUploadCallback}
           >
             {t('이미지_업로드')}

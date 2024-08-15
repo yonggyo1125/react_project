@@ -13,6 +13,7 @@ const FileUpload = ({
   single,
   done,
   callback,
+  width,
 }) => {
   const [message, setMessage] = useState('');
 
@@ -94,7 +95,12 @@ const FileUpload = ({
 
   return (
     <>
-      <SmallButton type="button" color={color} onClick={onButtonClick}>
+      <SmallButton
+        width={width}
+        type="button"
+        color={color}
+        onClick={onButtonClick}
+      >
         {children}
       </SmallButton>
       {message && <MessageBox color="danger">{message}</MessageBox>}
