@@ -5,7 +5,7 @@ import { FaCheckSquare, FaRegCheckSquare } from 'react-icons/fa';
 import { BigButton, ButtonGroup } from '../../commons/components/Buttons';
 import InputBox from '../../commons/components/InputBox';
 import MessageBox from '../../commons/components/MessageBox';
-import ImageUpload from '../../commons/components/ImageUpload';
+import FileUpload from '../../commons/components/FileUpload';
 
 const FormBox = styled.form`
   dl {
@@ -36,7 +36,15 @@ const FormBox = styled.form`
   }
 `;
 
-const JoinForm = ({ form, onSubmit, onChange, onToggle, onReset, errors }) => {
+const JoinForm = ({
+  form,
+  onSubmit,
+  onChange,
+  onToggle,
+  onReset,
+  errors,
+  fileUploadCallback,
+}) => {
   const { t } = useTranslation();
   return (
     <FormBox autoComplete="off" onSubmit={onSubmit}>
@@ -103,7 +111,16 @@ const JoinForm = ({ form, onSubmit, onChange, onToggle, onReset, errors }) => {
       <dl>
         <dt>{t('프로필_이미지')}</dt>
         <dd>
-          <ImageUpload gid="testgid">{t('변경하기')}</ImageUpload>
+          <FileUpload
+            color="primary"
+            gid="testgid"
+            location="testlocation"
+            imageOnly={true}
+            showImage={true}
+            callback={fileUploadCallback}
+          >
+            {t('이미지_업로드')}
+          </FileUpload>
         </dd>
       </dl>
       <div className="terms-agree" onClick={onToggle}>

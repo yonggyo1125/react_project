@@ -82,7 +82,6 @@ const JoinContainer = () => {
           navigate('/member/login', { replace: true }); // replace: true -> 방문기록 X
         })
         .catch((err) => {
-          console.log(err);
           // 검증 실패, 가입 실패
           const messages =
             typeof err.message === 'string'
@@ -113,6 +112,11 @@ const JoinContainer = () => {
 
   const onReset = useCallback(() => setForm({ agree: false }), []);
 
+  // 파일 업로드 콜백 처리
+  const fileUploadCallback = useCallback((files) => {
+    console.log(files);
+  }, []);
+
   return (
     <JoinForm
       form={form}
@@ -121,6 +125,7 @@ const JoinContainer = () => {
       onChange={onChange}
       onToggle={onToggle}
       onReset={onReset}
+      fileUploadCallback={fileUploadCallback}
     />
   );
 };
