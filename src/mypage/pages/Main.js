@@ -1,7 +1,7 @@
 import React from 'react';
 import MemberOnlyContainer from '../../member/containers/MemberOnlyContainer';
 
-const MypageMain = () => {
+const Main = () => {
   return (
     <MemberOnlyContainer>
       <h1>마이페이지</h1>
@@ -9,4 +9,4 @@ const MypageMain = () => {
   );
 };
 
-export default React.memo(MypageMain);
+export default React.memo(Main);
