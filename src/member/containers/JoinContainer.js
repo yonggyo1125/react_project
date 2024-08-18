@@ -50,6 +50,11 @@ const JoinContainer = () => {
       const authCountMin =
         ('' + minutes).padStart(2, '0') + ':' + ('' + seconds).padStart(2, '0');
 
+      if (form.authCount < 0) {
+        form.authCount = 0;
+        clearInterval(authCountInterval.current);
+      }
+
       setForm((form) => ({
         ...form,
         authCount: form.authCount,
@@ -58,7 +63,7 @@ const JoinContainer = () => {
     }, 1000);
 
     // 인증 이메일 보내기
-    apiEmailAuth(form.email);
+    apiEmailAuth(form.email, form.gid);
   }, [form, errors, t]);
 
   // 인증 코드 재전송
@@ -78,12 +83,15 @@ const JoinContainer = () => {
 
     (async () => {
       try {
-        const res = await apiEmailAuthCheck(form.authNum);
-        if (!res.success) {
-          throw new Error();
-        }
+        await apiEmailAuthCheck(form.authNum, form.gid);
 
         setForm((form) => ({ ...form, emailVerified: true })); // 이메일 인증 처리
+
+        delete errors.email;
+        const _errors = errors;
+        setErrors(_errors);
+        // 인증 완료 시 타이머 멈춤
+        clearInterval(authCountInterval.current);
       } catch (err) {
         setErrors((errors) => ({
           ...errors,
@@ -91,10 +99,7 @@ const JoinContainer = () => {
         }));
       }
     })();
-
-    // 인증 완료 시 타이머 멈춤
-    clearInterval(authCountInterval.current);
-  }, [t, form]);
+  }, [t, form, errors]);
 
   /**
    * 회원 가입 처리
