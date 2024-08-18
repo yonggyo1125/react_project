@@ -1,5 +1,6 @@
 import apiRequest from '../../commons/libs/apiRequest';
 import cookies from 'react-cookies';
+import requestData from '../../commons/libs/requestData';
 
 export const apiJoin = (form) =>
   new Promise((resolve, reject) => {
@@ -19,3 +20,11 @@ export const apiJoin = (form) =>
         reject(err);
       });
   });
+
+// 이메일 인증 메일 보내기
+export const apiEmailAuth = (email) =>
+  requestData(`/email/verify?email=${email}`);
+
+// 인증 메일 코드 검증 처리
+export const apiEmailAuthCheck = (authNum) =>
+  requestData(`/email/auth_check?authNum=${authNum}`);

@@ -37,12 +37,40 @@ const FormBox = styled.form`
   }
 `;
 
+const EmailVerificationBox = styled.div`
+  .rows {
+    display: flex;
+    align-items: center;
+    button {
+      width: 160px;
+      height: 40px;
+    }
+  }
+
+  .rows:last-of-type {
+    span {
+      width: 100px;
+      text-align: center;
+    }
+    button {
+      width: 80px;
+    }
+
+    button + button {
+      margin-left: 5px;
+    }
+  }
+`;
+
 const JoinForm = ({
   form,
   onSubmit,
   onChange,
   onToggle,
   onReset,
+  onSendAuthCode,
+  onReSendAuthCode,
+  onVerifyAuthCode,
   errors,
   fileUploadCallback,
   fileDeleteCallback,
@@ -53,12 +81,52 @@ const JoinForm = ({
       <dl>
         <dt>{t('이메일')}</dt>
         <dd>
-          <InputBox
-            type="text"
-            name="email"
-            value={form.email ?? ''}
-            onChange={onChange}
-          />
+          <EmailVerificationBox>
+            <div className="rows">
+              <InputBox
+                type="text"
+                name="email"
+                value={form.email ?? ''}
+                onChange={onChange}
+                readOnly={
+                  form.emailVerified ||
+                  (form.authCount > 0 && form.authCount < 180)
+                }
+              />
+              {!form.emailVerified && form.authCount > 0 && (
+                <button
+                  type="button"
+                  onClick={onSendAuthCode}
+                  disabled={form.authCount < 180 && form.authCount > 0}
+                >
+                  {t('인증코드_전송')}
+                </button>
+              )}
+            </div>
+            {form.emailVerified ? (
+              <MessageBox color="primary">
+                {t('확인된_이메일_입니다.')}
+              </MessageBox>
+            ) : (
+              <div className="rows">
+                {form.authCount > 0 && (
+                  <InputBox
+                    type="text"
+                    name="authNum"
+                    placeholder={t('인증코드_입력')}
+                    onChange={onChange}
+                  />
+                )}
+                <span>{form.authCountMin}</span>
+                <button type="button" onClick={onVerifyAuthCode}>
+                  {t('확인')}
+                </button>
+                <button type="button" onClick={onReSendAuthCode}>
+                  {t('재전송')}
+                </button>
+              </div>
+            )}
+          </EmailVerificationBox>
           <MessageBox messages={errors.email} color="danger" />
         </dd>
       </dl>
