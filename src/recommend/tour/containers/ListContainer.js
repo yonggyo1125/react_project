@@ -5,6 +5,7 @@ import ItemsBox from '../components/ItemsBox';
 import SearchBox from '../components/SearchBox';
 import Pagination from '../../../commons/components/Pagination';
 import Loading from '../../../commons/components/Loading';
+import SearchMap from '../../../commons/components/SearchMap';
 
 function getQueryString(searchParams) {
   const qs = {};
@@ -59,6 +60,7 @@ const ListContainer = () => {
 
   return (
     <>
+      <SearchMap />
       <SearchBox
         form={form}
         onChange={onChangeSearch}
