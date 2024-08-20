@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import { ClassicEditor, Bold, Essentials, Italic, Paragraph } from 'ckeditor5';
 import styled from 'styled-components';
+import MessageBox from '../../../../commons/components/MessageBox';
 
 import 'ckeditor5/ckeditor5.css';
 
@@ -18,7 +19,7 @@ const Wrapper = styled.div`
   }
 `;
 
-const Form = ({ board, form, setEditor }) => {
+const Form = ({ board, form, setEditor, onFormChange, onSubmit, errors }) => {
   const [mounted, setMounted] = useState(false);
   const { useEditor } = board;
 
@@ -40,7 +41,7 @@ const Form = ({ board, form, setEditor }) => {
               plugins: [Bold, Essentials, Italic, Paragraph],
               toolbar: ['undo', 'redo', 'bold', 'italic'],
             }}
-            data=""
+            //data={form.content}
             onReady={(editor) => {
               //setEditor(editor);
             }}
