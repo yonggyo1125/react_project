@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import { ClassicEditor, Bold, Essentials, Italic, Paragraph } from 'ckeditor5';
 import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
 import MessageBox from '../../../../commons/components/MessageBox';
+import InputBox from '../../../../commons/components/InputBox';
 
 import 'ckeditor5/ckeditor5.css';
 
@@ -22,6 +24,7 @@ const Wrapper = styled.div`
 const Form = ({ board, form, setEditor, onFormChange, onSubmit, errors }) => {
   const [mounted, setMounted] = useState(false);
   const { useEditor } = board;
+  const { t } = useTranslation();
 
   useEffect(() => {
     setMounted(true);
@@ -34,25 +37,52 @@ const Form = ({ board, form, setEditor, onFormChange, onSubmit, errors }) => {
   return (
     mounted && (
       <Wrapper>
-        {useEditor ? (
-          <CKEditor
-            editor={ClassicEditor}
-            config={{
-              plugins: [Bold, Essentials, Italic, Paragraph],
-              toolbar: ['undo', 'redo', 'bold', 'italic'],
-            }}
-            //data={form.content}
-            onReady={(editor) => {
-              //setEditor(editor);
-            }}
-            onChange={(e, editor) => {
-              //console.log('event', e);
-              console.log('editor', editor.getData());
-            }}
-          />
-        ) : (
-          <textarea name="content"></textarea>
-        )}
+        <dl>
+          <dt>{t('제목')}</dt>
+          <dd>
+            <InputBox
+              type="text"
+              name="subject"
+              value={form.subject}
+              onChange={onFormChange}
+            />
+            {errors.subject && (
+              <MessageBox color="danger" messages={errors.subject} />
+            )}
+          </dd>
+        </dl>
+        <dl>
+          <dt>{t('내용')}</dt>
+          <dd>
+            {useEditor ? (
+              <CKEditor
+                editor={ClassicEditor}
+                config={{
+                  plugins: [Bold, Essentials, Italic, Paragraph],
+                  toolbar: ['undo', 'redo', 'bold', 'italic'],
+                }}
+                //data={form.content}
+                onReady={(editor) => {
+                  //setEditor(() => editor);
+                }}
+                onChange={(e, editor) => {
+                  onFormChange({
+                    target: { name: 'content', value: editor.getData() },
+                  });
+                }}
+              />
+            ) : (
+              <textarea
+                name="content"
+                defaultValue={form.content}
+                onChange={onFormChange}
+              ></textarea>
+            )}
+            {errors.content && (
+              <MessageBox color="danger" messages={errors.content} />
+            )}
+          </dd>
+        </dl>
       </Wrapper>
     )
   );
