@@ -20,6 +20,9 @@ const Recommend = loadable(() => import('./routes/Recommend'));
 // 예약 페이지
 const Reservation = loadable(() => import('./routes/Reservation'));
 
+// 게시판 페이지
+const Board = loadable(() => import('./routes/Board'));
+
 const routeUrlPaths = [
   'member',
   'mypage',
@@ -27,6 +30,7 @@ const routeUrlPaths = [
   'festival',
   'recommend',
   'reservation',
+  'board',
 ];
 
 const App = () => {
@@ -38,6 +42,7 @@ const App = () => {
       <Restaurant />
       <Recommend />
       <Reservation />
+      <Board />
     </>
   ) : (
     <Routes>
