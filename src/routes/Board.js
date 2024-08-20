@@ -14,6 +14,9 @@ const Board = () => {
     <Routes>
       <Route path="/board" element={<MainLayout />}>
         <Route path="write/:bid" element={<WritePage />} />
+        <Route path="update/:seq" element={<UpdatePage />} />
+        <Route path="list/:bid" element={<ListPage />} />
+        <Route path="view/:seq" element={<ViewPage />} />
       </Route>
     </Routes>
   );
