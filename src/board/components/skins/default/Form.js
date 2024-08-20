@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import { ClassicEditor, Bold, Essentials, Italic, Paragraph } from 'ckeditor5';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import MessageBox from '../../../../commons/components/MessageBox';
 import InputBox from '../../../../commons/components/InputBox';
+import UserInfoContext from '../../../../member/modules/UserInfoContext';
 
 import 'ckeditor5/ckeditor5.css';
 
@@ -25,6 +26,9 @@ const Form = ({ board, form, setEditor, onFormChange, onSubmit, errors }) => {
   const [mounted, setMounted] = useState(false);
   const { useEditor } = board;
   const { t } = useTranslation();
+  const {
+    states: { isLogin, isAdmin },
+  } = useContext(UserInfoContext);
 
   useEffect(() => {
     setMounted(true);
@@ -37,6 +41,37 @@ const Form = ({ board, form, setEditor, onFormChange, onSubmit, errors }) => {
   return (
     mounted && (
       <Wrapper>
+        <dl>
+          <dt>{t('작성자')}</dt>
+          <dd>
+            <InputBox
+              type="text"
+              name="poster"
+              value={form.poster}
+              onChange={onFormChange}
+            />
+            {errors.poster && (
+              <MessageBox color="danger" messages={errors.poster} />
+            )}
+          </dd>
+        </dl>
+        {(form.mode === 'write' && !isLogin) ||
+          (form.mode === 'update' && !form.member && (
+            <dl>
+              <dt>{t('비밀번호')}</dt>
+              <dd>
+                <InputBox
+                  type="password"
+                  name="guestPw"
+                  value={form.guestPw}
+                  onChange={onFormChange}
+                />
+                {errors.guestPw && (
+                  <MessageBox color="danger" messages={errors.guestPw} />
+                )}
+              </dd>
+            </dl>
+          ))}
         <dl>
           <dt>{t('제목')}</dt>
           <dd>
