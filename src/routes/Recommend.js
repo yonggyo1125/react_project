@@ -7,6 +7,9 @@ const MainLayout = loadable(() => import('../layouts/MainLayout'));
 /* 여행관련 페이지 S */
 const TourPage = loadable(() => import('../recommend/tour/pages/Tour'));
 const TourViewPage = loadable(() => import('../recommend/tour/pages/TourView'));
+const MyLocationPage = loadable(() =>
+  import('../recommend/tour/pages/MyLocation'),
+);
 
 /* 여행관련 페이지 E */
 
@@ -16,6 +19,7 @@ const Recommend = () => {
       <Route path="/recommend" element={<MainLayout />}>
         <Route path="tour" element={<TourPage />} />
         <Route path="tour/:seq" element={<TourViewPage />} />
+        <Route path="mylocation" element={<MyLocationPage />} />
       </Route>
     </Routes>
   );

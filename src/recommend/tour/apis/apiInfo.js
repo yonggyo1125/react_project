@@ -7,7 +7,7 @@ export const apiList = (search) => {
   for (const [k, v] of Object.entries(search)) {
     qs.push(`${k}=${v}`);
   }
-
+  console.log(qs);
   let url = '/tour/list';
   if (qs.length > 0) url += `?${qs.join('&')}`;
 
