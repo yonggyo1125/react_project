@@ -20,11 +20,16 @@ const WriteContainer = ({ setPageTitle }) => {
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({});
   const [editor, setEditor] = useState();
-  
+  const [errors, setErrors] = useState({});
+
   const onFormChange = useCallback((e) => {
-    setForm(form => ({...form, [e.target.name]: e.target.value.trim()});
+    setForm((form) => ({ ...form, [e.target.name]: e.target.value.trim() }));
   }, []);
-  
+
+  const onSubmit = useCallback((e) => {
+    e.preventDefault();
+  }, []);
+
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -49,7 +54,14 @@ const WriteContainer = ({ setPageTitle }) => {
 
   const { skin } = board;
 
-  return skinRoute(skin, { board });
+  return skinRoute(skin, {
+    board,
+    form,
+    setEditor,
+    onFormChange,
+    onSubmit,
+    errors,
+  });
 };
 
 export default React.memo(WriteContainer);
