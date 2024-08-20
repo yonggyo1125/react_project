@@ -6,11 +6,11 @@ import { useTranslation } from 'react-i18next';
 import MessageBox from '../../../../commons/components/MessageBox';
 import InputBox from '../../../../commons/components/InputBox';
 import UserInfoContext from '../../../../member/modules/UserInfoContext';
-import { FaCheckSquare, FaSquare } from "react-icons/fa";
+import { FaCheckSquare, FaSquare } from 'react-icons/fa';
 
 import 'ckeditor5/ckeditor5.css';
 
-const Wrapper = styled.div`
+const Wrapper = styled.form`
   .ck-editor__editable {
     height: 350px;
   }
@@ -23,7 +23,15 @@ const Wrapper = styled.div`
   }
 `;
 
-const Form = ({ board, form, setEditor, onFormChange, onSubmit, errors }) => {
+const Form = ({
+  board,
+  form,
+  setEditor,
+  onFormChange,
+  onSubmit,
+  onToggleNotice,
+  errors,
+}) => {
   const [mounted, setMounted] = useState(false);
   const { useEditor } = board;
   const { t } = useTranslation();
@@ -41,7 +49,7 @@ const Form = ({ board, form, setEditor, onFormChange, onSubmit, errors }) => {
 
   return (
     mounted && (
-      <Wrapper>
+      <Wrapper onSubmit={onSubmit} autoComplete="off">
         <dl>
           <dt>{t('작성자')}</dt>
           <dd>
@@ -76,7 +84,12 @@ const Form = ({ board, form, setEditor, onFormChange, onSubmit, errors }) => {
         {isAdmin && (
           <dl>
             <dt>{t('공지글')}</dt>
-            <dd></dd>
+            <dd>
+              <label onClick={onToggleNotice}>
+                {form.notice ? <FaCheckSquare /> : <FaSquare />}
+                {t('공지글로_등록하기')}
+              </label>
+            </dd>
           </dl>
         )}
         <dl>

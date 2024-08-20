@@ -22,14 +22,6 @@ const WriteContainer = ({ setPageTitle }) => {
   const [editor, setEditor] = useState();
   const [errors, setErrors] = useState({});
 
-  const onFormChange = useCallback((e) => {
-    setForm((form) => ({ ...form, [e.target.name]: e.target.value.trim() }));
-  }, []);
-
-  const onSubmit = useCallback((e) => {
-    e.preventDefault();
-  }, []);
-
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -47,6 +39,19 @@ const WriteContainer = ({ setPageTitle }) => {
       }
     })();
   }, [bid, setPageTitle]);
+
+  const onFormChange = useCallback((e) => {
+    setForm((form) => ({ ...form, [e.target.name]: e.target.value.trim() }));
+  }, []);
+
+  const onToggleNotice = useCallback(
+    () => setForm((form) => ({ ...form, notice: !form.notice })),
+    [],
+  );
+
+  const onSubmit = useCallback((e) => {
+    e.preventDefault();
+  }, []);
 
   if (loading || !board) {
     return <Loading />;
