@@ -1,7 +1,8 @@
 import React from 'react';
+import Form from './Form';
 
 const WriteMain = ({ board }) => {
-  return <h1>Default 스킨</h1>;
+  return <Form />;
 };
 
 export default React.memo(WriteMain);
