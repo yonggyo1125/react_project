@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import MessageBox from '../../../../commons/components/MessageBox';
 import InputBox from '../../../../commons/components/InputBox';
 import UserInfoContext from '../../../../member/modules/UserInfoContext';
+import { FaCheckSquare, FaSquare } from "react-icons/fa";
 
 import 'ckeditor5/ckeditor5.css';
 
@@ -72,6 +73,12 @@ const Form = ({ board, form, setEditor, onFormChange, onSubmit, errors }) => {
               </dd>
             </dl>
           ))}
+        {isAdmin && (
+          <dl>
+            <dt>{t('공지글')}</dt>
+            <dd></dd>
+          </dl>
+        )}
         <dl>
           <dt>{t('제목')}</dt>
           <dd>
