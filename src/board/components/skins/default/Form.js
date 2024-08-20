@@ -9,9 +9,16 @@ const Wrapper = styled.div`
   .ck-editor__editable {
     height: 350px;
   }
+  textarea {
+    width: 100%;
+    height: 350px;
+    border: 1px solid #d5d5d5;
+    resize: none;
+    padding: 15px;
+  }
 `;
 
-const Form = ({ board }) => {
+const Form = ({ board, form, setEditor }) => {
   const [mounted, setMounted] = useState(false);
   const { useEditor } = board;
 

@@ -14,10 +14,17 @@ function skinRoute(skin, props) {
 }
 
 const WriteContainer = ({ setPageTitle }) => {
-  const [board, setBoard] = useState(null);
-  const [loading, setLoading] = useState(false);
   const { bid } = useParams();
 
+  const [board, setBoard] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [form, setForm] = useState({});
+  const [editor, setEditor] = useState();
+  
+  const onFormChange = useCallback((e) => {
+    setForm(form => ({...form, [e.target.name]: e.target.value.trim()});
+  }, []);
+  
   const { t } = useTranslation();
 
   useEffect(() => {
