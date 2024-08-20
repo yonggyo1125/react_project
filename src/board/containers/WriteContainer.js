@@ -1,8 +1,17 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import loadable from '@loadable/component';
 import apiConfig from '../apis/apiConfig';
 import Loading from '../../commons/components/Loading';
+
+function skinRoute(skin, props) {
+  const WriteMain = loadable(() =>
+    import(`../components/skins/${skin}/WriteMain`),
+  );
+
+  return <WriteMain {...props} />;
+}
 
 const WriteContainer = ({ setPageTitle }) => {
   const [board, setBoard] = useState(null);
@@ -30,7 +39,7 @@ const WriteContainer = ({ setPageTitle }) => {
   if (loading || !board) {
     return <Loading />;
   }
-  console.log(board);
+
   return <></>;
 };
 
