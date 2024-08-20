@@ -18,7 +18,7 @@ const WriteContainer = ({ setPageTitle }) => {
 
         const data = await apiConfig(bid);
         setBoard(data); // 게시판 설정 조회
-        setPageTitle(data.bName); // 사이트 제목
+        setPageTitle(data.bname); // 사이트 제목
 
         setLoading(false);
       } catch (err) {
