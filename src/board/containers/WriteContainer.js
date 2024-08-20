@@ -40,7 +40,9 @@ const WriteContainer = ({ setPageTitle }) => {
     return <Loading />;
   }
 
-  return <></>;
+  const { skin } = board;
+
+  return skinRoute(skin, { board });
 };
 
 export default React.memo(WriteContainer);
