@@ -1,11 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import { ClassicEditor, Bold, Essentials, Italic, Paragraph } from 'ckeditor5';
+import styled from 'styled-components';
 
 import 'ckeditor5/ckeditor5.css';
 
-const Form = () => {
+const Wrapper = styled.div`
+  .ck-editor__editable {
+    height: 350px;
+  }
+`;
+
+const Form = ({ board }) => {
   const [mounted, setMounted] = useState(false);
+  const { useEditor } = board;
 
   useEffect(() => {
     setMounted(true);
@@ -17,21 +25,27 @@ const Form = () => {
 
   return (
     mounted && (
-      <CKEditor
-        editor={ClassicEditor}
-        config={{
-          plugins: [Bold, Essentials, Italic, Paragraph],
-          toolbar: ['undo', 'redo', 'bold', 'italic'],
-        }}
-        data="<h1>안녕하세요.</h1>"
-        onReady={(editor) => {
-          //setEditor(editor);
-        }}
-        onChange={(e, editor) => {
-          //console.log('event', e);
-          console.log('editor', editor.getData());
-        }}
-      />
+      <Wrapper>
+        {useEditor ? (
+          <CKEditor
+            editor={ClassicEditor}
+            config={{
+              plugins: [Bold, Essentials, Italic, Paragraph],
+              toolbar: ['undo', 'redo', 'bold', 'italic'],
+            }}
+            data=""
+            onReady={(editor) => {
+              //setEditor(editor);
+            }}
+            onChange={(e, editor) => {
+              //console.log('event', e);
+              console.log('editor', editor.getData());
+            }}
+          />
+        ) : (
+          <textarea name="content"></textarea>
+        )}
+      </Wrapper>
     )
   );
 };
