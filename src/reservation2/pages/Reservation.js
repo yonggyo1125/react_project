@@ -3,14 +3,12 @@ import { Helmet } from 'react-helmet-async';
 import { OuterBox } from '../../commons/components/LayoutBox';
 import { MainTitle } from '../../commons/components/TitleBox';
 
-const RestaurantView = () => {
+const Reservation = () => {
   const [pageTitle, setPageTitle] = useState('');
 
   return (
     <>
-      <Helmet>
-        <title>{pageTitle}</title>
-      </Helmet>
+      <Helmet>{pageTitle}</Helmet>
       <OuterBox>
         <MainTitle>{pageTitle}</MainTitle>
       </OuterBox>
@@ -18,4 +16,4 @@ const RestaurantView = () => {
   );
 };
 
-export default React.memo(RestaurantView);
+export default React.memo(Reservation);

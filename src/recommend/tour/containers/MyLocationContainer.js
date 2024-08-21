@@ -29,7 +29,7 @@ const MyLocationContainer = () => {
                 //sido: r.region_1depth_name,
                 sido: '경기도',
                 //sigungu: r.region_2depth_name,
-                sigungu: '연천군',
+                //sigungu: '연천군',
               }));
               break;
             }
@@ -56,10 +56,10 @@ const MyLocationContainer = () => {
         }
 
         const _locations = res.items
-          .filter((d) => d.latitude && d.longitude)
-          .map((d) => ({
-            lat: d.latitude,
-            lng: d.longitude,
+          .filter((item) => item.latitude && item.longitude)
+          .map((item) => ({
+            lat: item.latitude,
+            lng: item.longitude,
           }));
 
         setLocations(_locations);
