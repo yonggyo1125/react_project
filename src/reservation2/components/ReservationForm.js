@@ -1,7 +1,17 @@
 import React from 'react';
 import Calendar from 'react-calendar';
+import styled from 'styled-components';
+import { IoMdRadioButtonOn, IoMdRadioButtonOff } from 'react-icons/io';
 
-const ReservationForm = ({ data, form, times, onCalendarClick }) => {
+const TimeTableAndPerson = styled.div``;
+
+const ReservationForm = ({
+  data,
+  form,
+  times,
+  onCalendarClick,
+  onTimeClick,
+}) => {
   const { availableDates } = data;
   const startDate = availableDates[0];
   const endDate = availableDates[availableDates.length - 1];
@@ -23,13 +33,22 @@ const ReservationForm = ({ data, form, times, onCalendarClick }) => {
           );
         }}
       />
-      {times?.length > 0 && (
-        <ul>
-          {times.map((time) => (
-            <li key={time}>{time}</li>
-          ))}
-        </ul>
-      )}
+      <TimeTableAndPerson>
+        {times?.length > 0 && (
+          <ul className="time-table">
+            {times.map((time) => (
+              <li key={time} onClick={() => onTimeClick(time)}>
+                {form.rTime === time ? (
+                  <IoMdRadioButtonOn />
+                ) : (
+                  <IoMdRadioButtonOff />
+                )}
+                {time}
+              </li>
+            ))}
+          </ul>
+        )}
+      </TimeTableAndPerson>
     </>
   );
 };
