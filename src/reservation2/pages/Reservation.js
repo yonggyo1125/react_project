@@ -12,7 +12,7 @@ const Reservation = () => {
       <Helmet>{pageTitle}</Helmet>
       <OuterBox>
         <MainTitle>{pageTitle}</MainTitle>
-        <ReservationContainer />
+        <ReservationContainer setPageTitle={setPageTitle} />
       </OuterBox>
     </>
   );
