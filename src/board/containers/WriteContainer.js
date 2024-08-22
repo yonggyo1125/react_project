@@ -2,8 +2,10 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import loadable from '@loadable/component';
+import { produce } from 'immer';
 import apiConfig from '../apis/apiConfig';
 import Loading from '../../commons/components/Loading';
+import { apiFileDelete } from '../../commons/libs/file/apiFile';
 
 function skinRoute(skin, props) {
   const WriteMain = loadable(() =>
@@ -77,15 +79,37 @@ const WriteContainer = ({ setPageTitle }) => {
     if (imageUrls.length > 0) {
       editor.execute('insertImage', { source: imageUrls });
     }
-    setForm((form) => ({
-      ...form,
-      attachFiles: [...form.attachFiles].concat(_attachFiles),
-      editorImages: [...form.editorImages].concat(_editorImages),
-    }));
+
+    setForm(
+      produce((draft) => {
+        draft.attachFiles.push(..._attachFiles);
+        draft.editorImages.push(..._editorImages);
+      }),
+    );
   }, []);
 
   /* 파일 삭제 처리 */
-  const fileDeleteCallback = useCallback((seq) => {}, []);
+  const fileDeleteCallback = useCallback((seq) => {
+    (async () => {
+      try {
+        await apiFileDelete(seq);
+
+        setForm(
+          produce((draft) => {
+            draft.attachFiles = draft.attachFiles.filter(
+              (file) => file.seq !== seq,
+            );
+
+            draft.editorImages = draft.editorImages.filter(
+              (file) => file.seq !== seq,
+            );
+          }),
+        );
+      } catch (err) {
+        console.error(err);
+      }
+    })();
+  }, []);
 
   const onSubmit = useCallback((e) => {
     e.preventDefault();
