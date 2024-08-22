@@ -31,12 +31,6 @@ const ReservationForm = ({
   const { t } = useTranslation();
   const { minDate, maxDate, times } = data;
 
-  const {
-    states: {
-      userInfo: { userName, email, mobile },
-    },
-  } = useContext(UserInfoContext);
-
   return (
     <FormBox onSubmit={onSubmit} autoComplete="off">
       <div className="select-date box">
@@ -52,11 +46,11 @@ const ReservationForm = ({
             <InputBox
               type="text"
               name="name"
-              value={userName}
+              value={form?.name}
               onChange={onChange}
             />
-            {errors?.userName && (
-              <MessageBox color="danger" messages={errors.userName} />
+            {errors?.name && (
+              <MessageBox color="danger" messages={errors.name} />
             )}
           </dd>
         </dl>
@@ -66,7 +60,7 @@ const ReservationForm = ({
             <InputBox
               type="text"
               name="email"
-              value={email}
+              value={form?.email}
               onChange={onChange}
             />
             {errors?.email && (
@@ -80,7 +74,7 @@ const ReservationForm = ({
             <InputBox
               type="text"
               name="mobile"
-              value={mobile}
+              value={form?.mobile}
               onChange={onChange}
             />
             {errors?.mobile && (
