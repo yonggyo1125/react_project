@@ -1,6 +1,14 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
-import { ClassicEditor, Bold, Essentials, Italic, Paragraph } from 'ckeditor5';
+import {
+  ClassicEditor,
+  Image,
+  ImageInsert,
+  Bold,
+  Essentials,
+  Italic,
+  Paragraph,
+} from 'ckeditor5';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import MessageBox from '../../../../commons/components/MessageBox';
@@ -106,7 +114,14 @@ const Form = ({
                 <CKEditor
                   editor={ClassicEditor}
                   config={{
-                    plugins: [Bold, Essentials, Italic, Paragraph],
+                    plugins: [
+                      Bold,
+                      Essentials,
+                      Italic,
+                      Paragraph,
+                      Image,
+                      ImageInsert,
+                    ],
                     toolbar: ['undo', 'redo', 'bold', 'italic'],
                   }}
                   data={form?.content}
@@ -141,6 +156,8 @@ const Form = ({
             <FileUpload
               gid={form.gid}
               location="attach"
+              width="120"
+              color="primary"
               callback={fileUploadCallback}
             >
               {t('파일선택')}

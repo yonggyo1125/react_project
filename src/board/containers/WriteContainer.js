@@ -23,6 +23,9 @@ const WriteContainer = ({ setPageTitle }) => {
     mode: 'write',
     notice: false,
   });
+  const [editorImages, setEditorImages] = useState([]);
+  const [attachFiles, setAttachFiles] = useState([]);
+
   const [notice, setNotice] = useState(false);
 
   const [errors, setErrors] = useState({});
@@ -49,7 +52,24 @@ const WriteContainer = ({ setPageTitle }) => {
 
   /* 파일 업로드 후속 처리 */
   const fileUploadCallback = useCallback((files, editor) => {
-    console.log('후속처리', files, editor);
+    if (!files || files.length === 0) return;
+
+    const imageUrls = [];
+    for (const file of files) {
+      const { location, fileUrl } = file;
+
+      if (location === 'editor') {
+        imageUrls.push(fileUrl);
+        setEditorImages((items) => items.concat(file));
+      } else {
+        setAttachFiles((items) => items.concat(file));
+      }
+
+      // 에디터에 이미지 추가
+      if (imageUrls.length > 0) {
+        editor.execute('insertImage', { source: imageUrls });
+      }
+    }
   }, []);
 
   const onSubmit = useCallback(
@@ -83,6 +103,8 @@ const WriteContainer = ({ setPageTitle }) => {
     notice,
     errors,
     fileUploadCallback,
+    editorImages,
+    attachFiles,
   });
 };
 
