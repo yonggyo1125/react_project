@@ -106,7 +106,7 @@ const Form = ({
           <dt>{t('공지글')}</dt>
           <dd>
             <label onClick={onToggleNotice}>
-              {notice ? <FaCheckSquare /> : <FaSquare />}
+              {form?.notice ? <FaCheckSquare /> : <FaSquare />}
               {t('공지글로_등록하기')}
             </label>
           </dd>
@@ -208,7 +208,9 @@ const Form = ({
           </dd>
         </dl>
       )}
-      <button type="submit">제출</button>
+      <MidButton type="submit" color="info">
+        {t(form.mode === 'update' ? '수정하기' : '작성하기')}
+      </MidButton>
     </Wrapper>
   );
 };

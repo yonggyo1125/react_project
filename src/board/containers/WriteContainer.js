@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import loadable from '@loadable/component';
@@ -6,6 +6,7 @@ import { produce } from 'immer';
 import apiConfig from '../apis/apiConfig';
 import Loading from '../../commons/components/Loading';
 import { apiFileDelete } from '../../commons/libs/file/apiFile';
+import UserInfoContext from '../../member/modules/UserInfoContext';
 
 function skinRoute(skin, props) {
   const WriteMain = loadable(() =>
@@ -28,7 +29,9 @@ const WriteContainer = ({ setPageTitle }) => {
     editorImages: [],
   });
 
-  const [notice, setNotice] = useState(false);
+  const {
+    states: { isLogin, isAdmin },
+  } = useContext(UserInfoContext);
 
   const [errors, setErrors] = useState({});
 
@@ -54,7 +57,13 @@ const WriteContainer = ({ setPageTitle }) => {
     setForm((form) => ({ ...form, [e.target.name]: e.target.value }));
   }, []);
 
-  const onToggleNotice = useCallback(() => setNotice((notice) => !notice), []);
+  const onToggleNotice = useCallback(() => {
+    setForm(
+      produce((draft) => {
+        draft.notice = !draft.notice;
+      }),
+    );
+  }, []);
 
   /* 파일 업로드 후속 처리 */
   const fileUploadCallback = useCallback((files, editor) => {
@@ -90,6 +99,10 @@ const WriteContainer = ({ setPageTitle }) => {
 
   /* 파일 삭제 처리 */
   const fileDeleteCallback = useCallback((seq) => {
+    if (!window.confirm('정말 삭제하겠습니까?')) {
+      return;
+    }
+
     (async () => {
       try {
         await apiFileDelete(seq);
