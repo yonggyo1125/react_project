@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, useCallback } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import {
   ClassicEditor,
@@ -41,11 +41,10 @@ const Form = ({
   notice,
   errors,
   fileUploadCallback,
+  onChange,
 }) => {
   const [mounted, setMounted] = useState(false);
   const [editor, setEditor] = useState(null);
-  const [frm, setFrm] = useState(form);
-
   const { useEditor, useUploadImage, useUploadFile } = board;
   const { t } = useTranslation();
   const {
@@ -60,10 +59,6 @@ const Form = ({
     };
   }, []);
 
-  const onChange = useCallback((e) => {
-    setFrm((frm) => ({ ...frm, [e.target.name]: e.target.value }));
-  }, []);
-
   return (
     <Wrapper onSubmit={(e) => onSubmit(e, editor)} autoComplete="off">
       <dl>
@@ -72,7 +67,7 @@ const Form = ({
           <InputBox
             type="text"
             name="poster"
-            value={frm?.poster}
+            value={form?.poster}
             onChange={onChange}
           />
           {errors?.poster && (
@@ -88,8 +83,7 @@ const Form = ({
               <InputBox
                 type="password"
                 name="guestPw"
-                value={frm?.guestPw}
-                onChange={onChange}
+                defaultValue={form?.guestPw}
               />
               {errors?.guestPw && (
                 <MessageBox color="danger" messages={errors.guestPw} />
@@ -114,7 +108,7 @@ const Form = ({
           <InputBox
             type="text"
             name="subject"
-            value={frm?.subject}
+            value={form?.subject}
             onChange={onChange}
           />
           {errors?.subject && (
@@ -141,8 +135,13 @@ const Form = ({
                     ],
                     toolbar: ['undo', 'redo', 'bold', 'italic'],
                   }}
-                  data={frm?.content}
+                  data={form?.content}
                   onReady={(editor) => setEditor(editor)}
+                  onChange={(e, editor) => {
+                    onChange({
+                      target: { name: 'content', value: editor.getData() },
+                    });
+                  }}
                 />
                 {editor && useUploadImage && (
                   <FileUpload
@@ -159,7 +158,11 @@ const Form = ({
               </>
             )
           ) : (
-            <textarea name="content" defaultValue={frm?.content}></textarea>
+            <textarea
+              name="content"
+              value={form?.content}
+              onChange={onChange}
+            ></textarea>
           )}
           {errors?.content && (
             <MessageBox color="danger" messages={errors.content} />

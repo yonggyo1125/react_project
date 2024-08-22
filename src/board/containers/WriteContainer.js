@@ -48,6 +48,10 @@ const WriteContainer = ({ setPageTitle }) => {
     })();
   }, [bid, setPageTitle]);
 
+  const onChange = useCallback((e) => {
+    setForm((form) => ({ ...form, [e.target.name]: e.target.value }));
+  }, []);
+
   const onToggleNotice = useCallback(() => setNotice((notice) => !notice), []);
 
   /* 파일 업로드 후속 처리 */
@@ -99,6 +103,7 @@ const WriteContainer = ({ setPageTitle }) => {
     board,
     form,
     onSubmit,
+    onChange,
     onToggleNotice,
     notice,
     errors,
