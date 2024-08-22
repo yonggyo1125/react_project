@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useCallback } from 'react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import {
   ClassicEditor,
@@ -44,6 +44,8 @@ const Form = ({
 }) => {
   const [mounted, setMounted] = useState(false);
   const [editor, setEditor] = useState(null);
+  const [frm, setFrm] = useState(form);
+
   const { useEditor, useUploadImage, useUploadFile } = board;
   const { t } = useTranslation();
   const {
@@ -58,12 +60,21 @@ const Form = ({
     };
   }, []);
 
+  const onChange = useCallback((e) => {
+    setFrm((frm) => ({ ...frm, [e.target.name]: e.target.value }));
+  }, []);
+
   return (
     <Wrapper onSubmit={(e) => onSubmit(e, editor)} autoComplete="off">
       <dl>
         <dt>{t('작성자')}</dt>
         <dd>
-          <InputBox type="text" name="poster" defaultValue={form?.poster} />
+          <InputBox
+            type="text"
+            name="poster"
+            value={frm?.poster}
+            onChange={onChange}
+          />
           {errors?.poster && (
             <MessageBox color="danger" messages={errors.poster} />
           )}
@@ -77,7 +88,8 @@ const Form = ({
               <InputBox
                 type="password"
                 name="guestPw"
-                defaultValue={form?.guestPw}
+                value={frm?.guestPw}
+                onChange={onChange}
               />
               {errors?.guestPw && (
                 <MessageBox color="danger" messages={errors.guestPw} />
@@ -99,7 +111,12 @@ const Form = ({
       <dl>
         <dt>{t('제목')}</dt>
         <dd>
-          <InputBox type="text" name="subject" defaultValue={form?.subject} />
+          <InputBox
+            type="text"
+            name="subject"
+            value={frm?.subject}
+            onChange={onChange}
+          />
           {errors?.subject && (
             <MessageBox color="danger" messages={errors.subject} />
           )}
@@ -124,7 +141,7 @@ const Form = ({
                     ],
                     toolbar: ['undo', 'redo', 'bold', 'italic'],
                   }}
-                  data={form?.content}
+                  data={frm?.content}
                   onReady={(editor) => setEditor(editor)}
                 />
                 {editor && useUploadImage && (
@@ -142,7 +159,7 @@ const Form = ({
               </>
             )
           ) : (
-            <textarea name="content" defaultValue={form?.content}></textarea>
+            <textarea name="content" defaultValue={frm?.content}></textarea>
           )}
           {errors?.content && (
             <MessageBox color="danger" messages={errors.content} />
