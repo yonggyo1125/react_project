@@ -5,9 +5,13 @@ export default function apiApply(form) {
     (async () => {
       try {
         const res = await apiRequest('/activity/reservation', 'POST', form);
-        console.log(res);
+        if (res.status === 201) {
+          resolve(res.data.data);
+          return;
+        }
+
+        reject(res.data);
       } catch (err) {
-        console.log('err', err);
         reject(err);
       }
     })();
