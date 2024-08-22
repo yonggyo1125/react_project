@@ -46,10 +46,22 @@ const WriteContainer = ({ setPageTitle }) => {
 
   const onToggleNotice = useCallback(() => setNotice((notice) => !notice), []);
 
-  const onSubmit = useCallback((e, editor) => {
-    e.preventDefault();
-    console.log('editor', editor);
-  }, []);
+  const onSubmit = useCallback(
+    (e, editor) => {
+      e.preventDefault();
+      const formData = new FormData(e.target);
+      for (const [k, v] of formData) {
+        form[k] = v;
+      }
+
+      form.content = editor.getData();
+
+      setForm({ ...form });
+
+      console.log(form);
+    },
+    [form],
+  );
 
   if (loading || !board) {
     return <Loading />;

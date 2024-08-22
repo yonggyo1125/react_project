@@ -23,7 +23,7 @@ const Wrapper = styled.form`
   }
 `;
 
-const Form = ({ board, form, onSubmit, onToggleNotice, errors }) => {
+const Form = ({ board, form, onSubmit, onToggleNotice, notice, errors }) => {
   const [mounted, setMounted] = useState(false);
   const [editor, setEditor] = useState(null);
   const { useEditor } = board;
@@ -45,7 +45,7 @@ const Form = ({ board, form, onSubmit, onToggleNotice, errors }) => {
       <dl>
         <dt>{t('작성자')}</dt>
         <dd>
-          <InputBox type="text" name="poster" value={form?.poster} />
+          <InputBox type="text" name="poster" defaultValue={form?.poster} />
           {errors?.poster && (
             <MessageBox color="danger" messages={errors.poster} />
           )}
@@ -56,7 +56,11 @@ const Form = ({ board, form, onSubmit, onToggleNotice, errors }) => {
           <dl>
             <dt>{t('비밀번호')}</dt>
             <dd>
-              <InputBox type="password" name="guestPw" value={form?.guestPw} />
+              <InputBox
+                type="password"
+                name="guestPw"
+                defaultValue={form?.guestPw}
+              />
               {errors?.guestPw && (
                 <MessageBox color="danger" messages={errors.guestPw} />
               )}
@@ -68,7 +72,7 @@ const Form = ({ board, form, onSubmit, onToggleNotice, errors }) => {
           <dt>{t('공지글')}</dt>
           <dd>
             <label onClick={onToggleNotice}>
-              {form?.notice ? <FaCheckSquare /> : <FaSquare />}
+              {notice ? <FaCheckSquare /> : <FaSquare />}
               {t('공지글로_등록하기')}
             </label>
           </dd>
@@ -77,7 +81,7 @@ const Form = ({ board, form, onSubmit, onToggleNotice, errors }) => {
       <dl>
         <dt>{t('제목')}</dt>
         <dd>
-          <InputBox type="text" name="subject" value={form?.subject} />
+          <InputBox type="text" name="subject" defaultValue={form?.subject} />
           {errors?.subject && (
             <MessageBox color="danger" messages={errors.subject} />
           )}
