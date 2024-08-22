@@ -25,10 +25,18 @@ const Wrapper = styled.form`
   }
 `;
 
-const Form = ({ board, form, onSubmit, onToggleNotice, notice, errors }) => {
+const Form = ({
+  board,
+  form,
+  onSubmit,
+  onToggleNotice,
+  notice,
+  errors,
+  fileUploadCallback,
+}) => {
   const [mounted, setMounted] = useState(false);
   const [editor, setEditor] = useState(null);
-  const { useEditor } = board;
+  const { useEditor, useUploadImage, useUploadFile } = board;
   const { t } = useTranslation();
   const {
     states: { isLogin, isAdmin },
@@ -104,11 +112,13 @@ const Form = ({ board, form, onSubmit, onToggleNotice, notice, errors }) => {
                   data={form?.content}
                   onReady={(editor) => setEditor(editor)}
                 />
-                {editor && (
+                {editor && useUploadImage && (
                   <FileUpload
                     gid={form.gid}
                     location="editor"
                     imageOnly
+                    color="primary"
+                    width="120"
                     callback={(files) => fileUploadCallback(files, editor)}
                   >
                     {t('이미지_업로드')}
@@ -124,6 +134,20 @@ const Form = ({ board, form, onSubmit, onToggleNotice, notice, errors }) => {
           )}
         </dd>
       </dl>
+      {useUploadFile && (
+        <dl>
+          <dt>{t('파일첨부')}</dt>
+          <dd>
+            <FileUpload
+              gid={form.gid}
+              location="attach"
+              callback={fileUploadCallback}
+            >
+              {t('파일선택')}
+            </FileUpload>
+          </dd>
+        </dl>
+      )}
       <button type="submit">제출</button>
     </Wrapper>
   );

@@ -47,6 +47,11 @@ const WriteContainer = ({ setPageTitle }) => {
 
   const onToggleNotice = useCallback(() => setNotice((notice) => !notice), []);
 
+  /* 파일 업로드 후속 처리 */
+  const fileUploadCallback = useCallback((files, editor) => {
+    console.log('후속처리', files, editor);
+  }, []);
+
   const onSubmit = useCallback(
     (e, editor) => {
       e.preventDefault();
@@ -77,6 +82,7 @@ const WriteContainer = ({ setPageTitle }) => {
     onToggleNotice,
     notice,
     errors,
+    fileUploadCallback,
   });
 };
 
