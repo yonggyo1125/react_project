@@ -45,6 +45,19 @@ const ReservationForm = ({
             )}
           </ul>
         )}
+        <dl>
+          <dt>{t('예약_인원')}</dt>
+          <dd>
+            <select name="persons" value={form?.persons}>
+              {[...new Array(30)].map((i) => (
+                <option key={`persons_${i}`} value={i + 1}>
+                  {i + 1}
+                  {t('명')}
+                </option>
+              ))}
+            </select>
+          </dd>
+        </dl>
       </div>
     </FormBox>
   );
