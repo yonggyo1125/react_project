@@ -60,7 +60,7 @@ const Form = ({
   }, []);
 
   return (
-    <Wrapper onSubmit={(e) => onSubmit(e, editor)} autoComplete="off">
+    <Wrapper onSubmit={onSubmit} autoComplete="off">
       <dl>
         <dt>{t('작성자')}</dt>
         <dd>

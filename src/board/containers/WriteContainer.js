@@ -22,9 +22,9 @@ const WriteContainer = ({ setPageTitle }) => {
     gid: '' + Date.now(),
     mode: 'write',
     notice: false,
+    attachFiles: [],
+    editorImages: [],
   });
-  const [editorImages, setEditorImages] = useState([]);
-  const [attachFiles, setAttachFiles] = useState([]);
 
   const [notice, setNotice] = useState(false);
 
@@ -59,39 +59,34 @@ const WriteContainer = ({ setPageTitle }) => {
     if (!files || files.length === 0) return;
 
     const imageUrls = [];
+    const _editorImages = [];
+    const _attachFiles = [];
+
     for (const file of files) {
       const { location, fileUrl } = file;
 
       if (location === 'editor') {
         imageUrls.push(fileUrl);
-        setEditorImages((items) => items.concat(file));
+        _editorImages.push(file);
       } else {
-        setAttachFiles((items) => items.concat(file));
-      }
-
-      // 에디터에 이미지 추가
-      if (imageUrls.length > 0) {
-        editor.execute('insertImage', { source: imageUrls });
+        _attachFiles.push(file);
       }
     }
+
+    // 에디터에 이미지 추가
+    if (imageUrls.length > 0) {
+      editor.execute('insertImage', { source: imageUrls });
+    }
+    setForm((form) => ({
+      ...form,
+      attachFiles: _attachFiles,
+      editorImages: _editorImages,
+    }));
   }, []);
 
-  const onSubmit = useCallback(
-    (e, editor) => {
-      e.preventDefault();
-      const formData = new FormData(e.target);
-      for (const [k, v] of formData) {
-        form[k] = v;
-      }
-
-      form.content = editor.getData();
-
-      setForm({ ...form });
-
-      console.log(form);
-    },
-    [form],
-  );
+  const onSubmit = useCallback((e) => {
+    e.preventDefault();
+  }, []);
 
   if (loading || !board) {
     return <Loading />;
