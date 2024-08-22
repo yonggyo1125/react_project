@@ -44,7 +44,8 @@ const WriteContainer = ({ setPageTitle }) => {
   }, [bid, setPageTitle]);
 
   const onFormChange = useCallback((e) => {
-    setForm((form) => ({ ...form, [e.target.name]: e.target.value.trim() }));
+    console.log(e.target.name, e.target.value);
+    setForm((form) => ({ ...form, [e.target.name]: e.target.value }));
   }, []);
 
   const onToggleNotice = useCallback(

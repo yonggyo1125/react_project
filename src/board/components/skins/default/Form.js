@@ -48,7 +48,6 @@ const Form = ({
   }, []);
 
   return (
-    mounted && (
       <Wrapper onSubmit={onSubmit} autoComplete="off">
         <dl>
           <dt>{t('작성자')}</dt>
@@ -110,7 +109,7 @@ const Form = ({
           <dt>{t('내용')}</dt>
           <dd>
             {useEditor ? (
-              <CKEditor
+               mounted && <CKEditor
                 editor={ClassicEditor}
                 config={{
                   plugins: [Bold, Essentials, Italic, Paragraph],
@@ -139,7 +138,6 @@ const Form = ({
           </dd>
         </dl>
       </Wrapper>
-    )
   );
 };
 
