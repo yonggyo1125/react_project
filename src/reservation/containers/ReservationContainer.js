@@ -7,6 +7,7 @@ import { apiGet } from '../activity/apis/apiInfo';
 import ReservationForm from '../components/ReservationForm';
 import Loading from '../../commons/components/Loading';
 import UserInfoContext from '../../member/modules/UserInfoContext';
+import apiApply from '../apis/apiApply';
 
 const ReservationContainer = ({ setPageTitle }) => {
   const { seq } = useParams();
@@ -97,6 +98,14 @@ const ReservationContainer = ({ setPageTitle }) => {
         setErrors(_errors);
         return;
       }
+
+      /* 예약 접수 처리 S */
+      (async () => {
+        try {
+          const res = await apiApply(form);
+        } catch (err) {}
+      })();
+      /* 예약 접수 처리 E */
     },
     [t, form],
   );
