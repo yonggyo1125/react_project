@@ -23,16 +23,9 @@ const Wrapper = styled.form`
   }
 `;
 
-const Form = ({
-  board,
-  form,
-  setEditor,
-  onFormChange,
-  onSubmit,
-  onToggleNotice,
-  errors,
-}) => {
+const Form = ({ board, form, onSubmit, onToggleNotice, errors }) => {
   const [mounted, setMounted] = useState(false);
+  const [editor, setEditor] = useState(null);
   const { useEditor } = board;
   const { t } = useTranslation();
   const {
@@ -48,96 +41,73 @@ const Form = ({
   }, []);
 
   return (
-      <Wrapper onSubmit={onSubmit} autoComplete="off">
-        <dl>
-          <dt>{t('작성자')}</dt>
-          <dd>
-            <InputBox
-              type="text"
-              name="poster"
-              value={form.poster}
-              onChange={onFormChange}
-            />
-            {errors.poster && (
-              <MessageBox color="danger" messages={errors.poster} />
-            )}
-          </dd>
-        </dl>
-        {(form.mode === 'write' && !isLogin) ||
-          (form.mode === 'update' && !form.member && (
-            <dl>
-              <dt>{t('비밀번호')}</dt>
-              <dd>
-                <InputBox
-                  type="password"
-                  name="guestPw"
-                  value={form.guestPw}
-                  onChange={onFormChange}
-                />
-                {errors.guestPw && (
-                  <MessageBox color="danger" messages={errors.guestPw} />
-                )}
-              </dd>
-            </dl>
-          ))}
-        {isAdmin && (
+    <Wrapper onSubmit={(e) => onSubmit(e, editor)} autoComplete="off">
+      <dl>
+        <dt>{t('작성자')}</dt>
+        <dd>
+          <InputBox type="text" name="poster" value={form?.poster} />
+          {errors?.poster && (
+            <MessageBox color="danger" messages={errors.poster} />
+          )}
+        </dd>
+      </dl>
+      {(form.mode === 'write' && !isLogin) ||
+        (form.mode === 'update' && !form.member && (
           <dl>
-            <dt>{t('공지글')}</dt>
+            <dt>{t('비밀번호')}</dt>
             <dd>
-              <label onClick={onToggleNotice}>
-                {form.notice ? <FaCheckSquare /> : <FaSquare />}
-                {t('공지글로_등록하기')}
-              </label>
+              <InputBox type="password" name="guestPw" value={form?.guestPw} />
+              {errors?.guestPw && (
+                <MessageBox color="danger" messages={errors.guestPw} />
+              )}
             </dd>
           </dl>
-        )}
+        ))}
+      {isAdmin && (
         <dl>
-          <dt>{t('제목')}</dt>
+          <dt>{t('공지글')}</dt>
           <dd>
-            <InputBox
-              type="text"
-              name="subject"
-              value={form.subject}
-              onChange={onFormChange}
-            />
-            {errors.subject && (
-              <MessageBox color="danger" messages={errors.subject} />
-            )}
+            <label onClick={onToggleNotice}>
+              {form?.notice ? <FaCheckSquare /> : <FaSquare />}
+              {t('공지글로_등록하기')}
+            </label>
           </dd>
         </dl>
-        <dl>
-          <dt>{t('내용')}</dt>
-          <dd>
-            {useEditor ? (
-               mounted && <CKEditor
+      )}
+      <dl>
+        <dt>{t('제목')}</dt>
+        <dd>
+          <InputBox type="text" name="subject" value={form?.subject} />
+          {errors?.subject && (
+            <MessageBox color="danger" messages={errors.subject} />
+          )}
+        </dd>
+      </dl>
+      <dl>
+        <dt>{t('내용')}</dt>
+        <dd>
+          {useEditor ? (
+            mounted && (
+              <CKEditor
                 editor={ClassicEditor}
                 config={{
                   plugins: [Bold, Essentials, Italic, Paragraph],
                   toolbar: ['undo', 'redo', 'bold', 'italic'],
                 }}
-                //data={form.content}
-                onReady={(editor) => {
-                  //setEditor(() => editor);
-                }}
-                onChange={(e, editor) => {
-                  onFormChange({
-                    target: { name: 'content', value: editor.getData() },
-                  });
-                }}
+                data={form?.content}
+                onReady={(editor) => setEditor(editor)}
               />
-            ) : (
-              <textarea
-                name="content"
-                defaultValue={form.content}
-                onChange={onFormChange}
-              ></textarea>
-            )}
-            {errors.content && (
-              <MessageBox color="danger" messages={errors.content} />
-            )}
-          </dd>
-        </dl>
-      </Wrapper>
+            )
+          ) : (
+            <textarea name="content" defaultValue={form?.content}></textarea>
+          )}
+          {errors?.content && (
+            <MessageBox color="danger" messages={errors.content} />
+          )}
+        </dd>
+      </dl>
+      <button type="submit">제출</button>
+    </Wrapper>
   );
 };
 
