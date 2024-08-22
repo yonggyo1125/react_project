@@ -1,13 +1,17 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { format } from 'date-fns';
 import { apiGet } from '../activity/apis/apiInfo';
 import ReservationForm from '../components/ReservationForm';
 import Loading from '../../commons/components/Loading';
 
 const ReservationContainer = ({ setPageTitle }) => {
-  const [data, setData] = useState(null);
   const { seq } = useParams();
+  const [data, setData] = useState(null);
+  const [form, setForm] = useState({
+    activitySeq: seq,
+  });
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -20,16 +24,23 @@ const ReservationContainer = ({ setPageTitle }) => {
         const availableDates = Object.keys(res.availableDates).sort();
         res.minDate = new Date(availableDates[0]);
         res.maxDate = new Date(availableDates.pop());
-        console.log('res', res);
+
+        setData(res);
       } catch (err) {
         console.error(err);
       }
     })();
   }, [seq, t, setPageTitle]);
 
-  const onDateChange = useCallback((date) => {
-    console.log(date);
-  }, []);
+  const onDateChange = useCallback(
+    (date) => {
+      const rDate = format(date, 'yyyy-MM-dd');
+      const times = data.availableDates[rDate];
+      setData((data) => ({ ...data, times }));
+      setForm((form) => ({ ...form, rDate }));
+    },
+    [data, setForm],
+  );
 
   if (!data) {
     return <Loading />;
