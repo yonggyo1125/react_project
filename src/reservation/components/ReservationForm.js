@@ -49,18 +49,27 @@ const ReservationForm = ({
           <dt>{t('예약자명')}</dt>
           <dd>
             <InputBox type="text" name="name" value={userName} />
+            {errors?.userName && (
+              <MessageBox color="danger" messages={errors.userName} />
+            )}
           </dd>
         </dl>
         <dl>
           <dt>{t('이메일')}</dt>
           <dd>
             <InputBox type="text" name="email" value={email} />
+            {errors?.email && (
+              <MessageBox color="danger" messages={errors.email} />
+            )}
           </dd>
         </dl>
         <dl>
           <dt>{t('휴대전화번호')}</dt>
           <dd>
             <InputBox type="text" name="mobile" value={mobile} />
+            {errors?.mobile && (
+              <MessageBox color="danger" messages={errors.mobile} />
+            )}
           </dd>
         </dl>
         <h2>{t('예약시간/인원수_선택')}</h2>
