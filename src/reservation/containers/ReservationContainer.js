@@ -42,6 +42,10 @@ const ReservationContainer = ({ setPageTitle }) => {
     [data, setForm],
   );
 
+  const onTimeChange = useCallback((ampm) => {
+    setForm((form) => ({ ...form, ampm }));
+  }, []);
+
   const onSubmit = useCallback((e) => {
     e.preventDefault();
   }, []);
@@ -55,6 +59,7 @@ const ReservationContainer = ({ setPageTitle }) => {
       data={data}
       form={form}
       onDateChange={onDateChange}
+      onTimeChange={onTimeChange}
       onSubmit={onSubmit}
     />
   );

@@ -5,7 +5,13 @@ import { useTranslation } from 'react-i18next';
 import { IoIosRadioButtonOff, IoIosRadioButtonOn } from 'react-icons/io';
 const FormBox = styled.form``;
 
-const ReservationForm = ({ data, form, onSubmit, onDateChange }) => {
+const ReservationForm = ({
+  data,
+  form,
+  onSubmit,
+  onDateChange,
+  onTimeChange,
+}) => {
   const { t } = useTranslation();
   const { minDate, maxDate, times } = data;
   return (
@@ -18,7 +24,7 @@ const ReservationForm = ({ data, form, onSubmit, onDateChange }) => {
         {times && (
           <ul>
             {times[0] && (
-              <li>
+              <li onClick={() => onTimeChange('AM')}>
                 {form.ampm === 'AM' ? (
                   <IoIosRadioButtonOn />
                 ) : (
@@ -28,7 +34,7 @@ const ReservationForm = ({ data, form, onSubmit, onDateChange }) => {
               </li>
             )}
             {times[1] && (
-              <li>
+              <li onClick={() => onTimeChange('PM')}>
                 {form.ampm === 'PM' ? (
                   <IoIosRadioButtonOn />
                 ) : (
