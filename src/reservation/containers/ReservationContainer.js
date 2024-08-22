@@ -42,11 +42,22 @@ const ReservationContainer = ({ setPageTitle }) => {
     [data, setForm],
   );
 
+  const onSubmit = useCallback((e) => {
+    e.preventDefault();
+  }, []);
+
   if (!data) {
     return <Loading />;
   }
 
-  return <ReservationForm data={data} onDateChange={onDateChange} />;
+  return (
+    <ReservationForm
+      data={data}
+      form={form}
+      onDateChange={onDateChange}
+      onSubmit={onSubmit}
+    />
+  );
 };
 
 export default React.memo(ReservationContainer);
