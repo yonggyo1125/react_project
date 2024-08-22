@@ -25,6 +25,7 @@ const ReservationForm = ({
   onSubmit,
   onDateChange,
   onTimeChange,
+  onChange,
   errors,
 }) => {
   const { t } = useTranslation();
@@ -48,7 +49,12 @@ const ReservationForm = ({
         <dl>
           <dt>{t('예약자명')}</dt>
           <dd>
-            <InputBox type="text" name="name" value={userName} />
+            <InputBox
+              type="text"
+              name="name"
+              value={userName}
+              onChange={onChange}
+            />
             {errors?.userName && (
               <MessageBox color="danger" messages={errors.userName} />
             )}
@@ -57,7 +63,12 @@ const ReservationForm = ({
         <dl>
           <dt>{t('이메일')}</dt>
           <dd>
-            <InputBox type="text" name="email" value={email} />
+            <InputBox
+              type="text"
+              name="email"
+              value={email}
+              onChange={onChange}
+            />
             {errors?.email && (
               <MessageBox color="danger" messages={errors.email} />
             )}
@@ -66,7 +77,12 @@ const ReservationForm = ({
         <dl>
           <dt>{t('휴대전화번호')}</dt>
           <dd>
-            <InputBox type="text" name="mobile" value={mobile} />
+            <InputBox
+              type="text"
+              name="mobile"
+              value={mobile}
+              onChange={onChange}
+            />
             {errors?.mobile && (
               <MessageBox color="danger" messages={errors.mobile} />
             )}
@@ -108,7 +124,7 @@ const ReservationForm = ({
         <dl>
           <dt>{t('예약인원')}</dt>
           <dd>
-            <select name="persons" value={form?.persons}>
+            <select name="persons" value={form?.persons} onChange={onChange}>
               {[...new Array(30).keys()].map((i) => (
                 <option key={`persons_${i}`} value={i + 1}>
                   {i + 1}

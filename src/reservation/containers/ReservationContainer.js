@@ -2,6 +2,7 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { format } from 'date-fns';
+import { produce } from 'immer';
 import { apiGet } from '../activity/apis/apiInfo';
 import ReservationForm from '../components/ReservationForm';
 import Loading from '../../commons/components/Loading';
@@ -46,6 +47,14 @@ const ReservationContainer = ({ setPageTitle }) => {
     setForm((form) => ({ ...form, ampm }));
   }, []);
 
+  const onChange = useCallback((e) => {
+    setForm(
+      produce((draft) => {
+        draft[e.target.name] = e.target.value.trim();
+      }),
+    );
+  }, []);
+
   const onSubmit = useCallback((e) => {
     e.preventDefault();
   }, []);
@@ -61,6 +70,7 @@ const ReservationContainer = ({ setPageTitle }) => {
       onDateChange={onDateChange}
       onTimeChange={onTimeChange}
       onSubmit={onSubmit}
+      onChange={onChange}
     />
   );
 };
