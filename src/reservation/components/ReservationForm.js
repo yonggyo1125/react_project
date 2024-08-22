@@ -1,9 +1,23 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import Calendar from 'react-calendar';
 import { useTranslation } from 'react-i18next';
 import { IoIosRadioButtonOff, IoIosRadioButtonOn } from 'react-icons/io';
-const FormBox = styled.form``;
+import { BigButton } from '../../commons/components/Buttons';
+import InputBox from '../../commons/components/InputBox';
+import MessageBox from '../../commons/components/MessageBox';
+import UserInfoContext from '../../member/modules/UserInfoContext';
+
+const FormBox = styled.form`
+  display: flex;
+  .box {
+    flex-grow: 1;
+    width: 0;
+  }
+  .box + .box {
+    margin-left: 30px;
+  }
+`;
 
 const ReservationForm = ({
   data,
@@ -11,45 +25,82 @@ const ReservationForm = ({
   onSubmit,
   onDateChange,
   onTimeChange,
+  errors,
 }) => {
   const { t } = useTranslation();
   const { minDate, maxDate, times } = data;
+
+  const {
+    states: {
+      userInfo: { userName, email, mobile },
+    },
+  } = useContext(UserInfoContext);
+
   return (
     <FormBox onSubmit={onSubmit} autoComplete="off">
-      <div className="select-date">
+      <div className="select-date box">
         <h2>{t('예약일_선택')}</h2>
         <Calendar minDate={minDate} maxDate={maxDate} onChange={onDateChange} />
+        {errors?.rDate && <MessageBox color="danger" messages={errors.rDate} />}
       </div>
-      <div className="select-time">
+      <div className="select-time box">
+        <h2>{t('예약자_기본정보')}</h2>
+        <dl>
+          <dt>{t('예약자명')}</dt>
+          <dd>
+            <InputBox type="text" name="name" value={userName} />
+          </dd>
+        </dl>
+        <dl>
+          <dt>{t('이메일')}</dt>
+          <dd>
+            <InputBox type="text" name="email" value={email} />
+          </dd>
+        </dl>
+        <dl>
+          <dt>{t('휴대전화번호')}</dt>
+          <dd>
+            <InputBox type="text" name="mobile" value={mobile} />
+          </dd>
+        </dl>
+        <h2>{t('예약시간/인원수_선택')}</h2>
         {times && (
-          <ul>
-            {times[0] && (
-              <li onClick={() => onTimeChange('AM')}>
-                {form.ampm === 'AM' ? (
-                  <IoIosRadioButtonOn />
-                ) : (
-                  <IoIosRadioButtonOff />
+          <dl>
+            <dt>{t('예약시간')}</dt>
+            <dd>
+              <ul>
+                {times[0] && (
+                  <li onClick={() => onTimeChange('AM')}>
+                    {form.ampm === 'AM' ? (
+                      <IoIosRadioButtonOn />
+                    ) : (
+                      <IoIosRadioButtonOff />
+                    )}
+                    {t('오전')}
+                  </li>
                 )}
-                {t('오전')}
-              </li>
-            )}
-            {times[1] && (
-              <li onClick={() => onTimeChange('PM')}>
-                {form.ampm === 'PM' ? (
-                  <IoIosRadioButtonOn />
-                ) : (
-                  <IoIosRadioButtonOff />
+                {times[1] && (
+                  <li onClick={() => onTimeChange('PM')}>
+                    {form.ampm === 'PM' ? (
+                      <IoIosRadioButtonOn />
+                    ) : (
+                      <IoIosRadioButtonOff />
+                    )}
+                    {t('오후')}
+                  </li>
                 )}
-                {t('오후')}
-              </li>
-            )}
-          </ul>
+              </ul>
+              {errors?.ampm && (
+                <MessageBox color="danger" messages={errors.ampm} />
+              )}
+            </dd>
+          </dl>
         )}
         <dl>
-          <dt>{t('예약_인원')}</dt>
+          <dt>{t('예약인원')}</dt>
           <dd>
             <select name="persons" value={form?.persons}>
-              {[...new Array(30)].map((i) => (
+              {[...new Array(30).keys()].map((i) => (
                 <option key={`persons_${i}`} value={i + 1}>
                   {i + 1}
                   {t('명')}
@@ -58,6 +109,9 @@ const ReservationForm = ({
             </select>
           </dd>
         </dl>
+        <BigButton type="submit" color="primary">
+          {t('예약하기')}
+        </BigButton>
       </div>
     </FormBox>
   );
