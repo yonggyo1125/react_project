@@ -79,8 +79,8 @@ const WriteContainer = ({ setPageTitle }) => {
     }
     setForm((form) => ({
       ...form,
-      attachFiles: _attachFiles,
-      editorImages: _editorImages,
+      attachFiles: [...form.attachFiles].concat(_attachFiles),
+      editorImages: [...form.editorImages].concat(_editorImages),
     }));
   }, []);
 

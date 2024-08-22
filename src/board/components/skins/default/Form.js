@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useCallback } from 'react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import {
   ClassicEditor,
@@ -11,13 +11,13 @@ import {
 } from 'ckeditor5';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
-import { FaWindowClose, FaFileUpload } from 'react-icons/fa';
 import MessageBox from '../../../../commons/components/MessageBox';
 import InputBox from '../../../../commons/components/InputBox';
 import UserInfoContext from '../../../../member/modules/UserInfoContext';
 import { FaCheckSquare, FaSquare } from 'react-icons/fa';
 import { MidButton } from '../../../../commons/components/Buttons';
 import FileUpload from '../../../../commons/components/FileUpload';
+import FileItems from '../../../../commons/components/FileItems';
 
 import 'ckeditor5/ckeditor5.css';
 
@@ -34,8 +34,6 @@ const Wrapper = styled.form`
   }
 `;
 
-const FileItem = styled.li``;
-
 const Form = ({
   board,
   form,
@@ -44,6 +42,7 @@ const Form = ({
   notice,
   errors,
   fileUploadCallback,
+  fileDeleteCallback,
   onChange,
 }) => {
   const [mounted, setMounted] = useState(false);
@@ -61,6 +60,14 @@ const Form = ({
       setMounted(false);
     };
   }, []);
+
+  // 이미지 에디터 첨부
+  const insertImageCallback = useCallback(
+    (url) => {
+      editor.execute('insertImage', { source: url });
+    },
+    [editor],
+  );
 
   return (
     <Wrapper onSubmit={onSubmit} autoComplete="off">
@@ -147,16 +154,24 @@ const Form = ({
                   }}
                 />
                 {editor && useUploadImage && (
-                  <FileUpload
-                    gid={form.gid}
-                    location="editor"
-                    imageOnly
-                    color="primary"
-                    width="120"
-                    callback={(files) => fileUploadCallback(files, editor)}
-                  >
-                    {t('이미지_업로드')}
-                  </FileUpload>
+                  <>
+                    <FileUpload
+                      gid={form.gid}
+                      location="editor"
+                      imageOnly
+                      color="primary"
+                      width="120"
+                      callback={(files) => fileUploadCallback(files, editor)}
+                    >
+                      {t('이미지_업로드')}
+                    </FileUpload>
+                    <FileItems
+                      files={form?.editorImages}
+                      mode="editor"
+                      insertImageCallback={insertImageCallback}
+                      fileDeleteCallback={fileDeleteCallback}
+                    />
+                  </>
                 )}
               </>
             )
@@ -185,6 +200,11 @@ const Form = ({
             >
               {t('파일선택')}
             </FileUpload>
+            <FileItems
+              files={form?.attachFiles}
+              mode="attach"
+              fileDeleteCallback={fileDeleteCallback}
+            />
           </dd>
         </dl>
       )}
