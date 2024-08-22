@@ -84,6 +84,9 @@ const WriteContainer = ({ setPageTitle }) => {
     }));
   }, []);
 
+  /* 파일 삭제 처리 */
+  const fileDeleteCallback = useCallback((seq) => {}, []);
+
   const onSubmit = useCallback((e) => {
     e.preventDefault();
   }, []);
@@ -103,6 +106,7 @@ const WriteContainer = ({ setPageTitle }) => {
     notice,
     errors,
     fileUploadCallback,
+    fileDeleteCallback,
   });
 };
 
