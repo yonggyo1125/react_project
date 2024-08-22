@@ -7,6 +7,8 @@ import MessageBox from '../../../../commons/components/MessageBox';
 import InputBox from '../../../../commons/components/InputBox';
 import UserInfoContext from '../../../../member/modules/UserInfoContext';
 import { FaCheckSquare, FaSquare } from 'react-icons/fa';
+import { MidButton } from '../../../../commons/components/Buttons';
+import FileUpload from '../../../../commons/components/FileUpload';
 
 import 'ckeditor5/ckeditor5.css';
 
@@ -92,15 +94,27 @@ const Form = ({ board, form, onSubmit, onToggleNotice, notice, errors }) => {
         <dd>
           {useEditor ? (
             mounted && (
-              <CKEditor
-                editor={ClassicEditor}
-                config={{
-                  plugins: [Bold, Essentials, Italic, Paragraph],
-                  toolbar: ['undo', 'redo', 'bold', 'italic'],
-                }}
-                data={form?.content}
-                onReady={(editor) => setEditor(editor)}
-              />
+              <>
+                <CKEditor
+                  editor={ClassicEditor}
+                  config={{
+                    plugins: [Bold, Essentials, Italic, Paragraph],
+                    toolbar: ['undo', 'redo', 'bold', 'italic'],
+                  }}
+                  data={form?.content}
+                  onReady={(editor) => setEditor(editor)}
+                />
+                {editor && (
+                  <FileUpload
+                    gid={form.gid}
+                    location="editor"
+                    imageOnly
+                    callback={(files) => fileUploadCallback(files, editor)}
+                  >
+                    {t('이미지_업로드')}
+                  </FileUpload>
+                )}
+              </>
             )
           ) : (
             <textarea name="content" defaultValue={form?.content}></textarea>

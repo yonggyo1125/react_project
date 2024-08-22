@@ -19,6 +19,7 @@ const WriteContainer = ({ setPageTitle }) => {
   const [board, setBoard] = useState(null);
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({
+    gid: '' + Date.now(),
     mode: 'write',
     notice: false,
   });
