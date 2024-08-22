@@ -128,6 +128,9 @@ const ReservationForm = ({
             </select>
           </dd>
         </dl>
+        {errors?.global && (
+          <MessageBox color="danger" messages={errors.global} />
+        )}
         <BigButton type="submit" color="primary">
           {t('예약하기')}
         </BigButton>

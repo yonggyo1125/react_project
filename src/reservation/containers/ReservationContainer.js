@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback, useContext } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { format } from 'date-fns';
 import { produce } from 'immer';
@@ -26,6 +26,7 @@ const ReservationContainer = ({ setPageTitle }) => {
     mobile,
   });
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     (async () => {
@@ -103,11 +104,16 @@ const ReservationContainer = ({ setPageTitle }) => {
       (async () => {
         try {
           const res = await apiApply(form);
-        } catch (err) {}
+          // 예약 접수 성공시 예약 완료 페이지 이동
+          navigate(`/reservation/complete/${res.seq}`, { replace: true });
+        } catch (err) {
+          console.error(err);
+          setErrors({ global: [err.message] });
+        }
       })();
       /* 예약 접수 처리 E */
     },
-    [t, form],
+    [t, form, navigate],
   );
 
   if (!data) {
