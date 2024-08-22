@@ -85,22 +85,22 @@ const Form = ({
           )}
         </dd>
       </dl>
-      {(form.mode === 'write' && !isLogin) ||
-        (form.mode === 'update' && !form.member && (
-          <dl>
-            <dt>{t('비밀번호')}</dt>
-            <dd>
-              <InputBox
-                type="password"
-                name="guestPw"
-                defaultValue={form?.guestPw}
-              />
-              {errors?.guestPw && (
-                <MessageBox color="danger" messages={errors.guestPw} />
-              )}
-            </dd>
-          </dl>
-        ))}
+      {((form.mode === 'write' && !isLogin) ||
+        (form.mode === 'update' && !form?.member)) && (
+        <dl>
+          <dt>{t('비밀번호')}</dt>
+          <dd>
+            <InputBox
+              type="password"
+              name="guestPw"
+              defaultValue={form?.guestPw}
+            />
+            {errors?.guestPw && (
+              <MessageBox color="danger" messages={errors.guestPw} />
+            )}
+          </dd>
+        </dl>
+      )}
       {isAdmin && (
         <dl>
           <dt>{t('공지글')}</dt>

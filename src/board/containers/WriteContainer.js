@@ -124,9 +124,47 @@ const WriteContainer = ({ setPageTitle }) => {
     })();
   }, []);
 
-  const onSubmit = useCallback((e) => {
-    e.preventDefault();
-  }, []);
+  const onSubmit = useCallback(
+    (e) => {
+      e.preventDefault();
+
+      /* 유효성 검사 - 필수 항목 검증 S */
+      const requiredFields = {
+        poster: t('작성자를_입력하세요.'),
+        subject: t('제목을_입력하세요.'),
+        content: t('내용을_입력하세요.'),
+      };
+
+      if (!isLogin) {
+        // 비회원인 경우
+        requiredFields.guestPw = t('비밀번호를_입력하세요.');
+      }
+
+      if (!isAdmin) {
+        // 관리자가 아니면 공지글 작성 X
+        form.notice = false;
+      }
+
+      const _errors = {};
+      let hasErrors = false;
+      for (const [field, message] of Object.entries(requiredFields)) {
+        if (!form[field]?.trim()) {
+          _errors[field] = _errors[field] ?? [];
+          _errors[field].push(message);
+
+          hasErrors = true;
+        }
+      }
+      /* 유효성 검사 - 필수 항목 검증 E */
+
+      // 검증 실패시에는 처리 X
+      if (hasErrors) {
+        setErrors(_errors);
+        return;
+      }
+    },
+    [t, form, isAdmin, isLogin],
+  );
 
   if (loading || !board) {
     return <Loading />;
@@ -140,7 +178,6 @@ const WriteContainer = ({ setPageTitle }) => {
     onSubmit,
     onChange,
     onToggleNotice,
-    notice,
     errors,
     fileUploadCallback,
     fileDeleteCallback,
