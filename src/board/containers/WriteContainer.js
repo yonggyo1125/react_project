@@ -103,8 +103,6 @@ const WriteContainer = ({ setPageTitle }) => {
     notice,
     errors,
     fileUploadCallback,
-    editorImages,
-    attachFiles,
   });
 };
 

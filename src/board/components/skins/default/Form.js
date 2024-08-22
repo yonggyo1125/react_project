@@ -11,6 +11,7 @@ import {
 } from 'ckeditor5';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
+import { FaWindowClose, FaFileUpload } from 'react-icons/fa';
 import MessageBox from '../../../../commons/components/MessageBox';
 import InputBox from '../../../../commons/components/InputBox';
 import UserInfoContext from '../../../../member/modules/UserInfoContext';
@@ -32,6 +33,8 @@ const Wrapper = styled.form`
     padding: 15px;
   }
 `;
+
+const FileItem = styled.li``;
 
 const Form = ({
   board,
