@@ -39,7 +39,6 @@ const Form = ({
   form,
   onSubmit,
   onToggleNotice,
-  notice,
   errors,
   fileUploadCallback,
   fileDeleteCallback,
