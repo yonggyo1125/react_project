@@ -1,4 +1,5 @@
-import { createContext, useState } from 'react';
+import { createContext, useState, useEffect } from 'react';
+import { getWishList } from '../libs/wish/apiWish';
 
 const WishListContext = createContext({
   states: {
@@ -40,6 +41,26 @@ export const WishListProvider = ({ children }) => {
       setFestivalWish,
     },
   };
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const boardWish = await getWishList('BOARD');
+        const restaurantWish = await getWishList('RESTAURANT');
+        const tourWish = await getWishList('TOUR');
+        const activityWish = await getWishList('ACTIVITY');
+        const festivalWish = await getWishList('FESTIVAL');
+
+        setBoardWish(boardWish);
+        setRestaurantWish(restaurantWish);
+        setTourWish(tourWish);
+        setActivityWish(activityWish);
+        setFestivalWish(festivalWish);
+      } catch (err) {
+        console.error(err);
+      }
+    })();
+  }, []);
 
   return (
     <WishListContext.Provider value={value}>
