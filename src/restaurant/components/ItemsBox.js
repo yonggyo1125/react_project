@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
+import WishButton from '../../commons/components/WishButton';
 
 const ItemBox = ({ item, className }) => {
-  const { images, rstrNm, rstrIntrcnCont } = item;
+  const { rstrId, images, rstrNm, rstrIntrcnCont } = item;
   return (
     <li className={className}>
       {images && images.length > 0 && (
@@ -12,6 +13,7 @@ const ItemBox = ({ item, className }) => {
       )}
       <div className="title">{rstrNm}</div>
       <div className="description">{rstrIntrcnCont}</div>
+      <WishButton seq={rstrId} type="RESTAURANT" />
     </li>
   );
 };
