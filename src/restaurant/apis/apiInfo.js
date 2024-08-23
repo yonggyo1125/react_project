@@ -15,3 +15,5 @@ export const apiList = (search) => {
 };
 
 export const apiGet = (rstrId) => requestData(`/restaurant/info/${rstrId}`);
+
+export const apiWishlist = () => requestData(`/restaurant/wish`);
