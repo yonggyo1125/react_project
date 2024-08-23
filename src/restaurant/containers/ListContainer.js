@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { apiList } from '../apis/apiInfo';
 import SearchBox from '../components/SearchBox';
 import ItemsBox from '../components/ItemsBox';
 import Pagination from '../../commons/components/Pagination';
-
+import Loading from '../../commons/components/Loading';
 const ListContainer = () => {
   const [search, setSearch] = useState({});
   const [items, setItems] = useState([]);
@@ -21,11 +21,23 @@ const ListContainer = () => {
     })();
   }, [search]);
 
+  /* 페이지 변경 함수 */
+  const onChangePage = useCallback((p) => {
+    setSearch((search) => ({ ...search, page: p }));
+  }, []);
+
+  // 로딩 처리
+  if (!items) {
+    return <Loading />;
+  }
+
   return (
     <>
       <SearchBox search={search} />
       <ItemsBox items={items} />
-      <Pagination search={search} />
+      {items.length > 0 && (
+        <Pagination onClick={onChangePage} pagination={pagination} />
+      )}
     </>
   );
 };
