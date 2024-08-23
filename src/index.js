@@ -7,6 +7,7 @@ import { HelmetProvider } from 'react-helmet-async';
 import { BrowserRouter } from 'react-router-dom';
 import ErrorPage from './commons/pages/Error';
 import { UserInfoProvider } from './member/modules/UserInfoContext';
+import { WishListProvider } from './commons/contexts/WishListContext';
 
 import 'react-calendar/dist/Calendar.css';
 
@@ -16,13 +17,15 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <UserInfoProvider>
-      <ErrorPage>
-        <HelmetProvider>
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
-        </HelmetProvider>
-      </ErrorPage>
+      <WishListProvider>
+        <ErrorPage>
+          <HelmetProvider>
+            <BrowserRouter>
+              <App />
+            </BrowserRouter>
+          </HelmetProvider>
+        </ErrorPage>
+      </WishListProvider>
     </UserInfoProvider>
   </React.StrictMode>,
 );

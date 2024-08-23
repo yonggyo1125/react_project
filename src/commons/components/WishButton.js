@@ -3,6 +3,7 @@ import { FaBookmark, FaRegBookmark } from 'react-icons/fa';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { addWish, removeWish } from '../libs/wish/apiWish';
 import UserInfoContext from '../../member/modules/UserInfoContext';
+import WishListContext from '../contexts/WishListContext';
 
 const WishButton = ({ IconOn, IconOff, seq, type }) => {
   const [toggle, setToggle] = useState(false);
@@ -15,6 +16,15 @@ const WishButton = ({ IconOn, IconOff, seq, type }) => {
   const {
     states: { isLogin },
   } = useContext(UserInfoContext);
+
+  const { states } = useContext(WishListContext);
+
+  const wishListKey = `${type.toLowerCase()}Wish`;
+  const wishList = states[wishListKey];
+
+  useEffect(() => {
+    setToggle(wishList.includes(seq));
+  }, [wishList, seq]);
 
   const onClick = useCallback(
     (status) => {
