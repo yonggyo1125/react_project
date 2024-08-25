@@ -7,13 +7,15 @@ import apiConfig from '../apis/apiConfig';
 import Loading from '../../commons/components/Loading';
 import { apiFileDelete } from '../../commons/libs/file/apiFile';
 import UserInfoContext from '../../member/modules/UserInfoContext';
-
-function skinRoute(skin, props) {
-  const WriteMain = loadable(() =>
-    import(`../components/skins/${skin}/WriteMain`),
-  );
-
-  return <WriteMain {...props} />;
+const DefaultForm = loadable(() => import('../components/skins/default/Form'));
+const GalleryForm = loadable(() => import('../components/skins/gallery/Form'));
+function skinRoute(skin) {
+  switch (skin) {
+    case 'gallery':
+      return GalleryForm;
+    default:
+      return DefaultForm;
+  }
 }
 
 const WriteContainer = ({ setPageTitle }) => {
@@ -53,9 +55,12 @@ const WriteContainer = ({ setPageTitle }) => {
     })();
   }, [bid, setPageTitle]);
 
-  const onChange = useCallback((e) => {
-    setForm((form) => ({ ...form, [e.target.name]: e.target.value }));
-  }, []);
+  const onChange = useCallback(
+    (e) => {
+      setForm({ ...form, [e.target.name]: e.target.value });
+    },
+    [form],
+  );
 
   const onToggleNotice = useCallback(() => {
     setForm(
@@ -151,15 +156,14 @@ const WriteContainer = ({ setPageTitle }) => {
         if (!form[field]?.trim()) {
           _errors[field] = _errors[field] ?? [];
           _errors[field].push(message);
-
           hasErrors = true;
         }
       }
       /* 유효성 검사 - 필수 항목 검증 E */
 
       // 검증 실패시에는 처리 X
+      setErrors(_errors);
       if (hasErrors) {
-        setErrors(_errors);
         return;
       }
     },
@@ -171,7 +175,20 @@ const WriteContainer = ({ setPageTitle }) => {
   }
 
   const { skin } = board;
-
+  const Form = skinRoute(skin);
+  return (
+    <Form
+      board={board}
+      form={form}
+      onSubmit={onSubmit}
+      onChange={onChange}
+      onToggleNotice={onToggleNotice}
+      errors={errors}
+      fileUploadCallback={fileUploadCallback}
+      fileDeleteCallback={fileDeleteCallback}
+    />
+  );
+  /*
   return skinRoute(skin, {
     board,
     form,
@@ -182,6 +199,7 @@ const WriteContainer = ({ setPageTitle }) => {
     fileUploadCallback,
     fileDeleteCallback,
   });
+  */
 };
 
 export default React.memo(WriteContainer);
