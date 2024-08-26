@@ -39,7 +39,7 @@ const ViewContainer = ({ setPageTitle }) => {
       {useComment && (
         <>
           {data.commentable && <CommentForm />}
-          <CommentItems />
+          {data?.comments?.length > 0 && <CommentItems items={data.comments} />}
         </>
       )}
     </>
