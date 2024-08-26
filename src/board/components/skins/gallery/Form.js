@@ -143,7 +143,16 @@ const Form = ({
                       Image,
                       ImageInsert,
                     ],
-                    toolbar: ['undo', 'redo', 'bold', 'italic'],
+                    toolbar: [
+                      'bold',
+                      'italic',
+                      '|',
+                      'undo',
+                      'redo',
+                      '|',
+                      'numberedList',
+                      'bulletedList',
+                    ],
                   }}
                   data={form?.content}
                   onReady={(editor) => setEditor(editor)}

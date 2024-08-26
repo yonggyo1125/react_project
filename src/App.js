@@ -26,6 +26,9 @@ const Reservation2 = loadable(() => import('./routes/Reservation2'));
 // 게시판 페이지
 const Board = loadable(() => import('./routes/Board'));
 
+// 결체 처리 URL
+const Payment = loadable(() => import('./routes/Payment'));
+
 const routeUrlPaths = [
   'member',
   'mypage',
@@ -35,6 +38,7 @@ const routeUrlPaths = [
   'reservation',
   'reservation2',
   'board',
+  'payment',
 ];
 
 const App = () => {
@@ -48,6 +52,7 @@ const App = () => {
       <Reservation />
       <Reservation2 />
       <Board />
+      <Payment />
     </>
   ) : (
     <Routes>
