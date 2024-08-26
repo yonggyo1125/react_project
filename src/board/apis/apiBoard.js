@@ -4,7 +4,8 @@ import requestData from '../../commons/libs/requestData';
 export const write = (bid, form) =>
   saveProcess(`/board/write/${bid}`, 'POST', form);
 
-export const update = (seq, form) => new Promise((resolve, reject) => {});
+export const update = (seq, form) =>
+  saveProcess(`/board/update/${seq}`, 'PATCH', form);
 
 function saveProcess(url, method, form) {
   return new Promise((resolve, reject) => {
