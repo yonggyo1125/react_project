@@ -103,7 +103,6 @@ const ReservationContainer = ({ setPageTitle }) => {
         try {
           const res = await apiApply(form);
           setPayConfig(res);
-          console.log(res);
         } catch (err) {
           console.error(err);
           setErrors(err.message);
