@@ -30,11 +30,18 @@ const ViewContainer = ({ setPageTitle }) => {
     return <Loading />;
   }
 
+  const { useComment } = board;
+  console.log(data);
   return (
     <>
-      <ViewContent />
-      <CommentForm />
-      <CommentItems />
+      <ViewContent data={data} />
+
+      {useComment && (
+        <>
+          {data.commentable && <CommentForm />}
+          <CommentItems />
+        </>
+      )}
     </>
   );
 };
