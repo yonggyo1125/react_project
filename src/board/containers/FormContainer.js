@@ -60,6 +60,10 @@ const FormContainer = ({ setPageTitle }) => {
         const res = await getInfo(seq);
         res.mode = 'update';
         delete res.guestPw;
+        if (!res.editable) {
+          navigate(-1);
+          return;
+        }
 
         setForm(res);
         setBoard(res.board);
@@ -69,7 +73,7 @@ const FormContainer = ({ setPageTitle }) => {
         console.error(err);
       }
     })();
-  }, [seq, setPageTitle]);
+  }, [seq, setPageTitle, navigate]);
 
   useEffect(() => {
     if (board || !bid) {

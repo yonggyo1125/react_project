@@ -1,12 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { FcDownload } from 'react-icons/fc';
+import { SmallButton } from '../../../../commons/components/Buttons';
 
 const Wrapper = styled.div``;
 
-const ViewContent = ({ data }) => {
+const ViewContent = ({ data, onDelete }) => {
   const { t } = useTranslation();
+  const { board } = data;
 
   return (
     <Wrapper>
@@ -33,6 +36,20 @@ const ViewContent = ({ data }) => {
             </li>
           ))}
         </ul>
+      )}
+      {data.showList && (
+        <Link to={'/board/list/' + board.bid}>{t('글목록')}</Link>
+      )}
+      {data.showEdit && (
+        <>
+          <Link to={'/board/write/' + board.bid}>{t('글쓰기')}</Link>
+          <Link to={'/board/update/' + data.seq}>{t('글수정')}</Link>
+        </>
+      )}
+      {data.showDelete && (
+        <SmallButton type="button" onClick={() => onDelete(data.seq)}>
+          {t('글삭제')}
+        </SmallButton>
       )}
     </Wrapper>
   );

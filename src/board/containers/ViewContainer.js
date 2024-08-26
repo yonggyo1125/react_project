@@ -12,6 +12,7 @@ const ViewContainer = ({ setPageTitle }) => {
   const { seq } = useParams();
   const [board, setBoard] = useState(null);
   const [data, setData] = useState(null);
+  const { t } = useTranslation();
 
   useEffect(() => {
     (async () => {
@@ -26,15 +27,26 @@ const ViewContainer = ({ setPageTitle }) => {
     })();
   }, [seq, setPageTitle]);
 
+  const onDelete = useCallback(
+    (seq) => {
+      if (!window.confirm(t('정말_삭제_하겠습니까?'))) {
+        return;
+      }
+
+      console.log(seq);
+    },
+    [t],
+  );
+
   if (!data) {
     return <Loading />;
   }
 
   const { useComment } = board;
-  console.log(data);
+
   return (
     <>
-      <ViewContent data={data} />
+      <ViewContent data={data} onDelete={onDelete} />
 
       {useComment && (
         <>
