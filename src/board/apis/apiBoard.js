@@ -1,9 +1,29 @@
 import apiRequest from '../../commons/libs/apiRequest';
 import requestData from '../../commons/libs/requestData';
 
-export const write = (form) => new Promise((resolve, reject) => {});
+export const write = (bid, form) =>
+  saveProcess(`/board/write/${bid}`, 'POST', form);
 
-export const update = (form) => new Promise((resolve, reject) => {});
+export const update = (seq, form) => new Promise((resolve, reject) => {});
+
+function saveProcess(url, method, form) {
+  return new Promise((resolve, reject) => {
+    (async () => {
+      try {
+        const res = await apiRequest(url, method, form);
+        if (res.status === 201) {
+          resolve(res.data.data);
+          return;
+        }
+
+        reject(res.data);
+      } catch (err) {
+        console.error(err);
+        reject(err);
+      }
+    })();
+  });
+}
 
 // 게시글 하나 조회
 export const getInfo = (seq) => requestData(`/board/info/${seq}`);
