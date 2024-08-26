@@ -63,7 +63,7 @@ const FormContainer = ({ setPageTitle }) => {
 
         setForm(res);
         setBoard(res.board);
-        setPageTitle(`${res.subject} - ${res.board.bname}`);
+        setPageTitle(`${res.subject}`);
         setLoading(false);
       } catch (err) {
         console.error(err);
@@ -206,12 +206,12 @@ const FormContainer = ({ setPageTitle }) => {
       /* 데이터 저장 처리 S */
       (async () => {
         try {
+          const { locationAfterWriting, bid } = board;
           const res =
             form.mode === 'update'
               ? await update(seq, form)
               : await write(bid, form);
 
-          const { locationAfterWriting } = board;
           const url =
             locationAfterWriting === 'list'
               ? `/board/list/${bid}`
@@ -224,7 +224,7 @@ const FormContainer = ({ setPageTitle }) => {
 
       /* 데이터 저장 처리 E */
     },
-    [t, form, isAdmin, isLogin, board, navigate, bid, seq],
+    [t, form, isAdmin, isLogin, board, navigate, seq],
   );
 
   if (loading || !board) {
