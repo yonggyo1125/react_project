@@ -22,6 +22,11 @@ function skinRoute(skin) {
 
 const WriteContainer = ({ setPageTitle }) => {
   const { bid } = useParams();
+
+  const {
+    states: { isLogin, isAdmin, userInfo },
+  } = useContext(UserInfoContext);
+
   const [board, setBoard] = useState(null);
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({
@@ -30,11 +35,8 @@ const WriteContainer = ({ setPageTitle }) => {
     notice: false,
     attachFiles: [],
     editorImages: [],
+    poster: userInfo?.userName,
   });
-
-  const {
-    states: { isLogin, isAdmin },
-  } = useContext(UserInfoContext);
 
   const [errors, setErrors] = useState({});
 
@@ -173,11 +175,11 @@ const WriteContainer = ({ setPageTitle }) => {
       /* 데이터 저장 처리 S */
       (async () => {
         try {
-          const res = await write(form.bid, form);
+          const res = await write(bid, form);
           const { locationAfterWriting } = board;
           const url =
             locationAfterWriting === 'list'
-              ? `/board/list/${form.bid}`
+              ? `/board/list/${bid}`
               : `/board/view/${res.seq}`;
           navigate(url, { replace: true });
         } catch (err) {
@@ -187,7 +189,7 @@ const WriteContainer = ({ setPageTitle }) => {
 
       /* 데이터 저장 처리 E */
     },
-    [t, form, isAdmin, isLogin, board],
+    [t, form, isAdmin, isLogin, board, navigate],
   );
 
   if (loading || !board) {
