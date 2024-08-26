@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { getInfo } from '../apis/apiBoard';
 
@@ -7,12 +7,15 @@ import ViewContent from '../components/skins/default/ViewContent';
 import CommentForm from '../components/skins/default/CommentForm';
 import CommentItems from '../components/skins/default/CommentItems';
 import Loading from '../../commons/components/Loading';
+import MessageBox from '../../commons/components/MessageBox';
 
 const ViewContainer = ({ setPageTitle }) => {
   const { seq } = useParams();
   const [board, setBoard] = useState(null);
   const [data, setData] = useState(null);
+  const [message, setMessage] = useState('');
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     (async () => {
@@ -23,9 +26,14 @@ const ViewContainer = ({ setPageTitle }) => {
         setPageTitle(res.subject);
       } catch (err) {
         console.error(err);
+        setMessage(err.message);
+        setTimeout(function () {
+          setMessage('');
+          navigate(-1);
+        }, 3000);
       }
     })();
-  }, [seq, setPageTitle]);
+  }, [seq, setPageTitle, navigate, message]);
 
   const onDelete = useCallback(
     (seq) => {
@@ -39,7 +47,12 @@ const ViewContainer = ({ setPageTitle }) => {
   );
 
   if (!data) {
-    return <Loading />;
+    return (
+      <>
+        {message && <MessageBox color="info">{message}</MessageBox>}
+        <Loading />
+      </>
+    );
   }
 
   const { useComment } = board;
