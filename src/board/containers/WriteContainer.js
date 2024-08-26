@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useContext } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import loadable from '@loadable/component';
 import { produce } from 'immer';
@@ -7,6 +7,8 @@ import apiConfig from '../apis/apiConfig';
 import Loading from '../../commons/components/Loading';
 import { apiFileDelete } from '../../commons/libs/file/apiFile';
 import UserInfoContext from '../../member/modules/UserInfoContext';
+import { write } from '../apis/apiBoard';
+
 const DefaultForm = loadable(() => import('../components/skins/default/Form'));
 const GalleryForm = loadable(() => import('../components/skins/gallery/Form'));
 function skinRoute(skin) {
@@ -20,7 +22,6 @@ function skinRoute(skin) {
 
 const WriteContainer = ({ setPageTitle }) => {
   const { bid } = useParams();
-
   const [board, setBoard] = useState(null);
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({
@@ -38,6 +39,8 @@ const WriteContainer = ({ setPageTitle }) => {
   const [errors, setErrors] = useState({});
 
   const { t } = useTranslation();
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     (async () => {
@@ -166,8 +169,25 @@ const WriteContainer = ({ setPageTitle }) => {
       if (hasErrors) {
         return;
       }
+
+      /* 데이터 저장 처리 S */
+      (async () => {
+        try {
+          const res = await write(form.bid, form);
+          const { locationAfterWriting } = board;
+          const url =
+            locationAfterWriting === 'list'
+              ? `/board/list/${form.bid}`
+              : `/board/view/${res.seq}`;
+          navigate(url, { replace: true });
+        } catch (err) {
+          setErrors(err.message);
+        }
+      })();
+
+      /* 데이터 저장 처리 E */
     },
-    [t, form, isAdmin, isLogin],
+    [t, form, isAdmin, isLogin, board],
   );
 
   if (loading || !board) {
