@@ -7,7 +7,7 @@ import apiConfig from '../apis/apiConfig';
 import Loading from '../../commons/components/Loading';
 import { apiFileDelete } from '../../commons/libs/file/apiFile';
 import UserInfoContext from '../../member/modules/UserInfoContext';
-import { write, getInfo } from '../apis/apiBoard';
+import { write, update, getInfo } from '../apis/apiBoard';
 
 const DefaultForm = loadable(() => import('../components/skins/default/Form'));
 const GalleryForm = loadable(() => import('../components/skins/gallery/Form'));
@@ -59,15 +59,23 @@ const FormContainer = ({ setPageTitle }) => {
 
         const res = await getInfo(seq);
         res.mode = 'update';
+        delete res.guestPw;
+
         setForm(res);
+        setBoard(res.board);
+        setPageTitle(`${res.subject} - ${res.board.bname}`);
         setLoading(false);
       } catch (err) {
         console.error(err);
       }
     })();
-  }, [seq]);
+  }, [seq, setPageTitle]);
 
   useEffect(() => {
+    if (board || !bid) {
+      return;
+    }
+
     (async () => {
       try {
         setLoading(true);
@@ -81,7 +89,7 @@ const FormContainer = ({ setPageTitle }) => {
         console.error(err);
       }
     })();
-  }, [bid, setPageTitle]);
+  }, [bid, setPageTitle, board]);
 
   const onChange = useCallback(
     (e) => {
@@ -198,7 +206,11 @@ const FormContainer = ({ setPageTitle }) => {
       /* 데이터 저장 처리 S */
       (async () => {
         try {
-          const res = await write(bid, form);
+          const res =
+            form.mode === 'update'
+              ? await update(seq, form)
+              : await write(bid, form);
+
           const { locationAfterWriting } = board;
           const url =
             locationAfterWriting === 'list'
@@ -212,7 +224,7 @@ const FormContainer = ({ setPageTitle }) => {
 
       /* 데이터 저장 처리 E */
     },
-    [t, form, isAdmin, isLogin, board, navigate, bid],
+    [t, form, isAdmin, isLogin, board, navigate, bid, seq],
   );
 
   if (loading || !board) {
