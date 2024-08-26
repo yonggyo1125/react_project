@@ -7,7 +7,7 @@ import apiConfig from '../apis/apiConfig';
 import Loading from '../../commons/components/Loading';
 import { apiFileDelete } from '../../commons/libs/file/apiFile';
 import UserInfoContext from '../../member/modules/UserInfoContext';
-import { write } from '../apis/apiBoard';
+import { write, getInfo } from '../apis/apiBoard';
 
 const DefaultForm = loadable(() => import('../components/skins/default/Form'));
 const GalleryForm = loadable(() => import('../components/skins/gallery/Form'));
@@ -20,8 +20,8 @@ function skinRoute(skin) {
   }
 }
 
-const WriteContainer = ({ setPageTitle }) => {
-  const { bid } = useParams();
+const FormContainer = ({ setPageTitle }) => {
+  const { bid, seq } = useParams();
 
   const {
     states: { isLogin, isAdmin, userInfo },
@@ -43,6 +43,29 @@ const WriteContainer = ({ setPageTitle }) => {
   const { t } = useTranslation();
 
   const navigate = useNavigate();
+
+  /**
+   * 게시글 번호 seq로 유입되면 수정
+   *
+   */
+  useEffect(() => {
+    if (!seq) {
+      return;
+    }
+
+    (async () => {
+      try {
+        setLoading(true);
+
+        const res = await getInfo(seq);
+        res.mode = 'update';
+        setForm(res);
+        setLoading(false);
+      } catch (err) {
+        console.error(err);
+      }
+    })();
+  }, [seq]);
 
   useEffect(() => {
     (async () => {
@@ -152,7 +175,7 @@ const WriteContainer = ({ setPageTitle }) => {
 
       if (!isAdmin) {
         // 관리자가 아니면 공지글 작성 X
-        form.notice = false;
+        setForm({ ...form, notice: false });
       }
 
       const _errors = {};
@@ -189,7 +212,7 @@ const WriteContainer = ({ setPageTitle }) => {
 
       /* 데이터 저장 처리 E */
     },
-    [t, form, isAdmin, isLogin, board, navigate],
+    [t, form, isAdmin, isLogin, board, navigate, bid],
   );
 
   if (loading || !board) {
@@ -224,4 +247,4 @@ const WriteContainer = ({ setPageTitle }) => {
   */
 };
 
-export default React.memo(WriteContainer);
+export default React.memo(FormContainer);

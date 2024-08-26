@@ -1,23 +1,20 @@
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { useTranslation } from 'react-i18next';
 import { OuterBox } from '../../commons/components/LayoutBox';
 import { MainTitle } from '../../commons/components/TitleBox';
+import FormContainer from '../containers/FormContainer';
 
 const Update = () => {
-  const { t } = useTranslation();
-  const [board, setBoard] = useState({
-    bName: '자유게시판',
-  });
+  const [pageTitle, setPageTitle] = useState('');
 
-  const { bName } = board;
   return (
     <>
       <Helmet>
-        <title>{t(bName)}</title>
+        <title>{pageTitle}</title>
       </Helmet>
       <OuterBox>
-        <MainTitle>{t(bName)}</MainTitle>
+        <MainTitle>{pageTitle}</MainTitle>
+        <FormContainer setPageTitle={setPageTitle} />
       </OuterBox>
     </>
   );
