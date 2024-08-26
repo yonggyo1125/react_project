@@ -26,6 +26,10 @@ const ViewContainer = ({ setPageTitle }) => {
     })();
   }, [seq, setPageTitle]);
 
+  if (!data) {
+    return <Loading />;
+  }
+
   return (
     <>
       <ViewContent />
