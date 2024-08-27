@@ -2,11 +2,21 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import Loading from '../../commons/components/Loading';
-import pagination from '../../commons/components/Pagination';
 import apiConfig from '../apis/apiConfig';
 import { getList } from '../apis/apiBoard';
 import getQueryString from '../../commons/libs/getQueryString';
 import Pagination from '../../commons/components/Pagination';
+import DefaultList from '../components/skins/default/List'; // 기본 스킨
+import GalleryList from '../components/skins/gallery/List'; // 갤러리 스킨
+
+function skinRoute(skin) {
+  switch (skin) {
+    case 'gallery':
+      return GalleryList;
+    default:
+      return DefaultList;
+  }
+}
 
 const ListContainer = ({ setPageTitle }) => {
   const [searchParams] = useSearchParams();
@@ -43,8 +53,12 @@ const ListContainer = ({ setPageTitle }) => {
     return <Loading />;
   }
 
+  const { skin } = board;
+  const List = skinRoute(skin);
+
   return (
     <>
+      <List />
       <Pagination pagination={pagination} onClick={onPageClick} />
     </>
   );
