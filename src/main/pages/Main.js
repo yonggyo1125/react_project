@@ -35,6 +35,14 @@ const StyleSlideBanner = styled(SlideBanner)`
     background: lightGreen;
     opacity: 1;
   }
+  .swiper-pagination-bullet-active {
+    background: blue;
+  }
+
+  .swiper-button-prev,
+  .swiper-button-next {
+    top: calc(50% - 22px);
+  }
 `;
 
 const Main = () => {

@@ -15,10 +15,8 @@ const Wrapper = styled.div`
     css`
       height: ${height}px;
       overflow-y: hidden;
-
-      .banner {
-        height: ${height}px;
-        overflow-y: hidden;
+      * {
+        max-height: ${height}px;
       }
     `}
   .banner {
