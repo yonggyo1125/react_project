@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import banner1 from '../../images/banner/banner1.png';
@@ -20,7 +21,8 @@ const SlideBanner = ({ items, width, options, onChange, onSwiper }) => {
   options = options ?? {};
   const { spaceBetween, slidesPerView, loop, speed } = options;
   return (
-    items && (
+    items &&
+    items.length > 0 && (
       <Wrapper width={width}>
         <Swiper
           spaceBetween={spaceBetween ?? 0}
@@ -30,24 +32,17 @@ const SlideBanner = ({ items, width, options, onChange, onSwiper }) => {
           onSlideChange={onChange ? onChange : () => {}}
           onSwiper={onSwiper ? onSwiper : () => {}}
         >
-          <SwiperSlide className="banner">
-            <img src={banner1} alt="배너1" />
-          </SwiperSlide>
-          <SwiperSlide className="banner">
-            <img src={banner2} alt="배너2" />
-          </SwiperSlide>
-          <SwiperSlide className="banner">
-            <img src={banner3} alt="배너3" />
-          </SwiperSlide>
-          <SwiperSlide className="banner">
-            <img src={banner1} alt="배너1" />
-          </SwiperSlide>
-          <SwiperSlide className="banner">
-            <img src={banner2} alt="배너2" />
-          </SwiperSlide>
-          <SwiperSlide className="banner">
-            <img src={banner3} alt="배너3" />
-          </SwiperSlide>
+          {items.map(({ image, link, alt }) => (
+            <SwiperSlide className="banner">
+              {link?.trim() ? (
+                <Link to={link}>
+                  <img src={image} alt={alt} />
+                </Link>
+              ) : (
+                <img src={image} alt={alt} />
+              )}
+            </SwiperSlide>
+          ))}
         </Swiper>
       </Wrapper>
     )
