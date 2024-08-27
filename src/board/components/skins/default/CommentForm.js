@@ -2,10 +2,11 @@ import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import UserInfoContext from '../../../../member/modules/UserInfoContext';
+import MessageBox from '../../../../commons/components/MessageBox';
 
 const FormBox = styled.form``;
 
-const CommentForm = ({ form, onChange, onSubmit }) => {
+const CommentForm = ({ form, onChange, onSubmit, errors }) => {
   const { t } = useTranslation();
   const {
     states: { isLogin },
@@ -30,6 +31,12 @@ const CommentForm = ({ form, onChange, onSubmit }) => {
             onChange={onChange}
           />
         )}
+        {errors?.commenter && (
+          <MessageBox color="danger" messages={errors.commenter} />
+        )}
+        {errors?.guestPw && (
+          <MessageBox color="danger" messages={errors.guestPw} />
+        )}
       </div>
       <textarea
         name="content"
@@ -37,6 +44,9 @@ const CommentForm = ({ form, onChange, onSubmit }) => {
         value={form?.content}
         onChange={onChange}
       ></textarea>
+      {errors?.content && (
+        <MessageBox color="danger" messages={errors.content} />
+      )}
       <button type="submit">{t('작성하기')}</button>
     </FormBox>
   );
