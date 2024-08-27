@@ -18,9 +18,11 @@ function skinRoute(skin) {
   }
 }
 
-const ListContainer = ({ setPageTitle }) => {
+const ListContainer = ({ setPageTitle, bid }) => {
   const [searchParams] = useSearchParams();
-  const { bid } = useParams();
+  const { bid: _bid } = useParams();
+
+  bid = bid ?? _bid;
 
   const [board, setBoard] = useState(null);
   const [items, setItems] = useState(null);
@@ -33,7 +35,8 @@ const ListContainer = ({ setPageTitle }) => {
         // 게시판 설정
         const res1 = await apiConfig(bid);
         setBoard(res1);
-        setPageTitle(res1.bname);
+
+        setPageTitle && setPageTitle(res1.bname);
 
         // 게시글 목록
         const { items, pagination } = await getList(bid, search);
