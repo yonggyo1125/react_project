@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { Link } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
@@ -20,6 +20,7 @@ const Wrapper = styled.div`
 const SlideBanner = ({
   items,
   width,
+  height,
   options,
   onChange,
   onSwiper,
@@ -45,7 +46,7 @@ const SlideBanner = ({
   return (
     items &&
     items.length > 0 && (
-      <Wrapper width={width} className={className}>
+      <Wrapper width={width} height={height} className={className}>
         <Swiper {...swiperProps}>
           {items.map(({ image, link, alt }) => (
             <SwiperSlide key={image} className="banner">

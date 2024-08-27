@@ -14,6 +14,8 @@ const Wrapper = styled.div`
 const options = {
   loop: true,
   speed: 1000,
+  pagination: true,
+  navigation: true,
 };
 
 const items = [
@@ -22,10 +24,28 @@ const items = [
   { image: banner3, link: '/board/view/3', alt: '배너3' },
 ];
 
+const StyleSlideBanner = styled(SlideBanner)`
+  .swiper-pagination {
+    bottom: 10px;
+  }
+
+  .swiper-pagination-bullet {
+    width: 20px;
+    height: 20px;
+    background: lightGreen;
+    opacity: 1;
+  }
+`;
+
 const Main = () => {
   return (
     <Wrapper>
-      <SlideBanner items={items} width={600} options={options} />
+      <StyleSlideBanner
+        items={items}
+        width={600}
+        height={500}
+        options={options}
+      />
     </Wrapper>
   );
 };
