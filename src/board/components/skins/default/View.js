@@ -4,7 +4,7 @@ import ViewContent from './ViewContent';
 import CommentForm from './CommentForm';
 import CommentItems from './CommentItems';
 
-const View = ({ board, data, onDelete, form, onChange, onSubmit }) => {
+const View = ({ board, data, onDelete, form, onChange, onSubmit, errors }) => {
   const { useComment } = board;
 
   return (
@@ -14,7 +14,12 @@ const View = ({ board, data, onDelete, form, onChange, onSubmit }) => {
       {useComment && (
         <>
           {data.commentable && (
-            <CommentForm form={form} onChange={onChange} onSubmit={onSubmit} />
+            <CommentForm
+              form={form}
+              onChange={onChange}
+              onSubmit={onSubmit}
+              errors={errors}
+            />
           )}
           {data?.comments?.length > 0 && <CommentItems items={data.comments} />}
         </>

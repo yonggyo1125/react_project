@@ -1,7 +1,9 @@
 import React, { useEffect, useState, useCallback, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { produce } from 'immer';
 import { getInfo, deleteData } from '../apis/apiBoard';
+import { write as writeComment } from '../apis/apiComment';
 import UserInfoContext from '../../member/modules/UserInfoContext';
 
 import Loading from '../../commons/components/Loading';
@@ -104,7 +106,7 @@ const ViewContainer = ({ setPageTitle }) => {
         requiredFields.guestPw = t('비밀번호를_입력하세요.');
       }
 
-      for (const [field, message] of Object.entries(commentForm)) {
+      for (const [field, message] of Object.entries(requiredFields)) {
         if (!commentForm[field]?.trim()) {
           _errors[field] = _errors[field] ?? [];
           _errors[field].push(message);
@@ -119,10 +121,26 @@ const ViewContainer = ({ setPageTitle }) => {
         return;
       }
 
-      // 댓글 등록 처리 
-      
+      // 댓글 등록 처리
+      (async () => {
+        try {
+          const comments = await writeComment(commentForm);
+          setData(
+            produce((draft) => {
+              draft.comments = comments;
+            }),
+          );
+          setCommentForm({
+            bSeq: data.seq,
+            mode: 'write',
+            commenter: userInfo?.userName,
+          });
+        } catch (err) {
+          setErrors(err.message);
+        }
+      })();
     },
-    [t, isLogin, commentForm],
+    [t, isLogin, commentForm, data, userInfo],
   );
 
   if (!data) {
@@ -146,6 +164,7 @@ const ViewContainer = ({ setPageTitle }) => {
         form={commentForm}
         onChange={onChange}
         onSubmit={onSubmit}
+        errors={errors}
       />
       ;{showListBelowView && <ListContainer bid={bid} />}
     </>

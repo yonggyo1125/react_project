@@ -7,6 +7,7 @@ import MessageBox from '../../../../commons/components/MessageBox';
 const FormBox = styled.form``;
 
 const CommentForm = ({ form, onChange, onSubmit, errors }) => {
+  console.log(errors);
   const { t } = useTranslation();
   const {
     states: { isLogin },
