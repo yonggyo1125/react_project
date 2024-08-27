@@ -6,6 +6,7 @@ import pagination from '../../commons/components/Pagination';
 import apiConfig from '../apis/apiConfig';
 import { getList } from '../apis/apiBoard';
 import getQueryString from '../../commons/libs/getQueryString';
+import Pagination from '../../commons/components/Pagination';
 
 const ListContainer = ({ setPageTitle }) => {
   const [searchParams] = useSearchParams();
@@ -34,7 +35,19 @@ const ListContainer = ({ setPageTitle }) => {
     })();
   }, [bid, search, setPageTitle]);
 
-  return <></>;
+  const onPageClick = useCallback((page) => {
+    setSearch((search) => ({ ...search, page }));
+  }, []);
+
+  if (!board || !items) {
+    return <Loading />;
+  }
+
+  return (
+    <>
+      <Pagination pagination={pagination} onClick={onPageClick} />
+    </>
+  );
 };
 
 export default React.memo(ListContainer);
