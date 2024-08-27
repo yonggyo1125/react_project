@@ -6,16 +6,7 @@ import SearchBox from '../components/SearchBox';
 import Pagination from '../../../commons/components/Pagination';
 import Loading from '../../../commons/components/Loading';
 import SearchMap from '../../../commons/components/SearchMap';
-
-function getQueryString(searchParams) {
-  const qs = {};
-  if (searchParams.size > 0) {
-    for (const [k, v] of searchParams) {
-      qs[k] = v;
-    }
-  }
-  return qs;
-}
+import getQueryString from '../../../commons/libs/getQueryString';
 
 const ListContainer = () => {
   const [searchParams] = useSearchParams();
