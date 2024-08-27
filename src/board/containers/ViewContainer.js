@@ -55,6 +55,8 @@ const ViewContainer = ({ setPageTitle }) => {
       if (!window.confirm(t('정말_삭제_하겠습니까?'))) {
         return;
       }
+
+      
     },
     [t],
   );

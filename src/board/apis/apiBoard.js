@@ -42,3 +42,6 @@ export const getList = (bid, search) => {
 
   return requestData(url);
 };
+
+export const deleteData = (seq) =>
+  requestData(`/board/delete/${seq}`, 'DELETE');
