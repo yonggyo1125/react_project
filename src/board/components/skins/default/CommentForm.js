@@ -37,6 +37,7 @@ const CommentForm = ({ form, onChange, onSubmit }) => {
         value={form?.content}
         onChange={onChange}
       ></textarea>
+      <button type="submit">{t('작성하기')}</button>
     </FormBox>
   );
 };
