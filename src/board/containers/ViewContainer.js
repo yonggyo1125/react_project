@@ -118,6 +118,9 @@ const ViewContainer = ({ setPageTitle }) => {
       if (hasErrors) {
         return;
       }
+
+      // 댓글 등록 처리 
+      
     },
     [t, isLogin, commentForm],
   );
