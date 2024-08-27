@@ -33,6 +33,8 @@ const ViewContainer = ({ setPageTitle }) => {
         setData(res);
         setBoard(res.board);
         setPageTitle(res.subject);
+        window.scrollTo(0, 0);
+      
       } catch (err) {
         console.error(err);
         setMessage(err.message);
