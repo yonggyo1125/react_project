@@ -1,7 +1,9 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useContext } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { getInfo, deleteData } from '../apis/apiBoard';
+import UserInfoContext from '../../member/modules/UserInfoContext';
+
 import Loading from '../../commons/components/Loading';
 import MessageBox from '../../commons/components/MessageBox';
 
@@ -27,6 +29,10 @@ const ViewContainer = ({ setPageTitle }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
+  const {
+    states: { userInfo },
+  } = useContext(UserInfoContext);
+
   useEffect(() => {
     (async () => {
       try {
@@ -36,7 +42,11 @@ const ViewContainer = ({ setPageTitle }) => {
         setPageTitle(res.subject);
 
         /* 댓글 기본 양식 */
-        setCommentForm({ bSeq: seq });
+        setCommentForm({
+          bSeq: seq,
+          mode: 'write',
+          commenter: userInfo?.userName,
+        });
 
         window.scrollTo(0, 0);
       } catch (err) {
