@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { OuterBox } from '../../commons/components/LayoutBox';
 import { MainTitle } from '../../commons/components/TitleBox';
-import ViewContainer from '../containers/ViewContainer';
+import ListContainer from '../containers/ListContainer';
 
 const List = () => {
   const [pageTitle, setPageTitle] = useState('');
@@ -14,7 +14,7 @@ const List = () => {
       </Helmet>
       <OuterBox>
         <MainTitle>{pageTitle}</MainTitle>
-        <ViewContainer setPageTitle={setPageTitle} />
+        <ListContainer setPageTitle={setPageTitle} />
       </OuterBox>
     </>
   );
