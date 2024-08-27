@@ -25,12 +25,13 @@ const ViewContainer = ({ setPageTitle }) => {
   const [board, setBoard] = useState(null);
   const [data, setData] = useState(null);
   const [commentForm, setCommentForm] = useState(null);
+  const [errors, setErrors] = useState({});
   const [message, setMessage] = useState('');
   const { t } = useTranslation();
   const navigate = useNavigate();
 
   const {
-    states: { userInfo },
+    states: { userInfo, isLogin },
   } = useContext(UserInfoContext);
 
   useEffect(() => {
@@ -58,7 +59,7 @@ const ViewContainer = ({ setPageTitle }) => {
         }, 3000);
       }
     })();
-  }, [seq, setPageTitle, navigate, message]);
+  }, [seq, setPageTitle, navigate, message, userInfo]);
 
   const onDelete = useCallback(
     (seq) => {
@@ -82,9 +83,44 @@ const ViewContainer = ({ setPageTitle }) => {
     setCommentForm((form) => ({ ...form, [e.target.name]: e.target.value }));
   }, []);
 
-  const onSubmit = useCallback((e) => {
-    e.preventDefault();
-  }, []);
+  /**
+   * 댓글 작성 처리
+   *
+   */
+  const onSubmit = useCallback(
+    (e) => {
+      e.preventDefault();
+
+      const _errors = {};
+      let hasErrors = false;
+
+      /* 필수 항목 검증 S */
+      const requiredFields = {
+        commenter: t('작성자를_입력하세요.'),
+        content: t('댓글을_입력하세요.'),
+      };
+      if (!isLogin) {
+        // 로그인 상태가 아닌 경우
+        requiredFields.guestPw = t('비밀번호를_입력하세요.');
+      }
+
+      for (const [field, message] of Object.entries(commentForm)) {
+        if (!commentForm[field]?.trim()) {
+          _errors[field] = _errors[field] ?? [];
+          _errors[field].push(message);
+          hasErrors = true;
+        }
+      }
+      /* 필수 항목 검증 E*/
+
+      setErrors(_errors);
+
+      if (hasErrors) {
+        return;
+      }
+    },
+    [t, isLogin, commentForm],
+  );
 
   if (!data) {
     return (
