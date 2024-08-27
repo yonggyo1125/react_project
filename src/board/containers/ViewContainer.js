@@ -2,12 +2,20 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { getInfo } from '../apis/apiBoard';
-
-import ViewContent from '../components/skins/default/ViewContent';
-import CommentForm from '../components/skins/default/CommentForm';
-import CommentItems from '../components/skins/default/CommentItems';
 import Loading from '../../commons/components/Loading';
 import MessageBox from '../../commons/components/MessageBox';
+
+import DefaultView from '../components/skins/default/View';
+import GalleryView from '../components/skins/gallery/View';
+
+function skinRoute(skin) {
+  switch (skin) {
+    case 'gallery':
+      return GalleryView;
+    default:
+      return DefaultView;
+  }
+}
 
 const ViewContainer = ({ setPageTitle }) => {
   const { seq } = useParams();
@@ -55,20 +63,10 @@ const ViewContainer = ({ setPageTitle }) => {
     );
   }
 
-  const { useComment } = board;
+  const { skin } = board;
+  const View = skinRoute(skin);
 
-  return (
-    <>
-      <ViewContent data={data} onDelete={onDelete} />
-
-      {useComment && (
-        <>
-          {data.commentable && <CommentForm />}
-          {data?.comments?.length > 0 && <CommentItems items={data.comments} />}
-        </>
-      )}
-    </>
-  );
+  return <View board={board} data={data} onDelete={onDelete} />;
 };
 
 export default React.memo(ViewContainer);
