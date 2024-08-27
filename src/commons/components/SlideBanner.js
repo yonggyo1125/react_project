@@ -26,20 +26,21 @@ const SlideBanner = ({
   className,
 }) => {
   options = options ?? {};
-  const { spaceBetween, slidesPerView, loop, speed } = options;
+  const { spaceBetween, slidesPerView, loop, speed, pagination, navigation } =
+    options;
 
   const swiperProps = {
     modules: [Navigation, Pagination],
-    navigation: true,
-    pagination: { clickable: true },
     spaceBetween: spaceBetween ?? 0,
     slidesPerView: slidesPerView ?? 1,
     loop: Boolean(loop),
     speed: speed ?? 500,
-    onSlideChange: onChange ? onChange : () => {},
-    onSwiper: onSwiper ? onSwiper : () => {}}
   };
 
+  if (onChange) swiperProps.onSlideChange = onChange;
+  if (onSwiper) swiperProps.onSwiper = onSwiper;
+  if (navigation) swiperProps.navigation = true;
+  if (pagination) swiperProps.pagination = { clickable: true };
 
   return (
     items &&
