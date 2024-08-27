@@ -9,6 +9,12 @@ import 'swiper/css/pagination';
 
 const Wrapper = styled.div`
   width: ${({ width }) => (width ? width + 'px' : '100%')};
+  ${({ height }) =>
+    height &&
+    css`
+      height: ${height}px;
+      overflow-y: hidden;
+    `}
   .banner {
     img {
       width: 100%;
