@@ -1,11 +1,24 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 const Wrapper = styled.ul``;
 
 const ListItem = ({ item, className }) => {
-  return <li className={className}></li>;
+  const { seq, subject, poster, member, viewCount, commentCount, createdAt } =
+    item;
+  console.log(item);
+  return (
+    <li className={className}>
+      <Link to={'/board/view/' + item.seq} className="subject">
+        {item.subject}
+      </Link>
+      <div className="post-info">
+        <span className="poster">{item.poster}</span>
+      </div>
+    </li>
+  );
 };
 
 const StyledListItem = styled(ListItem)``;
