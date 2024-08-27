@@ -5,7 +5,15 @@ import { useTranslation } from 'react-i18next';
 import { FcDownload } from 'react-icons/fc';
 import { SmallButton } from '../../../../commons/components/Buttons';
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+  .contents {
+    img {
+      max-width: 750px !important;
+      width: auto !important;
+      height: auto !important;
+    }
+  }
+`;
 
 const ViewContent = ({ data, onDelete }) => {
   const { t } = useTranslation();
