@@ -15,13 +15,15 @@ const Wrapper = styled.div`
   min-width: 100px;
   margin: 10px auto;
   align-items: center;
+  justify-content: center;
 
   .page {
-    width: 0;
+    min-width: 35px;
+    max-width: 45px;
+    padding: 0 5px;
     height: 35px;
     line-height: 33px;
     text-align: center;
-    flex-grow: 1;
     font-size: 1.15rem;
     border: 1px solid #000;
     border-radius: 3px;
