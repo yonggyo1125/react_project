@@ -2,20 +2,40 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { t } from 'i18next';
 
 const Wrapper = styled.ul``;
 
 const ListItem = ({ item, className }) => {
-  const { seq, subject, poster, member, viewCount, commentCount, createdAt } =
-    item;
+  const {
+    seq,
+    notice,
+    subject,
+    poster,
+    member,
+    viewCount,
+    commentCount,
+    createdAt,
+  } = item;
   console.log(item);
   return (
     <li className={className}>
-      <Link to={'/board/view/' + item.seq} className="subject">
-        {item.subject}
+      <Link to={'/board/view/' + seq} className="subject">
+        {notice && `[${t('공지')}]`}
+        {subject}
+        {commentCount > 0 && `(${commentCount.toLocaleString()})`}
       </Link>
       <div className="post-info">
-        <span className="poster">{item.poster}</span>
+        <span className="poster">
+          {poster}
+          {member !== null && `(${member.email})`}
+        </span>
+        {viewCount > 0 && (
+          <span className="view-count">
+            {t('조회수')}: {viewCount.toLocaleString()}
+          </span>
+        )}
+        <span className="datetime">{createdAt}</span>
       </div>
     </li>
   );
