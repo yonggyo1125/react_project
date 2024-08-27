@@ -7,6 +7,7 @@ import MessageBox from '../../commons/components/MessageBox';
 
 import DefaultView from '../components/skins/default/View';
 import GalleryView from '../components/skins/gallery/View';
+import ListContainer from './ListContainer';
 
 function skinRoute(skin) {
   switch (skin) {
@@ -63,10 +64,15 @@ const ViewContainer = ({ setPageTitle }) => {
     );
   }
 
-  const { skin } = board;
+  const { skin, showListBelowView, bid } = board;
   const View = skinRoute(skin);
 
-  return <View board={board} data={data} onDelete={onDelete} />;
+  return (
+    <>
+      <View board={board} data={data} onDelete={onDelete} />;
+      {showListBelowView && <ListContainer bid={bid} />}
+    </>
+  );
 };
 
 export default React.memo(ViewContainer);
