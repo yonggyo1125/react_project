@@ -17,7 +17,7 @@ const ListItem = ({ item, className }) => {
     commentCount,
     createdAt,
   } = item;
-  console.log(item);
+
   return (
     <li className={className}>
       <Link to={'/board/view/' + seq} className="subject">
@@ -41,7 +41,24 @@ const ListItem = ({ item, className }) => {
   );
 };
 
-const StyledListItem = styled(ListItem)``;
+const StyledListItem = styled(ListItem)`
+  display: flex;
+  border-bottom: 1px solid #ccc;
+  padding: 0 10px;
+  height: 45px;
+  align-items: center;
+
+  .subject {
+    flex-grow: 1;
+    height: 44px;
+    line-height: 44px;
+  }
+
+  .post-info {
+    width: 300px;
+    text-align: right;
+  }
+`;
 
 const NoData = styled.li``;
 
