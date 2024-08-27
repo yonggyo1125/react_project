@@ -49,8 +49,8 @@ const ListContainer = ({ setPageTitle }) => {
     setSearch((search) => ({ ...search, page }));
   }, []);
 
-  const onSubmit = useCallback((e) => {
-    e.preventDefault();
+  const onChange = useCallback((e) => {
+   
   }, []);
 
   if (!board || !items) {
@@ -62,7 +62,7 @@ const ListContainer = ({ setPageTitle }) => {
 
   return (
     <>
-      <List items={items} search={search} onSubmit={onSubmit} />
+      <List items={items} search={search} onChange={onChange} />
       <Pagination pagination={pagination} onClick={onPageClick} />
     </>
   );
