@@ -19,13 +19,20 @@ const ListContainer = ({ setPageTitle }) => {
   useEffect(() => {
     (async () => {
       try {
+        // 게시판 설정
         const res1 = await apiConfig(bid);
         setBoard(res1);
+        setPageTitle(res1.bname);
+
+        // 게시글 목록
+        const { items, pagination } = await getList(bid, search);
+        setItems(items);
+        setPagination(pagination);
       } catch (err) {
         console.error(err);
       }
     })();
-  }, [bid]);
+  }, [bid, search, setPageTitle]);
 
   return <></>;
 };
