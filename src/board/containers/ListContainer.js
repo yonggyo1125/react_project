@@ -68,7 +68,7 @@ const ListContainer = ({ setPageTitle, bid }) => {
 
   return (
     <>
-      <List items={items} search={search} onChange={onChange} />
+      <List board={board} items={items} search={search} onChange={onChange} />
       <Pagination pagination={pagination} onClick={onPageClick} />
     </>
   );
