@@ -50,7 +50,10 @@ const ListContainer = ({ setPageTitle }) => {
   }, []);
 
   const onChange = useCallback((e) => {
-   
+    setSearch((search) => ({
+      ...search,
+      [e.target.name]: e.target.value,
+    }));
   }, []);
 
   if (!board || !items) {
