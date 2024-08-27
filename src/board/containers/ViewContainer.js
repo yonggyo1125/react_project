@@ -22,6 +22,7 @@ const ViewContainer = ({ setPageTitle }) => {
   const { seq } = useParams();
   const [board, setBoard] = useState(null);
   const [data, setData] = useState(null);
+  const [commentForm, setCommentForm] = useState(null);
   const [message, setMessage] = useState('');
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -33,8 +34,11 @@ const ViewContainer = ({ setPageTitle }) => {
         setData(res);
         setBoard(res.board);
         setPageTitle(res.subject);
+
+        /* 댓글 기본 양식 */
+        setCommentForm({ bSeq: seq });
+
         window.scrollTo(0, 0);
-      
       } catch (err) {
         console.error(err);
         setMessage(err.message);
@@ -51,11 +55,17 @@ const ViewContainer = ({ setPageTitle }) => {
       if (!window.confirm(t('정말_삭제_하겠습니까?'))) {
         return;
       }
-
-      console.log(seq);
     },
     [t],
   );
+
+  const onChange = useCallback((e) => {
+    setCommentForm((form) => ({ ...form, [e.target.name]: e.target.value }));
+  }, []);
+
+  const onSubmit = useCallback((e) => {
+    e.preventDefault();
+  }, []);
 
   if (!data) {
     return (
@@ -71,8 +81,15 @@ const ViewContainer = ({ setPageTitle }) => {
 
   return (
     <>
-      <View board={board} data={data} onDelete={onDelete} />;
-      {showListBelowView && <ListContainer bid={bid} />}
+      <View
+        board={board}
+        data={data}
+        onDelete={onDelete}
+        form={commentForm}
+        onChange={onChange}
+        onSubmit={onSubmit}
+      />
+      ;{showListBelowView && <ListContainer bid={bid} />}
     </>
   );
 };
