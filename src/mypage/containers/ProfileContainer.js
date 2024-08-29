@@ -20,7 +20,7 @@ const UserInfoContainer = () => {
     e.preventDefault();
   }, []);
 
-  return <ProfileForm form={form} />;
+  return <ProfileForm form={form} onChange={onChange} onSubmit={onSubmit} />;
 };
 
 export default React.memo(UserInfoContainer);
